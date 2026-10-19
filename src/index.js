@@ -66,6 +66,17 @@ function sendJson(res, statusCode, data) {
   res.end(JSON.stringify(data));
 }
 
+function applyVersionUpdate(oldContent, newVersion) {
+  const ver = newVersion || '1.1.0';
+  if (/^version:\s*["']?[^"'\r\n]+["']?/m.test(oldContent)) {
+    return oldContent.replace(/^version:\s*["']?[^"'\r\n]+["']?/m, `version: "${ver}"`);
+  }
+  if (/^---\r?\n/m.test(oldContent)) {
+    return oldContent.replace(/^---\r?\n/m, `---\nversion: "${ver}"\n`);
+  }
+  return `---\nversion: "${ver}"\n---\n\n` + oldContent;
+}
+
 export function apply(ctx) {
   if (!ctx.webServer || typeof ctx.webServer.register !== 'function') {
     return;
@@ -342,8 +353,8 @@ export function apply(ctx) {
               });
             }
           } else {
-            // 如果未传 content，则根据旧内容更新版本号标记
-            finalContent = oldContent.replace(/^version:\s*["']?[^"'\r\n]+["']?/m, `version: "${newVersion || '1.1.0'}"`);
+            // 如果未传 content，则根据旧内容更新/写入版本号标记
+            finalContent = applyVersionUpdate(oldContent, newVersion);
           }
 
           fs.writeFileSync(targetFile, finalContent, 'utf8');
@@ -377,10 +388,10 @@ export function apply(ctx) {
                 fs.writeFileSync(backupFile, oldContent, 'utf8');
                 let finalContent = it.content;
                 if (!finalContent) {
-                  finalContent = oldContent.replace(/^version:\s*["']?[^"'\r\n]+["']?/m, `version: "${it.newVersion || '1.1.0'}"`);
+                  finalContent = applyVersionUpdate(oldContent, it.newVersion);
                 }
                 fs.writeFileSync(targetFile, finalContent, 'utf8');
-                results.push({ id: it.id, ok: true });
+                results.push({ id: it.id, ok: true, version: it.newVersion || '1.1.0' });
               }
             } catch (e) {
               results.push({ id: it.id, ok: false, error: e.message });

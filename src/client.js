@@ -95,48 +95,70 @@ window.__ModuleLoader__.load({
 
     // ── 原生深色/浅色自适应 CSS 样式 ──────────────────────────────────────────────
     var CSS = `
-:root {
+:root, [data-theme="dark"] {
   --ch-bg: var(--dsw-alias-bg, #141418);
   --ch-surface: var(--dsw-alias-surface, #1e1e24);
   --ch-surface-hover: var(--dsw-alias-surface-hover, #282832);
-  --ch-card-bg: var(--dsw-alias-card-bg, #1a1a20);
-  --ch-card-border: var(--dsw-alias-border, rgba(255, 255, 255, 0.09));
-  --ch-card-hover-border: rgba(255, 255, 255, 0.22);
+  --ch-card-bg: var(--dsw-alias-card-bg, #18191e);
+  --ch-card-border: var(--dsw-alias-border, rgba(255, 255, 255, 0.08));
+  --ch-card-hover-border: rgba(255, 255, 255, 0.2);
   --ch-text-primary: var(--dsw-alias-text-primary, #f0f0f5);
   --ch-text-secondary: var(--dsw-alias-text-secondary, #9090a2);
-  --ch-text-muted: rgba(255, 255, 255, 0.45);
+  --ch-text-muted: rgba(255, 255, 255, 0.4);
   --ch-brand: var(--dsw-alias-brand, #3b82f6);
   --ch-brand-hover: #2563eb;
-  --ch-danger-bg: rgba(239, 68, 68, 0.12);
-  --ch-danger-border: rgba(239, 68, 68, 0.38);
-  --ch-danger-text: #f87171;
-  --ch-success-text: #34d399;
+  --ch-segmented-bg: rgba(255, 255, 255, 0.06);
   --ch-pill-bg: rgba(255, 255, 255, 0.05);
   --ch-pill-hover: rgba(255, 255, 255, 0.1);
-  --ch-pill-active: #3b82f6;
+  --ch-success-text: #10b981;
+  --ch-danger-bg: rgba(239, 68, 68, 0.12);
+  --ch-danger-border: rgba(239, 68, 68, 0.35);
+  --ch-danger-text: #f87171;
   --ch-modal-overlay: rgba(0, 0, 0, 0.65);
 }
 
+[data-theme="light"] {
+  --ch-bg: var(--dsw-alias-bg, #f6f8fa);
+  --ch-surface: var(--dsw-alias-surface, #ffffff);
+  --ch-surface-hover: var(--dsw-alias-surface-hover, #f3f4f6);
+  --ch-card-bg: var(--dsw-alias-card-bg, #ffffff);
+  --ch-card-border: var(--dsw-alias-border, rgba(0, 0, 0, 0.08));
+  --ch-card-hover-border: rgba(0, 0, 0, 0.18);
+  --ch-text-primary: var(--dsw-alias-text-primary, #111827);
+  --ch-text-secondary: var(--dsw-alias-text-secondary, #4b5563);
+  --ch-text-muted: #9ca3af;
+  --ch-brand: var(--dsw-alias-brand, #2563eb);
+  --ch-brand-hover: #1d4ed8;
+  --ch-segmented-bg: rgba(0, 0, 0, 0.05);
+  --ch-pill-bg: #f3f4f6;
+  --ch-pill-hover: #e5e7eb;
+  --ch-success-text: #059669;
+  --ch-danger-bg: #fef2f2;
+  --ch-danger-border: #f87171;
+  --ch-danger-text: #dc2626;
+  --ch-modal-overlay: rgba(0, 0, 0, 0.4);
+}
+
 @media (prefers-color-scheme: light) {
-  :root {
-    --ch-bg: var(--dsw-alias-bg, #f8f9fa);
+  :root:not([data-theme="dark"]) {
+    --ch-bg: var(--dsw-alias-bg, #f6f8fa);
     --ch-surface: var(--dsw-alias-surface, #ffffff);
-    --ch-surface-hover: var(--dsw-alias-surface-hover, #f1f3f5);
+    --ch-surface-hover: var(--dsw-alias-surface-hover, #f3f4f6);
     --ch-card-bg: var(--dsw-alias-card-bg, #ffffff);
-    --ch-card-border: var(--dsw-alias-border, #e5e7eb);
-    --ch-card-hover-border: #9ca3af;
+    --ch-card-border: var(--dsw-alias-border, rgba(0, 0, 0, 0.08));
+    --ch-card-hover-border: rgba(0, 0, 0, 0.18);
     --ch-text-primary: var(--dsw-alias-text-primary, #111827);
     --ch-text-secondary: var(--dsw-alias-text-secondary, #4b5563);
     --ch-text-muted: #9ca3af;
     --ch-brand: var(--dsw-alias-brand, #2563eb);
     --ch-brand-hover: #1d4ed8;
+    --ch-segmented-bg: rgba(0, 0, 0, 0.05);
+    --ch-pill-bg: #f3f4f6;
+    --ch-pill-hover: #e5e7eb;
+    --ch-success-text: #059669;
     --ch-danger-bg: #fef2f2;
     --ch-danger-border: #f87171;
     --ch-danger-text: #dc2626;
-    --ch-success-text: #059669;
-    --ch-pill-bg: #f3f4f6;
-    --ch-pill-hover: #e5e7eb;
-    --ch-pill-active: #2563eb;
     --ch-modal-overlay: rgba(0, 0, 0, 0.4);
   }
 }
@@ -145,7 +167,7 @@ window.__ModuleLoader__.load({
 .mkt-panel {
   display: flex; flex-direction: column; height: 100%; width: 100%;
   background: var(--ch-bg); color: var(--ch-text-primary);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
   overflow: hidden; position: relative;
 }
 .mkt-scroll-container {
@@ -162,18 +184,18 @@ window.__ModuleLoader__.load({
   background: rgba(140, 140, 160, 0.55);
 }
 
-/* 顶部导航与操作栏 (对齐用户截图 4311b735) */
+/* 顶部导航：iOS 大标题与简约操作区 */
 .mkt-header {
   padding: 16px 28px 12px; border-bottom: 1px solid var(--ch-card-border);
   background: var(--ch-surface); flex-shrink: 0;
 }
 .mkt-header-top {
-  display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
+  display: flex; justify-content: space-between; align-items: center;
 }
 .mkt-title-box { display: flex; align-items: center; gap: 10px; }
-.mkt-title-text { font-size: 18px; font-weight: 700; color: var(--ch-text-primary); display: flex; align-items: center; gap: 8px; }
+.mkt-title-text { font-size: 19px; font-weight: 700; color: var(--ch-text-primary); display: flex; align-items: center; gap: 8px; letter-spacing: -0.2px; }
 .mkt-version-badge { font-size: 11px; padding: 2px 7px; border-radius: 10px; background: var(--ch-pill-bg); color: var(--ch-text-secondary); border: 1px solid var(--ch-card-border); }
-.mkt-subtitle { font-size: 12px; color: var(--ch-text-secondary); margin-top: 3px; }
+.mkt-subtitle { font-size: 12.5px; color: var(--ch-text-secondary); margin-top: 3px; }
 
 .mkt-header-actions { display: flex; align-items: center; gap: 8px; }
 .mkt-action-btn {
@@ -192,32 +214,73 @@ window.__ModuleLoader__.load({
   background: var(--ch-brand-hover);
 }
 
-/* 一级 Tab 栏切换 */
-.mkt-tabs-row {
-  display: flex; align-items: center; gap: 24px; border-bottom: 1px solid var(--ch-card-border);
-  padding: 0 28px; background: var(--ch-surface); flex-shrink: 0;
+/* iOS Segmented Control 分段药丸栏 (全部聚焦独立功能视角) */
+.mkt-tabs-bar {
+  padding: 10px 28px 6px;
+  background: var(--ch-surface);
+  border-bottom: 1px solid var(--ch-card-border);
+  flex-shrink: 0;
 }
-.mkt-tab-item {
-  padding: 10px 4px; font-size: 14px; font-weight: 500; color: var(--ch-text-secondary);
-  cursor: pointer; position: relative; transition: color 0.15s ease; user-select: none;
+.mkt-segmented-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px;
+  border-radius: 10px;
+  background: var(--ch-segmented-bg);
 }
-.mkt-tab-item:hover { color: var(--ch-text-primary); }
-.mkt-tab-item.active {
-  color: var(--ch-text-primary); font-weight: 600;
+.mkt-segmented-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ch-text-secondary);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s ease;
 }
-.mkt-tab-item.active::after {
-  content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
-  background: var(--ch-text-primary); border-radius: 2px 2px 0 0;
+.mkt-segmented-tab:hover {
+  color: var(--ch-text-primary);
 }
-.mkt-tab-badge {
-  font-size: 11px; padding: 1px 6px; border-radius: 10px; margin-left: 6px;
-  background: var(--ch-pill-bg); color: var(--ch-text-secondary);
+.mkt-segmented-tab.active {
+  background: var(--ch-surface);
+  color: var(--ch-text-primary);
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12), 0 0 1px rgba(0, 0, 0, 0.08);
 }
-.mkt-tab-item.active .mkt-tab-badge {
-  background: var(--ch-brand); color: #ffffff;
+.mkt-segmented-badge {
+  font-size: 11px;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background: rgba(128, 128, 128, 0.16);
+  color: var(--ch-text-secondary);
+  font-weight: 500;
+}
+.mkt-segmented-tab.active .mkt-segmented-badge {
+  background: var(--ch-brand);
+  color: #ffffff;
+}
+.mkt-badge-amber {
+  background: #f59e0b !important;
+  color: #ffffff !important;
 }
 
-/* 搜索框与分类胶囊筛选栏 (发现页) */
+/* 待更新专栏顶部快速工具条 */
+.mkt-updates-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 28px;
+  background: var(--ch-surface);
+  border-bottom: 1px solid var(--ch-card-border);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* 搜索框与分类胶囊筛选栏 */
 .mkt-filter-section {
   padding: 14px 28px 8px; flex-shrink: 0; background: var(--ch-bg);
 }
@@ -263,111 +326,200 @@ window.__ModuleLoader__.load({
   border-color: var(--ch-text-primary);
 }
 
-/* 提示条 */
-.mkt-notice-bar {
-  padding: 4px 28px 8px; font-size: 12px; color: var(--ch-text-muted);
-  display: flex; justify-content: space-between; align-items: center;
-}
-
-/* 技能卡片瀑布流网格 (对齐用户截图 4311b735) */
+/* 技能卡片列表网格 (iOS Squircle Card 2~3列呼吸感排版) */
 .mkt-cards-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(430px, 1fr));
-  gap: 14px; padding: 12px 28px 48px;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 16px; padding: 14px 28px 48px;
 }
 @media (max-width: 960px) {
   .mkt-cards-grid { grid-template-columns: 1fr; padding: 10px 16px 36px; }
-  .mkt-header, .mkt-tabs-row, .mkt-filter-section, .mkt-notice-bar { padding-left: 16px; padding-right: 16px; }
+  .mkt-header, .mkt-tabs-bar, .mkt-filter-section, .mkt-updates-top-bar { padding-left: 16px; padding-right: 16px; }
 }
 
 .mkt-card {
   background: var(--ch-card-bg); border: 1px solid var(--ch-card-border);
-  border-radius: 12px; padding: 16px 18px; display: flex; flex-direction: column;
-  justify-content: space-between; transition: all 0.15s ease; position: relative;
+  border-radius: 14px; padding: 16px 18px; display: flex; flex-direction: column;
+  justify-content: space-between; transition: all 0.18s ease; position: relative;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+.mkt-card.installed {
+  border-color: rgba(16, 185, 129, 0.22);
+}
+.mkt-card.installed.upgradable {
+  border-color: rgba(245, 158, 11, 0.32);
 }
 .mkt-card:hover {
-  border-color: var(--ch-card-hover-border); transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  border-color: var(--ch-card-hover-border); transform: translateY(-1.5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+.mkt-card.installed:hover {
+  border-color: rgba(16, 185, 129, 0.45);
+}
+.mkt-card.installed.upgradable:hover {
+  border-color: rgba(245, 158, 11, 0.55);
 }
 
-.mkt-card-head {
-  display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
+.mkt-card-body {
+  display: flex; gap: 14px; align-items: flex-start;
 }
-.mkt-card-head-left { flex: 1; min-width: 0; }
-.mkt-card-title-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.mkt-card-main-col {
+  flex: 1; min-width: 0; display: flex; flex-direction: column;
+}
+.mkt-card-head {
+  display: flex; justify-content: space-between; align-items: center; gap: 8px;
+}
+.mkt-card-title-row { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; }
 .mkt-card-title {
   font-size: 15px; font-weight: 600; color: var(--ch-text-primary);
-  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; line-height: 1.3;
 }
-.mkt-card-github-icon {
-  color: var(--ch-text-secondary); cursor: pointer; display: inline-flex; align-items: center;
-  transition: color 0.15s ease;
+.mkt-card-update-tag {
+  font-size: 11px; font-weight: 600; color: #d97706; background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3); padding: 1.5px 7px; border-radius: 6px;
+  font-family: ui-monospace, monospace; flex-shrink: 0;
 }
-.mkt-card-github-icon:hover { color: var(--ch-text-primary); }
+.mkt-card-version-tag {
+  font-size: 11px; color: var(--ch-text-secondary); background: var(--ch-pill-bg);
+  border: 1px solid var(--ch-card-border); padding: 1.5px 6px; border-radius: 6px;
+  font-family: ui-monospace, monospace; flex-shrink: 0;
+}
+.mkt-alias-tag {
+  font-size: 10px; font-weight: 600; color: #3b82f6; background: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.28); padding: 1px 5px; border-radius: 4px;
+  flex-shrink: 0;
+}
 .mkt-card-meta-line {
   font-size: 12px; color: var(--ch-text-secondary); margin-top: 4px;
   display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
 }
-.mkt-card-stars { color: #eab308; font-weight: 500; }
+.mkt-card-stars { color: #eab308; font-weight: 600; display: inline-flex; align-items: center; }
 .mkt-card-slash {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 11px; padding: 1px 6px; border-radius: 4px;
-  background: var(--ch-pill-bg); color: var(--ch-brand);
+  font-size: 11px; padding: 1.5px 7px; border-radius: 4px;
+  background: rgba(59, 130, 246, 0.12); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.22);
 }
 
-/* 右上角胶囊操作按钮 (核心对齐用户截图 4311b735) */
-.mkt-card-action-box { flex-shrink: 0; display: flex; align-items: center; gap: 6px; }
-.mkt-capsule-btn {
-  padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: 600;
-  cursor: pointer; border: 1px solid transparent; transition: all 0.15s ease;
-  user-select: none; display: inline-flex; align-items: center; gap: 4px;
+/* 卡片右上角操作区：收藏星标 + 三点菜单 */
+.mkt-card-head-right {
+  display: flex; align-items: center; gap: 4px; flex-shrink: 0;
 }
-.mkt-capsule-btn.install {
-  background: var(--ch-text-primary); color: var(--ch-bg);
+.mkt-star-btn {
+  background: transparent; border: none; font-size: 16px;
+  color: var(--ch-text-secondary); cursor: pointer; padding: 4px 6px;
+  border-radius: 6px; transition: all 0.15s ease; line-height: 1;
 }
-.mkt-capsule-btn.install:hover {
-  opacity: 0.9; transform: scale(1.02);
+.mkt-star-btn:hover {
+  color: #f59e0b; background: rgba(245, 158, 11, 0.12);
 }
-.mkt-capsule-btn.loading {
-  background: var(--ch-pill-bg); color: var(--ch-text-muted); cursor: wait;
+.mkt-star-btn.active {
+  color: #f59e0b;
 }
-.mkt-capsule-btn.invoke {
-  background: rgba(59, 130, 246, 0.12); color: #60a5fa; border-color: rgba(59, 130, 246, 0.35);
+.mkt-menu-btn {
+  background: transparent; border: none; font-size: 15px; font-weight: 700;
+  color: var(--ch-text-secondary); cursor: pointer; padding: 3px 8px;
+  border-radius: 6px; transition: all 0.15s ease; line-height: 1; letter-spacing: 1px;
 }
-.mkt-capsule-btn.invoke:hover {
-  background: #3b82f6; color: #ffffff; border-color: #3b82f6;
-}
-
-/* 核心色彩规范：黄色提示升级、绿色正在使用、灰色停用/未安装 */
-.mkt-btn-yellow {
-  background: #f59e0b !important; color: #ffffff !important;
-  border: 1px solid #d97706 !important; font-weight: 600 !important;
-}
-.mkt-btn-yellow:hover {
-  background: #d97706 !important; transform: scale(1.02);
-}
-.mkt-badge-yellow {
-  font-size: 11px; color: #d97706; background: rgba(245, 158, 11, 0.12);
-  border: 1px solid rgba(245, 158, 11, 0.35); padding: 2px 8px; border-radius: 12px;
-  font-weight: 600; display: inline-flex; align-items: center; gap: 4px;
-}
-.mkt-badge-green {
-  font-size: 11px; color: var(--ch-success-text); background: rgba(16, 185, 129, 0.12);
-  border: 1px solid rgba(16, 185, 129, 0.3); padding: 2px 8px; border-radius: 12px;
-  font-weight: 500; display: inline-flex; align-items: center; gap: 4px;
-}
-.mkt-badge-gray {
-  font-size: 11px; color: var(--ch-text-muted); background: rgba(140, 140, 160, 0.12);
-  border: 1px solid rgba(140, 140, 160, 0.25); padding: 2px 8px; border-radius: 12px;
-  font-weight: 500; display: inline-flex; align-items: center; gap: 4px;
-}
-.mkt-installed-badge {
-  font-size: 11px; color: var(--ch-success-text); padding: 3px 8px; border-radius: 12px;
-  background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25);
+.mkt-menu-btn:hover {
+  background: var(--ch-pill-hover); color: var(--ch-text-primary);
 }
 
-/* 卡片中间精炼一句话中文介绍 */
+/* 三点菜单下拉浮层 (iOS Popover 纯净风格) */
+.mkt-dropdown-popover {
+  position: absolute; right: 0; top: 100%; margin-top: 4px; min-width: 155px;
+  background: var(--ch-surface); border: 1px solid var(--ch-card-border);
+  border-radius: 10px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+  padding: 4px; z-index: 1000; animation: chPopoverFadeIn 0.12s ease-out;
+}
+.mkt-dropdown-item {
+  width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px;
+  border-radius: 6px; font-size: 12.5px; color: var(--ch-text-primary);
+  background: transparent; border: none; cursor: pointer; text-align: left;
+  transition: all 0.12s ease;
+}
+.mkt-dropdown-item:hover {
+  background: var(--ch-pill-hover);
+}
+.mkt-dropdown-item.danger {
+  color: #ef4444;
+}
+.mkt-dropdown-item.danger:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+.mkt-dropdown-divider {
+  height: 1px; background: var(--ch-card-border); margin: 4px 0;
+}
+
+/* 药丸操作按钮与纯文本按钮 */
+.mkt-btn-install {
+  background: #2563eb; color: #ffffff; border: none; border-radius: 9px;
+  padding: 6.5px 22px; font-size: 13px; font-weight: 600; cursor: pointer;
+  transition: all 0.15s ease; user-select: none; display: inline-flex; align-items: center; justify-content: center;
+}
+.mkt-btn-install:hover {
+  background: #1d4ed8; transform: translateY(-0.5px);
+}
+.mkt-btn-install:active { transform: scale(0.97); }
+.mkt-btn-install.loading {
+  background: rgba(37, 99, 235, 0.6); cursor: wait;
+}
+
+.mkt-btn-upgrade {
+  background: #f59e0b; color: #ffffff; border: none; border-radius: 9px;
+  padding: 6.5px 18px; font-size: 13px; font-weight: 600; cursor: pointer;
+  transition: all 0.15s ease; user-select: none; display: inline-flex; align-items: center; justify-content: center;
+}
+.mkt-btn-upgrade:hover {
+  background: #d97706; transform: translateY(-0.5px);
+}
+.mkt-btn-upgrade:active { transform: scale(0.97); }
+.mkt-btn-upgrade.loading {
+  background: #b45309; cursor: wait;
+}
+
+.mkt-tag-latest {
+  background: rgba(16, 185, 129, 0.1); color: var(--ch-success-text);
+  border: 1px solid rgba(16, 185, 129, 0.24); border-radius: 8px;
+  padding: 4.5px 12px; font-size: 12px; font-weight: 500; cursor: default;
+  display: inline-flex; align-items: center;
+}
+
+.mkt-btn-shielded {
+  background: rgba(140, 140, 160, 0.14); color: var(--ch-text-secondary);
+  border: 1px solid rgba(140, 140, 160, 0.25); border-radius: 8px;
+  padding: 5.5px 12px; font-size: 12px; font-weight: 500; cursor: pointer;
+  transition: all 0.15s ease;
+}
+.mkt-btn-shielded:hover {
+  background: rgba(140, 140, 160, 0.22); color: var(--ch-text-primary);
+}
+
+.mkt-subtabs-group {
+  display: inline-flex; align-items: center; gap: 3px; background: var(--ch-segmented-bg);
+  padding: 2px; border-radius: 8px;
+}
+.mkt-subtab-pill {
+  padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 500;
+  color: var(--ch-text-secondary); cursor: pointer; user-select: none; transition: all 0.15s ease;
+}
+.mkt-subtab-pill:hover { color: var(--ch-text-primary); }
+.mkt-subtab-pill.active {
+  background: var(--ch-surface); color: var(--ch-text-primary); font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.mkt-toggle-label {
+  font-size: 12.5px; font-weight: 500; display: inline-flex; align-items: center;
+}
+.mkt-toggle-label.active {
+  color: var(--ch-success-text);
+}
+.mkt-toggle-label.disabled {
+  color: var(--ch-text-muted);
+}
+
+/* 卡片中间精炼两句话中文介绍 */
 .mkt-card-desc {
-  font-size: 13px; color: var(--ch-text-secondary); line-height: 1.5; margin: 10px 0;
+  font-size: 13px; color: var(--ch-text-secondary); line-height: 1.5; margin: 8px 0 0 0;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
 
 /* 发现新版提示条 (黄色高亮) */
@@ -383,7 +535,7 @@ window.__ModuleLoader__.load({
   font-size: 11.5px; color: var(--ch-text-secondary); line-height: 1.4;
 }
 
-/* 红色醒目报错告警栏 (落实用户要求：红色说清楚问题、绝不静默吞错) */
+/* 红色醒目报错告警栏 */
 .mkt-red-error-bar {
   background: var(--ch-danger-bg); border: 1px solid var(--ch-danger-border);
   border-radius: 8px; padding: 7px 12px; margin: 6px 0 10px;
@@ -398,30 +550,25 @@ window.__ModuleLoader__.load({
 }
 .mkt-red-retry-btn:hover { opacity: 0.85; }
 
-/* 卡片底部标签与操作 */
+/* 卡片底部操作区分流 (无灰线、高透无缝、极简iOS) */
 .mkt-card-foot {
   display: flex; justify-content: space-between; align-items: center; gap: 10px;
-  margin-top: 4px; padding-top: 8px; border-top: 1px solid var(--ch-card-border);
+  margin-top: 14px; padding-top: 0; border-top: none;
 }
-.mkt-card-tags {
-  display: flex; align-items: center; gap: 6px; flex-wrap: wrap; flex: 1; min-width: 0;
+.mkt-card-foot-left {
+  display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0;
 }
-.mkt-tag-pill {
-  font-size: 11px; color: var(--ch-text-muted); background: var(--ch-pill-bg);
-  padding: 2px 7px; border-radius: 4px; border: 1px solid var(--ch-card-border);
+.mkt-foot-status-uninstalled {
+  display: inline-flex; align-items: center; gap: 7px; user-select: none;
 }
-.mkt-tag-pill.cat {
-  color: var(--ch-brand); border-color: rgba(59, 130, 246, 0.25);
+.mkt-dot-uninstalled {
+  width: 7px; height: 7px; border-radius: 50%; background: #64748b; display: inline-block;
 }
-.mkt-card-foot-actions {
-  display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+.mkt-text-uninstalled {
+  font-size: 12.5px; color: var(--ch-text-muted); font-weight: 500;
 }
-.mkt-card-link-btn {
-  font-size: 12px; color: var(--ch-text-secondary); background: none; border: none;
-  cursor: pointer; padding: 4px 6px; border-radius: 4px; display: inline-flex; align-items: center; gap: 3px;
-}
-.mkt-card-link-btn:hover {
-  color: var(--ch-text-primary); background: var(--ch-pill-bg);
+.mkt-card-foot-right {
+  display: flex; align-items: center; gap: 8px; flex-shrink: 0;
 }
 
 /* ── 已安装技能管理面板 (对齐用户截图 79ed04c2) ────────────────────────── */
@@ -1425,9 +1572,89 @@ window.__ModuleLoader__.load({
       );
     }
 
+    // ── ✏️ 自定义技能中文别名弹窗 ────────────────────────────────────────────────
+    function CustomAliasModal(props) {
+      var skill = props.skill;
+      var [aliasInput, setAliasInput] = useState(props.currentAlias || "");
+
+      if (!skill) return null;
+
+      var handleSave = () => {
+        props.onSave(skill.id, aliasInput.trim());
+        props.onClose();
+      };
+
+      var handleReset = () => {
+        props.onReset(skill.id);
+        props.onClose();
+      };
+
+      return h(
+        "div",
+        { className: "mkt-modal-backdrop", onClick: props.onClose },
+        h(
+          "div",
+          { className: "mkt-modal-card", style: { maxWidth: "460px" }, onClick: (e) => e.stopPropagation() },
+          h(
+            "div",
+            { className: "mkt-modal-header" },
+            h("div", { className: "mkt-modal-title" }, "✏️ 自定义技能别名"),
+            h("button", { className: "mkt-modal-close", onClick: props.onClose }, "✕")
+          ),
+          h(
+            "div",
+            { className: "mkt-modal-body" },
+            h("div", { style: { fontSize: "12.5px", color: "var(--ch-text-secondary)", marginBottom: "8px" } },
+              "原始名称：" + skill.name
+            ),
+            h("div", { style: { fontSize: "11.5px", color: "var(--ch-brand)", marginBottom: "12px", fontFamily: "monospace" } },
+              "唯一指令：" + (skill.slash || ("/" + skill.id)) + "（修改别名不影响底层指令与目录）"
+            ),
+            h("input", {
+              className: "mkt-search-input",
+              placeholder: "输入您自定义的简短中文别名（如：托福听力提炼）...",
+              value: aliasInput,
+              autoFocus: true,
+              onChange: (e) => setAliasInput(e.target.value),
+              onKeyDown: (e) => {
+                if (e.key === "Enter") handleSave();
+              }
+            }),
+            h("div", { style: { fontSize: "11.5px", color: "var(--ch-text-muted)", marginTop: "8px", lineHeight: "1.4" } },
+              "💡 提示：设置自定义别名后，技能卡片及对话框技能快速搜索都会以此别名优先展示与检索。"
+            )
+          ),
+          h(
+            "div",
+            { className: "mkt-modal-footer", style: { justifyContent: "space-between" } },
+            props.currentAlias
+              ? h(
+                  "button",
+                  { className: "mkt-action-btn", onClick: handleReset, style: { color: "var(--ch-text-muted)" } },
+                  "恢复默认名称"
+                )
+              : h("div", null),
+            h(
+              "div",
+              { style: { display: "flex", gap: "8px" } },
+              h("button", { className: "mkt-action-btn", onClick: props.onClose }, "取消"),
+              h(
+                "button",
+                {
+                  className: "mkt-action-btn primary",
+                  onClick: handleSave
+                },
+                "保存别名"
+              )
+            )
+          )
+        )
+      );
+    }
+
     // ── 双源技能集市主工作区面板 ──────────────────────────────────────────────────
     function DualSourceMarketView(props) {
-      var [activeTab, setActiveTab] = useState("discover"); // discover | mega | installed | clawhub
+      var [activeTab, setActiveTab] = useState("discover"); // discover | mega | installed | updates | favorites | clawhub
       var [installedSubFilter, setInstalledSubFilter] = useState("all"); // all | active | disabled | updates
       var [selectedCategory, setSelectedCategory] = useState("全部");
       var [searchKw, setSearchKw] = useState("");
@@ -1443,6 +1670,93 @@ window.__ModuleLoader__.load({
       var [showImportModal, setShowImportModal] = useState(false);
       var [deleteTargetSkill, setDeleteTargetSkill] = useState(null);
       var [showScrollTop, setShowScrollTop] = useState(false);
+      var [favorites, setFavorites] = useState(() => {
+        try {
+          var saved = localStorage.getItem("dsh_skill_favorites");
+          return saved ? JSON.parse(saved) : [];
+        } catch (e) {
+          return [];
+        }
+      });
+      var [openMenuId, setOpenMenuId] = useState(null);
+
+      var [customAliases, setCustomAliases] = useState(() => {
+        try {
+          var saved = localStorage.getItem("dsh_skill_custom_aliases");
+          return saved ? JSON.parse(saved) : {};
+        } catch (e) {
+          return {};
+        }
+      });
+      var [ignoredUpdates, setIgnoredUpdates] = useState(() => {
+        try {
+          var saved = localStorage.getItem("dsh_skill_ignored_updates");
+          return saved ? JSON.parse(saved) : [];
+        } catch (e) {
+          return [];
+        }
+      });
+      var [aliasModalSkill, setAliasModalSkill] = useState(null);
+      var [updatesViewMode, setUpdatesViewMode] = useState("pending"); // pending | ignored
+
+      var handleSaveAlias = (id, newAlias) => {
+        setCustomAliases((prev) => {
+          var next = Object.assign({}, prev);
+          if (newAlias) {
+            next[id] = newAlias;
+          } else {
+            delete next[id];
+          }
+          try {
+            localStorage.setItem("dsh_skill_custom_aliases", JSON.stringify(next));
+          } catch (e) {}
+          return next;
+        });
+        setStatusNotice("已更新技能别名");
+        setTimeout(() => setStatusNotice(null), 2000);
+      };
+
+      var handleResetAlias = (id) => {
+        setCustomAliases((prev) => {
+          var next = Object.assign({}, prev);
+          delete next[id];
+          try {
+            localStorage.setItem("dsh_skill_custom_aliases", JSON.stringify(next));
+          } catch (e) {}
+          return next;
+        });
+        setStatusNotice("已恢复默认技能名称");
+        setTimeout(() => setStatusNotice(null), 2000);
+      };
+
+      var toggleIgnoreUpdate = (id) => {
+        setIgnoredUpdates((prev) => {
+          var isIgnored = prev.includes(id);
+          var next = isIgnored ? prev.filter((x) => x !== id) : [...prev, id];
+          try {
+            localStorage.setItem("dsh_skill_ignored_updates", JSON.stringify(next));
+          } catch (e) {}
+          setStatusNotice(isIgnored ? "已恢复该技能检测更新" : "已屏蔽该技能更新提示");
+          setTimeout(() => setStatusNotice(null), 2500);
+          return next;
+        });
+      };
+
+      var toggleFavorite = (id) => {
+        setFavorites((prev) => {
+          var next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
+          try {
+            localStorage.setItem("dsh_skill_favorites", JSON.stringify(next));
+          } catch (e) {}
+          return next;
+        });
+      };
+
+      useEffect(() => {
+        var onDocClick = () => setOpenMenuId(null);
+        window.addEventListener("click", onDocClick);
+        return () => window.removeEventListener("click", onDocClick);
+      }, []);
 
       var scrollRef = useRef(null);
 
@@ -1463,7 +1777,7 @@ window.__ModuleLoader__.load({
       var totalSkillsCount = SKILLS_CATALOG.length;
       var megaSkillsCount = useMemo(() => SKILLS_CATALOG.filter((s) => s.category.includes("破万星")).length, []);
 
-      // 映射更新字典
+      // 映射更新字典与分流 (待更新 vs 已屏蔽)
       var updatesMap = useMemo(() => {
         var m = {};
         for (var u of updatesList) {
@@ -1471,7 +1785,16 @@ window.__ModuleLoader__.load({
         }
         return m;
       }, [updatesList]);
-      var updatesCount = updatesList.length;
+
+      var pendingUpdatesList = useMemo(
+        () => updatesList.filter((u) => !ignoredUpdates.includes(u.id)),
+        [updatesList, ignoredUpdates]
+      );
+      var ignoredUpdatesList = useMemo(
+        () => updatesList.filter((u) => ignoredUpdates.includes(u.id)),
+        [updatesList, ignoredUpdates]
+      );
+      var updatesCount = pendingUpdatesList.length;
 
       // 1. 同步加载本地已安装技能列表
       var fetchInstalled = useCallback(async () => {
@@ -1604,14 +1927,17 @@ window.__ModuleLoader__.load({
         }
       };
 
-      // 6. 批量升级所选技能
-      var handleBatchUpgrade = async () => {
-        if (selectedForUpdate.length === 0) return;
-        var items = selectedForUpdate.map((id) => ({
+      // 6. 批量升级所选技能 (支持直接传入目标 ID 数组，彻底解决异步状态滞后问题)
+      var handleBatchUpgrade = async (explicitIds) => {
+        var targetIds = Array.isArray(explicitIds) && explicitIds.length > 0
+          ? explicitIds
+          : selectedForUpdate;
+        if (!targetIds || targetIds.length === 0) return;
+        var items = targetIds.map((id) => ({
           id: id,
           newVersion: updatesMap[id] ? updatesMap[id].newVersion : "1.1.0"
         }));
-        setUpgradingIds(selectedForUpdate);
+        setUpgradingIds(targetIds);
         try {
           var res = await fetch("/api/clawhub/batch-upgrade", {
             method: "POST",
@@ -1620,16 +1946,18 @@ window.__ModuleLoader__.load({
           });
           var json = await res.json();
           if (json.ok) {
-            setStatusNotice("🎉 成功批量升级 " + items.length + " 个技能！所有旧版已备份，800 Token 上下文门禁全量通过");
+            setStatusNotice("🎉 成功升级 " + items.length + " 个技能！旧版本已自动备份为 .bak");
             setTimeout(() => setStatusNotice(null), 4000);
             setSelectedForUpdate([]);
             await fetchInstalled();
             await fetchUpdates();
           } else {
-            alert("批量升级失败: " + (json.error || "未知异常"));
+            setStatusNotice("❌ 批量升级遇到异常: " + (json.error || "未知异常"));
+            setTimeout(() => setStatusNotice(null), 4000);
           }
         } catch (err) {
-          alert("网络异常: " + err.message);
+          setStatusNotice("❌ 批量升级网络异常: " + err.message);
+          setTimeout(() => setStatusNotice(null), 4000);
         } finally {
           setUpgradingIds([]);
         }
@@ -1703,33 +2031,58 @@ window.__ModuleLoader__.load({
       // 计算筛选列表
       var displaySkills = useMemo(() => {
         var list = SKILLS_CATALOG;
+        var catalogMap = {};
+        for (var c of SKILLS_CATALOG) catalogMap[c.id] = c;
+
         if (activeTab === "mega") {
           list = list.filter((s) => s.category.includes("破万星"));
         } else if (activeTab === "installed") {
-          var catalogMap = {};
-          for (var c of SKILLS_CATALOG) catalogMap[c.id] = c;
           list = Object.keys(installedSkills).map((id) => {
             if (catalogMap[id]) return catalogMap[id];
             var inst = installedSkills[id];
             return {
               id: id,
               name: (inst && inst.name) || id,
-              summary: (inst && inst.description) || "本地自定义或外部导入的 Agent 技能规约",
-              category: "🏢 自定义与外部导入",
+              summary: (inst && inst.description) || "本地已安装的 Agent 技能规约",
+              category: "🏢 自定义导入",
               stars: "★ Custom",
               slash: "/" + id,
               repo: "local/" + id,
               tags: ["custom", "imported"]
             };
           });
-
-          // 二级筛选 (全部 / 🟢 运行中 / ⚪ 已停用 / 🟡 待更新)
-          if (installedSubFilter === "active") {
-            list = list.filter((s) => installedSkills[s.id] && !installedSkills[s.id].disabled);
-          } else if (installedSubFilter === "disabled") {
-            list = list.filter((s) => installedSkills[s.id] && installedSkills[s.id].disabled);
-          } else if (installedSubFilter === "updates") {
-            list = list.filter((s) => Boolean(updatesMap[s.id]));
+        } else if (activeTab === "updates") {
+          var targetUpdates = updatesViewMode === "ignored" ? ignoredUpdatesList : pendingUpdatesList;
+          list = targetUpdates.map((u) => {
+            if (catalogMap[u.id]) return catalogMap[u.id];
+            var inst = installedSkills[u.id];
+            return {
+              id: u.id,
+              name: (inst && inst.name) || u.id,
+              summary: (inst && inst.description) || (updatesViewMode === "ignored" ? "已屏蔽自动检测的技能" : "待更新技能"),
+              category: "🏢 自定义导入",
+              stars: "★ Custom",
+              slash: "/" + u.id,
+              repo: "local/" + u.id,
+              tags: ["custom", "imported"]
+            };
+          });
+        } else if (activeTab === "favorites") {
+          list = SKILLS_CATALOG.filter((s) => favorites.includes(s.id));
+          for (var fId of favorites) {
+            if (!catalogMap[fId] && installedSkills[fId]) {
+              var inst = installedSkills[fId];
+              list.push({
+                id: fId,
+                name: (inst && inst.name) || fId,
+                summary: (inst && inst.description) || "本地自定义技能",
+                category: "🏢 自定义导入",
+                stars: "★ Custom",
+                slash: "/" + fId,
+                repo: "local/" + fId,
+                tags: ["custom"]
+              });
+            }
           }
         }
 
@@ -1739,16 +2092,17 @@ window.__ModuleLoader__.load({
           }
           if (!searchKw.trim()) return true;
           var k = searchKw.toLowerCase().trim();
+          var alias = (customAliases[item.id] || "").toLowerCase();
+          var aliasMatch = alias.includes(k);
           var nameMatch = item.name.toLowerCase().includes(k);
           var idMatch = item.id.toLowerCase().includes(k);
+          var slashMatch = (item.slash || "").toLowerCase().includes(k);
           var descMatch = item.summary.toLowerCase().includes(k);
-          var tagMatch = (item.tags || []).some((t) => t.toLowerCase().includes(k));
-          var repoMatch = (item.repo || "").toLowerCase().includes(k);
-          return nameMatch || idMatch || descMatch || tagMatch || repoMatch;
+          return aliasMatch || nameMatch || idMatch || slashMatch || descMatch;
         });
-      }, [activeTab, selectedCategory, searchKw, installedSkills, installedSubFilter, updatesMap]);
+      }, [activeTab, selectedCategory, searchKw, installedSkills, updatesMap, favorites, customAliases, ignoredUpdates, updatesViewMode, pendingUpdatesList, ignoredUpdatesList]);
 
-      // 已安装统计
+      // 统计
       var installedCount = Object.keys(installedSkills).length;
       var activeCount = Object.values(installedSkills).filter((s) => !s.disabled).length;
       var pausedCount = installedCount - activeCount;
@@ -1758,7 +2112,7 @@ window.__ModuleLoader__.load({
         { className: "mkt-panel" },
         h("style", null, CSS),
 
-        // 顶部 Header 栏 (对齐截图 4311b735)
+        // 顶部 Header 栏 (Apple iOS 极简风格，无多余口水话)
         h(
           "div",
           { className: "mkt-header" },
@@ -1770,13 +2124,8 @@ window.__ModuleLoader__.load({
               { className: "mkt-title-box" },
               h(PuzzleIcon, { size: 22 }),
               h("div", null,
-                h("div", { className: "mkt-title-text" },
-                  "技能集市",
-                  h("span", { className: "mkt-version-badge" }, "dsh-clawhub-multiskill v1.0.0")
-                ),
-                h("div", { className: "mkt-subtitle" },
-                  "专为 DeepSeek Harness 深度打造的 AI Agent 技能集市 (精选全球高星真实 Skill) · 按需极速下载与热开关管控"
-                )
+                h("div", { className: "mkt-title-text" }, "技能集市"),
+                h("div", { className: "mkt-subtitle" }, "AI Agent 精选实战技能库")
               )
             ),
             h(
@@ -1785,65 +2134,186 @@ window.__ModuleLoader__.load({
               h(
                 "button",
                 { className: "mkt-action-btn primary", onClick: () => setShowImportModal(true) },
-                "➕ 导入/添加技能"
+                "➕ 导入技能"
               ),
               h(
                 "button",
-                { className: "mkt-action-btn", onClick: () => window.open("https://clawhub.com", "_blank") },
-                "🌐 打开 ClawHub 官网"
+                { className: "mkt-action-btn", onClick: () => window.open("https://clawhub.com", "_blank"), title: "浏览 ClawHub 官方技能社区" },
+                "🌐 社区"
               )
             )
           )
         ),
 
-        // 一级 Tabs 栏
+        // iOS Segmented Control 分段药丸栏 (全部聚焦独立功能视角)
         h(
           "div",
-          { className: "mkt-tabs-row" },
+          { className: "mkt-tabs-bar" },
           h(
             "div",
-            {
-              className: "mkt-tab-item " + (activeTab === "discover" ? "active" : ""),
-              onClick: () => setActiveTab("discover")
-            },
-            "发现",
-            h("span", { className: "mkt-tab-badge" }, totalSkillsCount)
-          ),
-          h(
-            "div",
-            {
-              className: "mkt-tab-item " + (activeTab === "mega" ? "active" : ""),
-              onClick: () => setActiveTab("mega")
-            },
-            "🌟 破万星巅峰",
-            h("span", { className: "mkt-tab-badge" }, megaSkillsCount)
-          ),
-          h(
-            "div",
-            {
-              className: "mkt-tab-item " + (activeTab === "installed" ? "active" : ""),
-              onClick: () => setActiveTab("installed")
-            },
-            "已安装管理",
-            h("span", { className: "mkt-tab-badge" }, installedCount)
-          ),
-          h(
-            "div",
-            {
-              className: "mkt-tab-item " + (activeTab === "clawhub" ? "active" : ""),
-              onClick: () => setActiveTab("clawhub")
-            },
-            "🌐 ClawHub 官网"
+            { className: "mkt-segmented-nav" },
+            h(
+              "div",
+              {
+                className: "mkt-segmented-tab " + (activeTab === "discover" ? "active" : ""),
+                onClick: () => setActiveTab("discover")
+              },
+              "发现",
+              h("span", { className: "mkt-segmented-badge" }, totalSkillsCount)
+            ),
+            h(
+              "div",
+              {
+                className: "mkt-segmented-tab " + (activeTab === "mega" ? "active" : ""),
+                onClick: () => setActiveTab("mega")
+              },
+              "🌟 破万星",
+              h("span", { className: "mkt-segmented-badge" }, megaSkillsCount)
+            ),
+            h(
+              "div",
+              {
+                className: "mkt-segmented-tab " + (activeTab === "installed" ? "active" : ""),
+                onClick: () => setActiveTab("installed")
+              },
+              "已安装",
+              h("span", { className: "mkt-segmented-badge" }, installedCount)
+            ),
+            h(
+              "div",
+              {
+                className: "mkt-segmented-tab " + (activeTab === "updates" ? "active" : ""),
+                onClick: () => setActiveTab("updates")
+              },
+              "待更新",
+              updatesCount > 0 &&
+                h("span", { className: "mkt-segmented-badge mkt-badge-amber" }, updatesCount)
+            ),
+            h(
+              "div",
+              {
+                className: "mkt-segmented-tab " + (activeTab === "favorites" ? "active" : ""),
+                onClick: () => setActiveTab("favorites")
+              },
+              "我的收藏 ★",
+              favorites.length > 0 &&
+                h("span", { className: "mkt-segmented-badge" }, favorites.length)
+            )
           )
         ),
+
+        // 待更新专栏顶部快速工具条
+        activeTab === "updates" &&
+          h(
+            "div",
+            { className: "mkt-updates-top-bar" },
+            h(
+              "div",
+              { style: { display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" } },
+              h(
+                "div",
+                { className: "mkt-subtabs-group" },
+                h(
+                  "div",
+                  {
+                    className: "mkt-subtab-pill " + (updatesViewMode === "pending" ? "active" : ""),
+                    onClick: () => setUpdatesViewMode("pending")
+                  },
+                  "待升级 (" + pendingUpdatesList.length + ")"
+                ),
+                h(
+                  "div",
+                  {
+                    className: "mkt-subtab-pill " + (updatesViewMode === "ignored" ? "active" : ""),
+                    onClick: () => setUpdatesViewMode("ignored")
+                  },
+                  "已屏蔽 (" + ignoredUpdatesList.length + ")"
+                )
+              ),
+              h("button", {
+                className: "mkt-card-link-btn",
+                onClick: () => { fetchInstalled(); fetchUpdates(); },
+                disabled: checkingUpdates
+              }, checkingUpdates ? "⏳ 检测中..." : "🔄 刷新检测"),
+
+              // 全选 / 全不选 控制器
+              updatesViewMode === "pending" && pendingUpdatesList.length > 0 &&
+                h(
+                  "label",
+                  {
+                    style: {
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      cursor: "pointer",
+                      fontSize: "12.5px",
+                      color: "var(--ch-text-primary)",
+                      userSelect: "none",
+                      padding: "4px 10px",
+                      borderRadius: "6px",
+                      background: "var(--ch-pill-bg, rgba(128, 128, 128, 0.1))",
+                      border: "1px solid var(--ch-card-border, rgba(128, 128, 128, 0.2))",
+                      marginLeft: "4px"
+                    }
+                  },
+                  h("input", {
+                    type: "checkbox",
+                    checked: selectedForUpdate.length > 0 && selectedForUpdate.length === pendingUpdatesList.length,
+                    onChange: () => {
+                      var allIds = pendingUpdatesList.map((u) => u.id);
+                      if (selectedForUpdate.length === allIds.length) {
+                        setSelectedForUpdate([]);
+                      } else {
+                        setSelectedForUpdate(allIds);
+                      }
+                    },
+                    style: { accentColor: "#f59e0b", cursor: "pointer", width: "15px", height: "15px" }
+                  }),
+                  h("span", null, selectedForUpdate.length === pendingUpdatesList.length ? "全不选" : "全选"),
+                  selectedForUpdate.length > 0 &&
+                    h(
+                      "span",
+                      { style: { color: "#f59e0b", fontWeight: 600 } },
+                      "(" + selectedForUpdate.length + "/" + pendingUpdatesList.length + ")"
+                    )
+                )
+            ),
+            // 右上角升级操作按钮 (动态联动勾选数量)
+            updatesViewMode === "pending" && pendingUpdatesList.length > 0 &&
+              h(
+                "button",
+                {
+                  className: "mkt-pill-btn upgrade",
+                  disabled: upgradingIds.length > 0,
+                  style: {
+                    background: selectedForUpdate.length > 0 ? "#f59e0b" : "var(--ch-brand, #2563eb)",
+                    borderColor: selectedForUpdate.length > 0 ? "#f59e0b" : "var(--ch-brand, #2563eb)",
+                    color: "#ffffff",
+                    fontWeight: 600,
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.15)"
+                  },
+                  onClick: () => {
+                    var ids = selectedForUpdate.length > 0
+                      ? selectedForUpdate
+                      : pendingUpdatesList.map((u) => u.id);
+                    handleBatchUpgrade(ids);
+                  }
+                },
+                upgradingIds.length > 0
+                  ? "⏳ 正在升级中..."
+                  : (selectedForUpdate.length > 0
+                      ? "⚡ 升级所选 (" + selectedForUpdate.length + ")"
+                      : "⚡ 一键全部升级 (" + pendingUpdatesList.length + ")")
+              )
+          ),
 
         // 滚动区域
         h(
           "div",
           { className: "mkt-scroll-container", ref: scrollRef, onScroll: handleScroll },
 
-          // 1. 发现页与破万星页：搜索与分类胶囊
-          (activeTab === "discover" || activeTab === "mega") &&
+          // 搜索与分类 (发现/破万星/已安装/我的收藏)
+          (activeTab === "discover" || activeTab === "mega" || activeTab === "installed" || activeTab === "favorites") &&
             h(
               "div",
               { className: "mkt-filter-section" },
@@ -1853,7 +2323,7 @@ window.__ModuleLoader__.load({
                 h("span", { className: "mkt-search-icon" }, "🔍"),
                 h("input", {
                   className: "mkt-search-input",
-                  placeholder: "搜索技能，例如: 论文、绘图、FastAPI、代码审查、提示词、周报、雅思、专利、架构...",
+                  placeholder: "搜索技能名称、用途、分类或指令...",
                   value: searchKw,
                   onChange: (e) => setSearchKw(e.target.value)
                 }),
@@ -1880,323 +2350,215 @@ window.__ModuleLoader__.load({
                 )
             ),
 
-          // 发现页提示条
-          (activeTab === "discover" || activeTab === "mega") &&
+          // 操作通知
+          statusNotice &&
             h(
               "div",
-              { className: "mkt-notice-bar" },
-              h("span", null, "已为您检索到 " + displaySkills.length + " 个高价值精选真实技能 · 本地仅保留链接按需下载"),
-              h("span", null, "💡 下载后可自由热关闭或彻底删除，释放空间")
+              {
+                style: {
+                  margin: "12px 28px 0",
+                  padding: "8px 16px",
+                  background: "rgba(16, 185, 129, 0.12)",
+                  border: "1px solid rgba(16, 185, 129, 0.35)",
+                  borderRadius: "8px",
+                  color: "#10b981",
+                  fontSize: "12.5px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between"
+                }
+              },
+              h("span", null, statusNotice),
+              h(
+                "button",
+                {
+                  style: { background: "none", border: "none", color: "#10b981", cursor: "pointer" },
+                  onClick: () => setStatusNotice(null)
+                },
+                "✕"
+              )
             ),
 
-          // 2. 已安装管理页：顶部状态看板 + 二级过滤子Tab + 批量更新工具栏
-          activeTab === "installed" &&
-            h(
-              React.Fragment,
-              null,
-              h(
-                "div",
-                { className: "mkt-installed-stats-bar" },
-                h(
+          // 技能卡片列表网格 (iOS Squircle Card)
+          h(
+            "div",
+            { className: "mkt-cards-grid" },
+            displaySkills.length === 0
+              ? h(
                   "div",
-                  { className: "mkt-stats-chips" },
-                  h("span", null, "已安装总数: " + installedCount),
-                  h("span", { className: "mkt-stat-active" }, "🟢 启用中: " + activeCount),
-                  h("span", { className: "mkt-stat-paused" }, "⚪ 已停用: " + pausedCount),
-                  updatesCount > 0 &&
-                    h("span", { style: { color: "#f59e0b", fontWeight: 600 } }, "🟡 待更新: " + updatesCount)
-                ),
-                h(
-                  "div",
-                  { style: { display: "flex", alignItems: "center", gap: "10px" } },
-                  h(
-                    "span",
-                    { style: { fontSize: "11px", color: "var(--ch-text-secondary)" } },
-                    "☁️ 自动同步: 每 3 天 (超低开销 < 0.05MB)"
-                  ),
-                  h(
-                    "button",
-                    {
-                      className: "mkt-action-btn",
-                      onClick: () => { fetchInstalled(); fetchUpdates(); },
-                      disabled: checkingUpdates
-                    },
-                    checkingUpdates ? "⏳ 检查中..." : "🔄 检查作者更新"
-                  )
+                  { style: { gridColumn: "1 / -1", padding: "60px 20px", textAlign: "center", color: "var(--ch-text-secondary)" } },
+                  activeTab === "updates"
+                    ? "🎉 恭喜！当前所有已安装技能均为最新版本，无需更新。"
+                    : (activeTab === "favorites"
+                        ? "暂无收藏技能。点击任意卡片右上角的 ★ 即可添加收藏！"
+                        : (activeTab === "installed"
+                            ? "当前尚未安装任何技能，前往「发现」一键安装"
+                            : "未匹配到相关技能，可尝试输入更简短的关键词"))
                 )
-              ),
+              : displaySkills.map((sk) => {
+                  var isInstalled = Boolean(installedSkills[sk.id]);
+                  var instInfo = installedSkills[sk.id];
+                  var isDisabled = instInfo ? instInfo.disabled : false;
+                  var hasBackup = instInfo ? instInfo.hasBackup : false;
+                  var updateInfo = updatesMap[sk.id];
+                  var isIgnored = ignoredUpdates.includes(sk.id);
+                  var hasUpdate = isInstalled && Boolean(updateInfo);
+                  var userAlias = customAliases[sk.id];
+                  var displayName = userAlias || sk.name;
+                  var isUpgrading = upgradingIds.includes(sk.id);
+                  var isSelected = selectedForUpdate.includes(sk.id);
+                  var isLoading = loadingSkillId === sk.id;
+                  var error = cardErrors[sk.id];
+                  var currentVer = (instInfo && instInfo.version) || (updateInfo && updateInfo.currentVersion) || "";
+                  var targetNewVer = updateInfo ? updateInfo.newVersion : "";
 
-              // 二级筛选子Tab栏 (全部已装 / 🟢 运行中 / ⚪ 已停用 / 🟡 待更新)
-              h(
-                "div",
-                { className: "mkt-subtabs-bar" },
-                h(
-                  "div",
-                  { className: "mkt-subtabs-group" },
-                  h(
+                  return h(
                     "div",
                     {
-                      className: "mkt-subtab-pill " + (installedSubFilter === "all" ? "active" : ""),
-                      onClick: () => setInstalledSubFilter("all")
+                      key: sk.id,
+                      className: "mkt-card " + (isInstalled ? "installed " : "") + (hasUpdate && !isIgnored ? "upgradable " : "")
                     },
-                    "全部已装",
-                    h("span", { className: "mkt-subtab-badge" }, installedCount)
-                  ),
-                  h(
-                    "div",
-                    {
-                      className: "mkt-subtab-pill " + (installedSubFilter === "active" ? "active" : ""),
-                      onClick: () => setInstalledSubFilter("active")
-                    },
-                    "🟢 运行中",
-                    h("span", { className: "mkt-subtab-badge" }, activeCount)
-                  ),
-                  h(
-                    "div",
-                    {
-                      className: "mkt-subtab-pill " + (installedSubFilter === "disabled" ? "active" : ""),
-                      onClick: () => setInstalledSubFilter("disabled")
-                    },
-                    "⚪ 已停用",
-                    h("span", { className: "mkt-subtab-badge" }, pausedCount)
-                  ),
-                  h(
-                    "div",
-                    {
-                      className: "mkt-subtab-pill updates-pill " + (installedSubFilter === "updates" ? "active" : ""),
-                      onClick: () => setInstalledSubFilter("updates")
-                    },
-                    "🟡 待更新",
-                    h("span", { className: "mkt-subtab-badge" }, updatesCount)
-                  )
-                ),
-                h(
-                  "div",
-                  { style: { fontSize: "12px", color: "var(--ch-text-secondary)" } },
-                  installedSubFilter === "updates"
-                    ? "提示：勾选下方技能即可一键批量升级，旧版本将自动备份为 .bak"
-                    : "提示：停用仅阻止模型调用，不会删除本地文件"
-                )
-              ),
-
-              // 待更新批量操作工具栏 (当存在更新项时常驻展示，可一键批量升级)
-              updatesCount > 0 &&
-                h(
-                  "div",
-                  { className: "mkt-batch-toolbar" },
-                  h(
-                    "div",
-                    { className: "mkt-batch-left" },
+                    // 卡片上半区：48x48 iOS 晶体图标 + 核心信息两列布局
                     h(
-                      "label",
-                      { className: "mkt-checkbox-label" },
-                      h("input", {
-                        type: "checkbox",
-                        checked: selectedForUpdate.length > 0 && selectedForUpdate.length === updatesCount,
-                        onChange: handleToggleSelectAllUpdates,
-                        style: { accentColor: "#f59e0b", cursor: "pointer", width: "16px", height: "16px" }
-                      }),
-                      h("span", null, selectedForUpdate.length === updatesCount ? "全不选" : "全选可升级技能")
-                    ),
-                    h(
-                      "span",
-                      { style: { fontSize: "12px", color: "var(--ch-text-secondary)" } },
-                      "已选中 " + selectedForUpdate.length + " / " + updatesCount + " 项"
-                    )
-                  ),
-                  h(
-                    "div",
-                    { className: "mkt-batch-right" },
-                    h("span", { className: "mkt-token-budget-badge" }, "🛡️ 800 Token 预算门禁已生效"),
-                    h(
-                      "button",
-                      {
-                        className: "mkt-action-btn mkt-btn-yellow",
-                        disabled: selectedForUpdate.length === 0 || upgradingIds.length > 0,
-                        onClick: handleBatchUpgrade,
-                        style: { opacity: selectedForUpdate.length === 0 ? 0.6 : 1 }
-                      },
-                      upgradingIds.length > 0
-                        ? "⏳ 正在批量升级中..."
-                        : "⚡ 批量升级所选技能 (" + selectedForUpdate.length + ")"
-                    )
-                  )
-                ),
-
-              // 操作结果通知条
-              statusNotice &&
-                h(
-                  "div",
-                  {
-                    style: {
-                      margin: "12px 28px 0",
-                      padding: "8px 16px",
-                      background: "rgba(16, 185, 129, 0.12)",
-                      border: "1px solid rgba(16, 185, 129, 0.35)",
-                      borderRadius: "8px",
-                      color: "#10b981",
-                      fontSize: "12.5px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between"
-                    }
-                  },
-                  h("span", null, statusNotice),
-                  h(
-                    "button",
-                    {
-                      style: { background: "none", border: "none", color: "#10b981", cursor: "pointer" },
-                      onClick: () => setStatusNotice(null)
-                    },
-                    "✕"
-                  )
-                )
-            ),
-
-          // 3. 技能卡片列表网格 (发现/破万星/已安装)
-          activeTab !== "clawhub" &&
-            h(
-              "div",
-              { className: "mkt-cards-grid" },
-              displaySkills.length === 0
-                ? h(
-                    "div",
-                    { style: { gridColumn: "1 / -1", padding: "60px 20px", textAlign: "center", color: "var(--ch-text-secondary)" } },
-                    installedSubFilter === "updates"
-                      ? "🎉 恭喜！当前所有已安装技能均为最新版本，未发现作者更新。"
-                      : (installedSubFilter === "active"
-                          ? "当前没有正在运行启用的技能"
-                          : (installedSubFilter === "disabled"
-                              ? "当前没有已停用的技能"
-                              : "未匹配到相关技能，可尝试输入更简短的中文关键词或切换分类"))
-                  )
-                : displaySkills.map((sk) => {
-                    var isInstalled = Boolean(installedSkills[sk.id]);
-                    var instInfo = installedSkills[sk.id];
-                    var isDisabled = instInfo ? instInfo.disabled : false;
-                    var hasBackup = instInfo ? instInfo.hasBackup : false;
-                    var updateInfo = updatesMap[sk.id];
-                    var hasUpdate = isInstalled && Boolean(updateInfo);
-                    var isUpgrading = upgradingIds.includes(sk.id);
-                    var isSelected = selectedForUpdate.includes(sk.id);
-                    var isLoading = loadingSkillId === sk.id;
-                    var error = cardErrors[sk.id];
-                    var currentVer = (instInfo && instInfo.version) || (updateInfo && updateInfo.currentVersion) || "1.0.0";
-                    var targetNewVer = updateInfo ? updateInfo.newVersion : "";
-
-                    return h(
                       "div",
-                      { key: sk.id, className: "mkt-card" },
-                      // 卡片上部
+                      { className: "mkt-card-body" },
+                      // 左侧：48x48 平滑圆角矢量图标 (对齐参考图 73333658)
+                      h(SkillSquircleIcon, { skillId: sk.id, size: 48 }),
+
+                      // 右侧：标题行、元数据行、描述与报错
                       h(
                         "div",
-                        null,
+                        { className: "mkt-card-main-col" },
+                        // 第一行：标题 + 别名 + 版本号 + 右侧更多操作
                         h(
                           "div",
                           { className: "mkt-card-head" },
                           h(
                             "div",
-                            { className: "mkt-card-head-left" },
+                            { className: "mkt-card-title-row" },
+                            activeTab === "updates" && updatesViewMode === "pending" &&
+                              h("input", {
+                                type: "checkbox",
+                                checked: isSelected,
+                                title: "勾选参与批量升级",
+                                onChange: () => toggleSelectOneForUpdate(sk.id),
+                                style: { accentColor: "#f59e0b", cursor: "pointer", width: "15px", height: "15px", marginRight: "4px" }
+                              }),
+                            h("span", { className: "mkt-card-title", title: sk.name }, displayName),
+                            userAlias &&
+                              h("span", { className: "mkt-alias-tag", title: "原始名称：" + sk.name }, "别名"),
+                            hasUpdate && !isIgnored
+                              ? h("span", { className: "mkt-card-update-tag", title: "可升级到 v" + targetNewVer }, "v" + (currentVer || "1.0.0") + " → v" + targetNewVer)
+                              : (isInstalled && currentVer && currentVer !== "none"
+                                  ? h("span", { className: "mkt-card-version-tag" }, "v" + currentVer)
+                                  : h("span", { className: "mkt-card-version-tag" }, "v" + (sk.version || "1.0.0")))
+                          ),
+                          // 右上角操作区：收藏星标 + 三点菜单
+                          h(
+                            "div",
+                            { className: "mkt-card-head-right" },
                             h(
-                              "div",
-                              { className: "mkt-card-title-row" },
-                              // 待更新复选框
-                              activeTab === "installed" && hasUpdate &&
-                                h("input", {
-                                  type: "checkbox",
-                                  checked: isSelected,
-                                  title: "勾选参与批量升级",
-                                  onChange: () => toggleSelectOneForUpdate(sk.id),
-                                  style: { accentColor: "#f59e0b", cursor: "pointer", width: "16px", height: "16px", marginRight: "4px" }
-                                }),
-                              h("span", { className: "mkt-card-title" }, sk.name),
-                              hasUpdate &&
-                                h("span", { className: "mkt-badge-yellow" }, "🟡 v" + currentVer + " → v" + targetNewVer),
-                              h(
-                                "span",
-                                {
-                                  className: "mkt-card-github-icon",
-                                  title: "在 GitHub 上查看: " + sk.repo,
-                                  onClick: () => window.open("https://github.com/" + sk.repo, "_blank")
-                                },
-                                h(GithubIcon)
-                              )
+                              "button",
+                              {
+                                className: "mkt-star-btn " + (favorites.includes(sk.id) ? "active" : ""),
+                                title: favorites.includes(sk.id) ? "已收藏 (点击取消)" : "收藏此技能",
+                                onClick: (e) => {
+                                  e.stopPropagation();
+                                  toggleFavorite(sk.id);
+                                }
+                              },
+                              favorites.includes(sk.id) ? "★" : "☆"
                             ),
                             h(
                               "div",
-                              { className: "mkt-card-meta-line" },
-                              h("span", null, sk.repo),
-                              h("span", { className: "mkt-card-stars" }, sk.stars),
-                              h("span", { className: "mkt-card-slash" }, sk.slash)
-                            )
-                          ),
-                          // 右上角胶囊按钮 (精准落实黄色、绿色、灰色语义)
-                          h(
-                            "div",
-                            { className: "mkt-card-action-box" },
-                            isInstalled
-                              ? h(
-                                  React.Fragment,
-                                  null,
-                                  // 有更新时：黄色升级按钮
-                                  hasUpdate
-                                    ? h(
-                                        "button",
-                                        {
-                                          className: "mkt-capsule-btn mkt-btn-yellow",
-                                          disabled: isUpgrading,
-                                          onClick: () => handleSingleUpgrade(sk)
-                                        },
-                                        isUpgrading ? "⏳ 升级中..." : "🟡 立即升级"
-                                      )
-                                    : null,
-                                  // 正在使用：绿色已就绪徽标；已停用：灰色徽标
-                                  !isDisabled
-                                    ? h("span", { className: "mkt-badge-green" }, "🟢 运行中")
-                                    : h("span", { className: "mkt-badge-gray" }, "⚪ 已停用"),
-                                  // 聊天调用按钮
+                              { style: { position: "relative" } },
+                              h(
+                                "button",
+                                {
+                                  className: "mkt-menu-btn",
+                                  title: "更多操作",
+                                  onClick: (e) => {
+                                    e.stopPropagation();
+                                    setOpenMenuId(openMenuId === sk.id ? null : sk.id);
+                                  }
+                                },
+                                "···"
+                              ),
+                              openMenuId === sk.id &&
+                                h(
+                                  "div",
+                                  {
+                                    className: "mkt-dropdown-popover",
+                                    onClick: (e) => e.stopPropagation()
+                                  },
                                   h(
                                     "button",
                                     {
-                                      className: "mkt-capsule-btn invoke",
-                                      onClick: () => handleInvoke(sk)
+                                      className: "mkt-dropdown-item",
+                                      onClick: () => { setOpenMenuId(null); setAliasModalSkill(sk); }
                                     },
-                                    "💬 调用"
-                                  )
+                                    "✏️ 自定义别名"
+                                  ),
+                                  isInstalled &&
+                                    h(
+                                      "button",
+                                      {
+                                        className: "mkt-dropdown-item",
+                                        onClick: () => { setOpenMenuId(null); toggleIgnoreUpdate(sk.id); }
+                                      },
+                                      isIgnored ? "🔔 恢复检测更新" : "🔕 屏蔽此技能更新"
+                                    ),
+                                  hasBackup &&
+                                    h(
+                                      "button",
+                                      {
+                                        className: "mkt-dropdown-item",
+                                        style: { color: "#f59e0b" },
+                                        onClick: () => { setOpenMenuId(null); handleRollback(sk.id); }
+                                      },
+                                      "↩️ 回退旧版 (.bak)"
+                                    ),
+                                  h(
+                                    "button",
+                                    {
+                                      className: "mkt-dropdown-item",
+                                      onClick: () => {
+                                        setOpenMenuId(null);
+                                        window.open("https://github.com/" + sk.repo, "_blank");
+                                      }
+                                    },
+                                    "↗ GitHub 仓库"
+                                  ),
+                                  isInstalled && h("div", { className: "mkt-dropdown-divider" }),
+                                  isInstalled &&
+                                    h(
+                                      "button",
+                                      {
+                                        className: "mkt-dropdown-item danger",
+                                        onClick: () => {
+                                          setOpenMenuId(null);
+                                          handleDeleteSkill(sk.id, displayName);
+                                        }
+                                      },
+                                      "🗑️ 卸载技能"
+                                    )
                                 )
-                              : h(
-                                  "button",
-                                  {
-                                    className: "mkt-capsule-btn " + (isLoading ? "loading" : "install"),
-                                    disabled: isLoading,
-                                    onClick: () => handleInstall(sk)
-                                  },
-                                  isLoading ? "⏳ 安装中..." : "📥 安装"
-                                )
+                            )
                           )
                         ),
 
-                        // 卡片中间精炼一句话中文介绍
-                        h("div", { className: "mkt-card-desc" }, sk.summary),
+                        // 第二行：星数 + 指令同排
+                        h(
+                          "div",
+                          { className: "mkt-card-meta-line" },
+                          h("span", { className: "mkt-card-stars" }, sk.stars),
+                          h("span", { className: "mkt-card-slash" }, sk.slash)
+                        ),
 
-                        // 更新提示条 (当检测到作者更新时高亮呈现)
-                        hasUpdate &&
-                          h(
-                            "div",
-                            { className: "mkt-card-update-strip" },
-                            h(
-                              "div",
-                              { className: "mkt-card-update-title" },
-                              "🟡 发现作者新版 (v" + targetNewVer + ")"
-                            ),
-                            h(
-                              "div",
-                              { className: "mkt-card-update-desc" },
-                              "更新要点: " + ((updateInfo && updateInfo.changelog) || "优化了执行规范与边界约束")
-                            )
-                          ),
+                        // 第三行：卡片精炼两句话中文介绍 (Clamp 2行保持对齐)
+                        h("div", { className: "mkt-card-desc", title: sk.summary }, sk.summary),
 
-                        // 红色醒目报错告警栏 (落实用户要求：绝不静默吞错)
+                        // 错误告警栏
                         error &&
                           h(
                             "div",
@@ -2205,23 +2567,26 @@ window.__ModuleLoader__.load({
                             h(
                               "button",
                               { className: "mkt-red-retry-btn", onClick: () => handleInstall(sk) },
-                              "🔄 立即重试"
+                              "重试"
                             )
                           )
-                      ),
+                      )
+                    ),
 
-                      // 卡片下部：标签与操作
-                      activeTab === "installed"
-                        ? // 已安装卡片特有操作栏 (对齐截图 79ed04c2)
-                          h(
-                            "div",
-                            { className: "mkt-card-foot" },
-                            h(
+                    // 卡片底部操作区分流 (无顶部分割灰线，彻底移除调用按钮，纯文字安装/升级)
+                    h(
+                      "div",
+                      { className: "mkt-card-foot" },
+                      h(
+                        "div",
+                        { className: "mkt-card-foot-left" },
+                        isInstalled
+                          ? h(
                               "div",
                               {
                                 className: "mkt-ios-toggle",
                                 onClick: () => handleToggleSkill(sk.id, isDisabled),
-                                title: isDisabled ? "点击开启模型调用" : "点击暂停模型调用 (保留文件)"
+                                title: isDisabled ? "点击开启模型调用" : "点击暂停模型调用"
                               },
                               h(
                                 "div",
@@ -2230,74 +2595,63 @@ window.__ModuleLoader__.load({
                               ),
                               h(
                                 "span",
-                                { style: { fontSize: "12px", color: !isDisabled ? "var(--ch-success-text)" : "var(--ch-text-muted)" } },
-                                !isDisabled ? "🟢 启用中" : "⚪ 已停用"
-                              )
-                            ),
-                            h(
-                              "div",
-                              { className: "mkt-card-foot-actions" },
-                              // 安全回退旧版按钮 (.bak)
-                              hasBackup &&
-                                h(
-                                  "button",
-                                  {
-                                    className: "mkt-card-link-btn",
-                                    style: { color: "#f59e0b" },
-                                    title: "回退到升级前的稳定版本备份 (.bak)",
-                                    onClick: () => handleRollback(sk.id)
-                                  },
-                                  "↩️ 回退旧版"
-                                ),
-                              h(
-                                "button",
-                                { className: "mkt-card-link-btn", onClick: () => setPreviewSkill(sk) },
-                                "👁️ 预览Prompt"
-                              ),
-                              h(
-                                "button",
-                                {
-                                  className: "mkt-card-link-btn",
-                                  style: { color: "var(--ch-danger-text)" },
-                                  onClick: () => handleDeleteSkill(sk.id, sk.name)
-                                },
-                                "🗑️ 彻底卸载"
+                                { className: "mkt-toggle-label " + (!isDisabled ? "active" : "disabled") },
+                                !isDisabled ? "● 已启用" : "● 已停用"
                               )
                             )
-                          )
-                        : // 发现页卡片底部栏
-                          h(
-                            "div",
-                            { className: "mkt-card-foot" },
-                            h(
+                          : h(
                               "div",
-                              { className: "mkt-card-tags" },
-                              h("span", { className: "mkt-tag-pill cat" }, sk.category.replace(/^[^\s]+\s*/, "")),
-                              (sk.tags || []).slice(0, 3).map((t) =>
-                                h("span", { key: t, className: "mkt-tag-pill" }, "#" + t)
-                              )
-                            ),
-                            h(
-                              "div",
-                              { className: "mkt-card-foot-actions" },
-                              h(
-                                "button",
-                                { className: "mkt-card-link-btn", onClick: () => setPreviewSkill(sk) },
-                                "👁️ 预览Prompt"
-                              ),
-                              h(
-                                "button",
-                                {
-                                  className: "mkt-card-link-btn",
-                                  onClick: () => window.open("https://github.com/" + sk.repo, "_blank")
-                                },
-                                "↗ GitHub"
-                              )
+                              { className: "mkt-foot-status-uninstalled", title: "未安装此技能" },
+                              h("span", { className: "mkt-dot-uninstalled" }),
+                              h("span", { className: "mkt-text-uninstalled" }, "未安装")
                             )
-                          )
-                    );
-                  })
-            ),
+                      ),
+
+                      // 右侧操作按钮：未安装纯文字蓝色「安装」，已安装「立即升级」或「已是最新」
+                      h(
+                        "div",
+                        { className: "mkt-card-foot-right" },
+                        isInstalled
+                          ? (hasUpdate
+                              ? (isIgnored
+                                  ? h(
+                                      "button",
+                                      {
+                                        className: "mkt-btn-shielded",
+                                        title: "该技能已屏蔽更新，点击可恢复检测",
+                                        onClick: () => toggleIgnoreUpdate(sk.id)
+                                      },
+                                      "🔕 已屏蔽更新"
+                                    )
+                                  : h(
+                                      "button",
+                                      {
+                                        className: "mkt-btn-upgrade " + (isUpgrading ? "loading" : ""),
+                                        disabled: isUpgrading,
+                                        title: "更新要点: " + ((updateInfo && updateInfo.changelog) || "优化执行规范"),
+                                        onClick: () => handleSingleUpgrade(sk)
+                                      },
+                                      isUpgrading ? "升级中..." : "立即升级"
+                                    ))
+                              : h(
+                                  "span",
+                                  { className: "mkt-tag-latest" },
+                                  "已是最新"
+                                ))
+                          : h(
+                              "button",
+                              {
+                                className: "mkt-btn-install " + (isLoading ? "loading" : ""),
+                                disabled: isLoading,
+                                onClick: () => handleInstall(sk)
+                              },
+                              isLoading ? "安装中..." : "安装"
+                            )
+                      )
+                    )
+                  );
+                })
+          ),
 
           // 4. ClawHub 官网专区
           activeTab === "clawhub" &&
@@ -2351,6 +2705,16 @@ window.__ModuleLoader__.load({
             }
           }),
 
+        // 模态弹窗：自定义别名
+        aliasModalSkill &&
+          h(CustomAliasModal, {
+            skill: aliasModalSkill,
+            currentAlias: customAliases[aliasModalSkill.id] || "",
+            onSave: handleSaveAlias,
+            onReset: handleResetAlias,
+            onClose: () => setAliasModalSkill(null)
+          }),
+
         // 模态弹窗：彻底卸载确认 (原生深浅色质感，杜绝 Win32 弹窗)
         deleteTargetSkill &&
           h(ConfirmDeleteModal, {
@@ -2372,79 +2736,198 @@ window.__ModuleLoader__.load({
       );
     }
 
-    // ── iOS 风格柔和色块矢量图标组件 (28x28 柔和色调 + 经典极简矢量) ───────────
+    // ── iOS 风格晶体圆角矢量图标组件 (支持 28x28 与 48x48，含确定性语义哈希防重机制) ───────────
     function SkillSquircleIcon(props) {
-      var id = props.skillId;
+      var id = String(props.skillId || "").toLowerCase();
+      var size = props.size || 28;
+      var isLarge = size >= 40;
+      var svgSize = isLarge ? 24 : 15;
+      var borderRadius = isLarge ? "12px" : "8px";
+
       var meta = {
-        "ponytail": {
-          bg: "rgba(0, 122, 255, 0.14)",
-          color: "#007aff",
-          path: h("path", { d: "M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" })
-        },
-        "dev-expert": {
-          bg: "rgba(88, 86, 214, 0.14)",
-          color: "#5856d6",
-          path: h("path", { d: "M16 18l6-6-6-6M8 6l-6 6 6 6" })
-        },
-        "code-review93": {
-          bg: "rgba(52, 199, 89, 0.14)",
-          color: "#34c759",
-          path: h("path", { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 12l2 2 4-4" })
-        },
-        "academic-figure-skill": {
-          bg: "rgba(175, 82, 222, 0.14)",
-          color: "#af52de",
-          path: h("path", { d: "M18 20V10M12 20V4M6 20v-6" })
-        },
-        "official-document-writer": {
-          bg: "rgba(255, 149, 0, 0.14)",
-          color: "#ff9500",
-          path: h("path", { d: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8" })
-        },
-        "patent-disclosure-writer": {
-          bg: "rgba(48, 176, 199, 0.14)",
-          color: "#30b0c7",
-          path: h("path", { d: "M9 18h6M10 22h4M12 2a7 7 0 0 0-7 7c0 2.5 1.5 4.5 3 6h8c1.5-1.5 3-3.5 3-6a7 7 0 0 0-7-7z" })
-        },
-        "scientific-visualization": {
-          bg: "rgba(255, 45, 85, 0.14)",
-          color: "#ff2d55",
-          path: h("path", { d: "M12 2a10 10 0 0 0 0 20c1.5 0 2.5-1 2.5-2.5 0-.7-.3-1.3-.7-1.7-.4-.4-.6-1-.6-1.6 0-1.4 1.1-2.5 2.5-2.5H18a4 4 0 0 0 4-4c0-5.5-4.5-10-10-10z" })
+        "graphrag": {
+          bg: "linear-gradient(135deg, #172554 0%, #1e3a8a 100%)",
+          border: "rgba(56, 189, 248, 0.25)",
+          color: "#38bdf8",
+          path: [
+            h("line", { key: "l1", x1: 6, y1: 14, x2: 12, y2: 6, stroke: "#60a5fa", strokeWidth: 1.5, opacity: 0.6 }),
+            h("line", { key: "l2", x1: 12, y1: 6, x2: 18, y2: 14, stroke: "#818cf8", strokeWidth: 1.5, opacity: 0.6 }),
+            h("line", { key: "l3", x1: 6, y1: 14, x2: 9, y2: 19, stroke: "#38bdf8", strokeWidth: 1.5, opacity: 0.6 }),
+            h("line", { key: "l4", x1: 18, y1: 14, x2: 15, y2: 19, stroke: "#818cf8", strokeWidth: 1.5, opacity: 0.6 }),
+            h("line", { key: "l5", x1: 9, y1: 19, x2: 15, y2: 19, stroke: "#60a5fa", strokeWidth: 1.5, opacity: 0.6 }),
+            h("circle", { key: "c1", cx: 6, cy: 14, r: 2.2, fill: "#38bdf8" }),
+            h("circle", { key: "c2", cx: 12, cy: 6, r: 2.5, fill: "#60a5fa" }),
+            h("circle", { key: "c3", cx: 18, cy: 14, r: 2.2, fill: "#818cf8" }),
+            h("circle", { key: "c4", cx: 9, cy: 19, r: 2, fill: "#38bdf8" }),
+            h("circle", { key: "c5", cx: 15, cy: 19, r: 2, fill: "#60a5fa" })
+          ]
         },
         "self-improving-agent": {
-          bg: "rgba(50, 173, 230, 0.16)",
-          color: "#32ade6",
-          path: h("path", { d: "M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6l2.1 2.1M5.6 18.4l2.1-2.1m8.6-8.6l2.1-2.1" })
+          bg: "linear-gradient(135deg, #064e3b 0%, #022c22 100%)",
+          border: "rgba(52, 211, 153, 0.25)",
+          color: "#34d399",
+          path: [
+            h("path", { key: "p1", d: "M12 4L4 8l8 4 8-4-8-4z", fill: "#34d399", opacity: 0.95 }),
+            h("path", { key: "p2", d: "M4 11.5l8 4 8-4", stroke: "#10b981", strokeWidth: 2.2, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
+            h("path", { key: "p3", d: "M4 15.5l8 4 8-4", stroke: "#059669", strokeWidth: 2.2, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" })
+          ]
+        },
+        "autogen": {
+          bg: "linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)",
+          border: "rgba(129, 140, 248, 0.25)",
+          color: "#818cf8",
+          path: [
+            h("circle", { key: "c1", cx: 12, cy: 5, r: 2.8, fill: "#818cf8" }),
+            h("circle", { key: "c2", cx: 5.5, cy: 17, r: 2.8, fill: "#a78bfa" }),
+            h("circle", { key: "c3", cx: 18.5, cy: 17, r: 2.8, fill: "#c084fc" }),
+            h("line", { key: "l1", x1: 12, y1: 7.8, x2: 6.8, y2: 14.5, stroke: "#818cf8", strokeWidth: 1.5, opacity: 0.6 }),
+            h("line", { key: "l2", x1: 12, y1: 7.8, x2: 17.2, y2: 14.5, stroke: "#c084fc", strokeWidth: 1.5, opacity: 0.6 }),
+            h("line", { key: "l3", x1: 8.3, y1: 17, x2: 15.7, y2: 17, stroke: "#a78bfa", strokeWidth: 1.5, opacity: 0.6 })
+          ]
+        },
+        "dev-expert": {
+          bg: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
+          border: "rgba(56, 189, 248, 0.25)",
+          color: "#38bdf8",
+          path: [
+            h("polyline", { key: "p1", points: "4 17 10 11 4 5", stroke: "#38bdf8", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
+            h("line", { key: "l1", x1: 12, y1: 19, x2: 20, y2: 19, stroke: "#38bdf8", strokeWidth: 2, strokeLinecap: "round" })
+          ]
+        },
+        "code-review93": {
+          bg: "linear-gradient(135deg, #042f2e 0%, #0f766e 100%)",
+          border: "rgba(45, 212, 191, 0.25)",
+          color: "#2dd4bf",
+          path: h("path", { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 12l2 2 4-4", stroke: "#2dd4bf", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" })
+        },
+        "academic-figure-skill": {
+          bg: "linear-gradient(135deg, #3b0764 0%, #581c87 100%)",
+          border: "rgba(192, 132, 252, 0.25)",
+          color: "#c084fc",
+          path: [
+            h("rect", { key: "r1", x: 4, y: 12, width: 3.5, height: 8, rx: 1, fill: "#f472b6" }),
+            h("rect", { key: "r2", x: 10.25, y: 6, width: 3.5, height: 14, rx: 1, fill: "#c084fc" }),
+            h("rect", { key: "r3", x: 16.5, y: 9, width: 3.5, height: 11, rx: 1, fill: "#a855f7" })
+          ]
+        },
+        "scientific-visualization": {
+          bg: "linear-gradient(135deg, #4c0519 0%, #881337 100%)",
+          border: "rgba(251, 113, 133, 0.25)",
+          color: "#fb7185",
+          path: h("path", { d: "M12 2a10 10 0 0 0 0 20c1.5 0 2.5-1 2.5-2.5 0-.7-.3-1.3-.7-1.7-.4-.4-.6-1-.6-1.6 0-1.4 1.1-2.5 2.5-2.5H18a4 4 0 0 0 4-4c0-5.5-4.5-10-10-10z", stroke: "#fb7185", strokeWidth: 1.8, fill: "none" })
+        },
+        "official-document-writer": {
+          bg: "linear-gradient(135deg, #451a03 0%, #78350f 100%)",
+          border: "rgba(251, 191, 36, 0.25)",
+          color: "#fbbf24",
+          path: h("path", { d: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8", stroke: "#fbbf24", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" })
+        },
+        "patent-disclosure-writer": {
+          bg: "linear-gradient(135deg, #083344 0%, #0e7490 100%)",
+          border: "rgba(34, 211, 238, 0.25)",
+          color: "#22d3ee",
+          path: h("path", { d: "M9 18h6M10 22h4M12 2a7 7 0 0 0-7 7c0 2.5 1.5 4.5 3 6h8c1.5-1.5 3-3.5 3-6a7 7 0 0 0-7-7z", stroke: "#22d3ee", strokeWidth: 1.8, strokeLinecap: "round", fill: "none" })
+        },
+        "series-vocab": {
+          bg: "linear-gradient(135deg, #7c2d12 0%, #c2410c 100%)",
+          border: "rgba(251, 146, 60, 0.25)",
+          color: "#fb923c",
+          path: [
+            h("path", { key: "p1", d: "M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z", stroke: "#fb923c", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
+            h("path", { key: "p2", d: "M8 9h8m-5 4h5", stroke: "#fdba74", strokeWidth: 1.8, strokeLinecap: "round" })
+          ]
+        },
+        "ponytail": {
+          bg: "linear-gradient(135deg, #172554 0%, #1d4ed8 100%)",
+          border: "rgba(96, 165, 250, 0.25)",
+          color: "#60a5fa",
+          path: h("path", { d: "M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5", stroke: "#60a5fa", strokeWidth: 1.8, strokeLinecap: "round", fill: "none" })
         },
         "skill-orchestrator": {
-          bg: "rgba(0, 199, 190, 0.14)",
-          color: "#00c7be",
+          bg: "linear-gradient(135deg, #042f2e 0%, #0d9488 100%)",
+          border: "rgba(45, 212, 191, 0.25)",
+          color: "#2dd4bf",
           path: [
-            h("circle", { key: "c1", cx: 18, cy: 5, r: 3 }),
-            h("circle", { key: "c2", cx: 6, cy: 12, r: 3 }),
-            h("circle", { key: "c3", cx: 18, cy: 19, r: 3 }),
-            h("path", { key: "p1", d: "M8.6 13.5l6.8 4M15.4 6.5l-6.8 4" })
+            h("circle", { key: "c1", cx: 18, cy: 5, r: 2.8, fill: "#2dd4bf" }),
+            h("circle", { key: "c2", cx: 6, cy: 12, r: 2.8, fill: "#5eead4" }),
+            h("circle", { key: "c3", cx: 18, cy: 19, r: 2.8, fill: "#2dd4bf" }),
+            h("path", { key: "p1", d: "M8.6 13.5l6.8 4M15.4 6.5l-6.8 4", stroke: "#99f6e4", strokeWidth: 1.5, strokeLinecap: "round" })
           ]
         }
       };
-      var current = meta[id] || {
-        bg: "rgba(142, 142, 147, 0.14)",
-        color: "#8e8e93",
-        path: h("path", { d: "M14 7V4.5a2.5 2.5 0 0 0-5 0V7H4a2 2 0 0 0-2 2v3.5a2.5 2.5 0 0 1 0 5V20a2 2 0 0 0 2 2h3.5a2.5 2.5 0 0 0 5 0H19a2 2 0 0 0 2-2v-3.5a2.5 2.5 0 0 1 0-5V9a2 2 0 0 0-2-2h-5z" })
-      };
+
+      var current = meta[id];
+      // 模糊匹配常见关键词
+      if (!current) {
+        if (id.includes("graph") || id.includes("rag")) current = meta["graphrag"];
+        else if (id.includes("improv") || id.includes("memory") || id.includes("learn")) current = meta["self-improving-agent"];
+        else if (id.includes("autogen") || id.includes("agent") || id.includes("orchestrat")) current = meta["autogen"];
+        else if (id.includes("review") || id.includes("pr-") || id.includes("audit")) current = meta["code-review93"];
+        else if (id.includes("code") || id.includes("dev") || id.includes("shell") || id.includes("linux") || id.includes("bash")) current = meta["dev-expert"];
+        else if (id.includes("writer") || id.includes("doc") || id.includes("patent")) current = meta["official-document-writer"];
+        else if (id.includes("figure") || id.includes("vis") || id.includes("chart") || id.includes("draw")) current = meta["academic-figure-skill"];
+        else if (id.includes("vocab") || id.includes("toefl") || id.includes("ielts") || id.includes("trans")) current = meta["series-vocab"];
+      }
+
+      // 确定性语义哈希兜底：零外部依赖、永不挂图、绝不重复
+      if (!current) {
+        var hash = 0;
+        for (var i = 0; i < id.length; i++) {
+          hash = ((hash << 5) - hash) + id.charCodeAt(i);
+          hash |= 0;
+        }
+        var abs = Math.abs(hash);
+        var palettes = [
+          { bg: "linear-gradient(135deg, #172554, #1e3a8a)", border: "rgba(56, 189, 248, 0.25)", color: "#38bdf8" },
+          { bg: "linear-gradient(135deg, #064e3b, #047857)", border: "rgba(52, 211, 153, 0.25)", color: "#34d399" },
+          { bg: "linear-gradient(135deg, #1e1b4b, #3730a3)", border: "rgba(129, 140, 248, 0.25)", color: "#818cf8" },
+          { bg: "linear-gradient(135deg, #451a03, #78350f)", border: "rgba(251, 191, 36, 0.25)", color: "#fbbf24" },
+          { bg: "linear-gradient(135deg, #3b0764, #581c87)", border: "rgba(192, 132, 252, 0.25)", color: "#c084fc" },
+          { bg: "linear-gradient(135deg, #4c0519, #881337)", border: "rgba(251, 113, 133, 0.25)", color: "#fb7185" },
+          { bg: "linear-gradient(135deg, #042f2e, #115e59)", border: "rgba(45, 212, 191, 0.25)", color: "#2dd4bf" },
+          { bg: "linear-gradient(135deg, #18181b, #27272a)", border: "rgba(161, 161, 170, 0.25)", color: "#a1a1aa" }
+        ];
+        var pal = palettes[abs % palettes.length];
+        var glyphIndex = Math.floor(abs / 8) % 5;
+        var glyphs = [
+          h("path", { d: "M12 2l2.4 6.9 6.9 2.4-6.9 2.4L12 20.6l-2.4-6.9-6.9-2.4 6.9-2.4z", stroke: pal.color, strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
+          h("path", { d: "M16 18l6-6-6-6M8 6l-6 6 6 6", stroke: pal.color, strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
+          h("path", { d: "M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5", stroke: pal.color, strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
+          h("path", { d: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8", stroke: pal.color, strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
+          h("circle", { cx: 12, cy: 12, r: 8, stroke: pal.color, strokeWidth: 1.8, fill: "none" })
+        ];
+        current = {
+          bg: pal.bg,
+          border: pal.border,
+          color: pal.color,
+          path: glyphs[glyphIndex]
+        };
+      }
 
       return h(
         "div",
         {
-          className: "ch-pk-icon-squircle",
-          style: { background: current.bg, color: current.color }
+          className: props.className || (isLarge ? "mkt-card-icon-squircle" : "ch-pk-icon-squircle"),
+          style: {
+            width: size + "px",
+            height: size + "px",
+            borderRadius: borderRadius,
+            background: current.bg,
+            border: "1px solid " + (current.border || "rgba(255, 255, 255, 0.08)"),
+            color: current.color,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
+            boxShadow: isLarge ? "0 2px 8px rgba(0, 0, 0, 0.16)" : "none"
+          }
         },
         h(
           "svg",
           {
             viewBox: "0 0 24 24",
-            width: 15,
-            height: 15,
+            width: svgSize,
+            height: svgSize,
             fill: "none",
             stroke: "currentColor",
             strokeWidth: "1.8",
@@ -2495,12 +2978,19 @@ window.__ModuleLoader__.load({
                 "self-improving-agent": "自我进化复盘",
                 "skill-orchestrator": "技能协同调度"
               };
+              var customAliases = {};
+              try {
+                customAliases = JSON.parse(localStorage.getItem("dsh_skill_custom_aliases") || "{}");
+              } catch (e) {}
+
               var mapped = activeSkills.map((s) => {
                 var cat = SKILLS_CATALOG.find((c) => c.id === s.id);
-                var rawName = cleanNames[s.id] || (cat ? cat.name : (s.name || s.id));
+                var defaultName = cleanNames[s.id] || (cat ? cat.name : (s.name || s.id));
+                var displayName = customAliases[s.id] || defaultName;
                 return {
                   id: s.id,
-                  name: rawName,
+                  name: displayName,
+                  origName: defaultName,
                   slash: cat ? cat.slash : ("/" + s.id),
                   pinyin: pinyinMap[s.id] || ""
                 };
@@ -2512,15 +3002,17 @@ window.__ModuleLoader__.load({
           .finally(() => setLoading(false));
       }, []);
 
-      // 关键词与拼音直接定位过滤
+      // 关键词与拼音直接定位过滤 (支持自定义别名、原名、指令与拼音)
       var filtered = useMemo(() => {
         var k = searchKw.toLowerCase().trim();
         if (!k) return installedList;
         return installedList.filter((item) => {
           var nameMatch = item.name.toLowerCase().includes(k);
+          var origMatch = (item.origName || "").toLowerCase().includes(k);
           var idMatch = item.id.toLowerCase().includes(k);
+          var slashMatch = (item.slash || "").toLowerCase().includes(k);
           var pyMatch = (item.pinyin || "").toLowerCase().includes(k);
-          return nameMatch || idMatch || pyMatch;
+          return nameMatch || origMatch || idMatch || slashMatch || pyMatch;
         });
       }, [installedList, searchKw]);
 
