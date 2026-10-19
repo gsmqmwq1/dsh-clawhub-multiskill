@@ -562,10 +562,10 @@ window.__ModuleLoader__.load({
   height: 24px;
   margin: 0 2px;
   padding: 0;
-  border: 1px solid var(--dsw-alias-border-l2, rgba(128, 128, 128, 0.25));
+  border: 1px solid var(--dsw-alias-border-l2, rgba(128, 128, 128, 0.2));
   border-radius: 8px;
   background: transparent;
-  color: var(--dsw-alias-label-secondary, #c9d2e0);
+  color: var(--dsw-alias-label-secondary, inherit);
   cursor: pointer;
   line-height: 1;
   flex: none;
@@ -575,9 +575,9 @@ window.__ModuleLoader__.load({
 .ch-composer-picker-btn.active,
 .ch-btn-trigger:hover,
 .ch-btn-trigger.active {
-  background: var(--dsw-alias-interactive-bg-hover, rgba(128, 128, 128, 0.12));
-  color: var(--dsw-alias-label-primary-bluish, #3b82f6);
-  border-color: var(--dsw-alias-border-l1, rgba(128, 128, 128, 0.35));
+  background: var(--dsw-alias-interactive-bg-hover, rgba(128, 128, 128, 0.1));
+  color: var(--dsw-alias-brand-primary, #3b82f6);
+  border-color: var(--dsw-alias-border-l1, rgba(128, 128, 128, 0.3));
 }
 
 /* 透明遮罩 (用于点击外部快速退出 Popover，零遮挡对话) */
@@ -588,17 +588,18 @@ window.__ModuleLoader__.load({
   background: transparent;
 }
 
-/* 悬浮轻量气泡卡片 (宽 330px，高质感悬浮) */
+/* 悬浮轻量气泡卡片 (深浅完全自适应，严格匹配系统主题) */
 .ch-popover-card {
   position: fixed;
-  width: 330px;
+  width: 320px;
   max-height: 380px;
   display: flex;
   flex-direction: column;
-  background: var(--dsw-specific-tip, #1e222b);
-  border: 1px solid var(--dsw-alias-border-l1, rgba(128, 128, 128, 0.3));
+  background: var(--dsw-specific-tip, var(--dsw-alias-bg-layer-1, var(--dsw-alias-surface, #1e222b)));
+  color: var(--dsw-alias-label-primary, inherit);
+  border: 1px solid var(--dsw-alias-border-l1, rgba(128, 128, 128, 0.25));
   border-radius: 12px;
-  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25), 0 2px 6px rgba(0, 0, 0, 0.08);
   overflow: hidden;
   z-index: 2147482999;
   font-family: var(--dsw-font-family, sans-serif);
@@ -613,31 +614,34 @@ window.__ModuleLoader__.load({
 /* 气泡顶部紧凑搜索条 */
 .ch-pk-search-box {
   padding: 8px 10px 6px;
-  border-bottom: 1px solid var(--dsw-alias-border-l2, rgba(128, 128, 128, 0.15));
+  border-bottom: 1px solid var(--dsw-alias-border-l2, rgba(128, 128, 128, 0.12));
   position: relative;
+  background: transparent;
 }
 .ch-pk-search-input {
   width: 100%;
   box-sizing: border-box;
   height: 30px;
-  padding: 0 24px 0 28px;
+  padding: 0 24px 0 26px;
   border-radius: 6px;
-  border: 1px solid transparent;
-  background: var(--dsw-alias-interactive-bg-hover, rgba(128, 128, 128, 0.1));
-  color: var(--dsw-alias-label-primary, #e6ebf2);
+  border: 1px solid var(--dsw-alias-border-l2, transparent);
+  background: var(--dsw-alias-interactive-bg-hover, rgba(128, 128, 128, 0.08));
+  color: var(--dsw-alias-label-primary, inherit);
   font-size: 13px;
   outline: none;
   transition: all 0.15s ease;
 }
+.ch-pk-search-input::placeholder {
+  color: var(--dsw-alias-label-tertiary, #8a94a6);
+}
 .ch-pk-search-input:focus {
-  background: var(--dsw-alias-interactive-bg-active, rgba(128, 128, 128, 0.16));
-  border-color: var(--dsw-alias-border-l1, rgba(128, 128, 128, 0.35));
+  background: var(--dsw-alias-interactive-bg-active, rgba(128, 128, 128, 0.12));
+  border-color: var(--dsw-alias-brand-primary, #3b82f6);
 }
 .ch-pk-search-icon {
   position: absolute;
   left: 17px;
   top: 15px;
-  font-size: 11px;
   color: var(--dsw-alias-label-tertiary, #8a94a6);
   pointer-events: none;
 }
@@ -653,7 +657,7 @@ window.__ModuleLoader__.load({
   padding: 2px 4px;
 }
 .ch-pk-search-clear:hover {
-  color: var(--dsw-alias-label-primary, #e6ebf2);
+  color: var(--dsw-alias-label-primary, inherit);
 }
 
 /* 气泡列表内容区 */
@@ -668,15 +672,15 @@ window.__ModuleLoader__.load({
   align-items: center;
   gap: 8px;
   padding: 6px 8px;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
   user-select: none;
   transition: background 0.12s ease;
-  margin-bottom: 2px;
+  margin-bottom: 1px;
 }
 .ch-pk-item:hover,
 .ch-pk-item.highlighted {
-  background: var(--dsw-alias-interactive-bg-hover, rgba(128, 128, 128, 0.14));
+  background: var(--dsw-alias-interactive-bg-hover, rgba(128, 128, 128, 0.08));
 }
 .ch-pk-item.checked {
   background: rgba(59, 130, 246, 0.12);
@@ -686,7 +690,7 @@ window.__ModuleLoader__.load({
 .ch-pk-checkbox {
   width: 14px;
   height: 14px;
-  accent-color: #3b82f6;
+  accent-color: var(--dsw-alias-brand-primary, #3b82f6);
   cursor: pointer;
   flex-shrink: 0;
   margin: 0;
@@ -708,16 +712,16 @@ window.__ModuleLoader__.load({
 .ch-pk-title {
   font-size: 13px;
   font-weight: 500;
-  color: var(--dsw-alias-label-primary, #e6ebf2);
+  color: var(--dsw-alias-label-primary, inherit);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .ch-pk-slash {
   font-size: 11px;
-  font-family: monospace;
-  color: #3b82f6;
-  background: rgba(59, 130, 246, 0.12);
+  font-family: var(--dsw-font-family-code, monospace);
+  color: var(--dsw-alias-brand-primary, #3b82f6);
+  background: rgba(59, 130, 246, 0.1);
   padding: 1px 5px;
   border-radius: 4px;
   flex-shrink: 0;
@@ -734,12 +738,12 @@ window.__ModuleLoader__.load({
 /* 底部操作与提示条 */
 .ch-pk-footer {
   padding: 6px 10px;
-  border-top: 1px solid var(--dsw-alias-border-l2, rgba(128, 128, 128, 0.15));
+  border-top: 1px solid var(--dsw-alias-border-l2, rgba(128, 128, 128, 0.12));
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 11px;
-  background: rgba(0, 0, 0, 0.15);
+  background: var(--dsw-alias-bg-module-platform, var(--dsw-alias-interactive-bg-hover, rgba(128, 128, 128, 0.04)));
 }
 .ch-pk-footer-hint {
   color: var(--dsw-alias-label-tertiary, #8a94a6);
@@ -747,7 +751,7 @@ window.__ModuleLoader__.load({
   text-align: center;
 }
 .ch-pk-footer-selected {
-  color: var(--dsw-alias-label-primary, #e6ebf2);
+  color: var(--dsw-alias-label-primary, inherit);
   font-weight: 500;
   white-space: nowrap;
   overflow: hidden;
@@ -770,21 +774,21 @@ window.__ModuleLoader__.load({
   border-radius: 4px;
 }
 .ch-pk-btn-clear:hover {
-  color: var(--dsw-alias-label-primary, #e6ebf2);
+  color: var(--dsw-alias-label-primary, inherit);
 }
 .ch-pk-btn-submit {
-  background: #3b82f6;
-  color: #ffffff;
+  background: var(--dsw-alias-brand-primary, #3b82f6);
+  color: var(--dsw-alias-label-primary-foreground, #ffffff);
   border: none;
   cursor: pointer;
   font-size: 11px;
   font-weight: 500;
   padding: 3px 8px;
   border-radius: 4px;
-  transition: background 0.15s ease;
+  transition: opacity 0.15s ease;
 }
 .ch-pk-btn-submit:hover {
-  background: #2563eb;
+  opacity: 0.9;
 }
     `;
 
@@ -2428,15 +2432,30 @@ window.__ModuleLoader__.load({
             style: { right: pos.right + "px", bottom: pos.bottom + "px" },
             onClick: (e) => e.stopPropagation()
           },
-          // 顶部搜索条
+          // 顶部搜索条 (原生无冗余图标，自动聚焦)
           h(
             "div",
             { className: "ch-pk-search-box" },
-            h("span", { className: "ch-pk-search-icon" }, "🔍"),
+            h(
+              "svg",
+              {
+                className: "ch-pk-search-icon",
+                viewBox: "0 0 24 24",
+                width: 12,
+                height: 12,
+                fill: "none",
+                stroke: "currentColor",
+                strokeWidth: "2",
+                strokeLinecap: "round",
+                strokeLinejoin: "round"
+              },
+              h("circle", { cx: 11, cy: 11, r: 7 }),
+              h("line", { x1: 21, y1: 21, x2: 16.65, y2: 16.65 })
+            ),
             h("input", {
               className: "ch-pk-search-input",
               autoFocus: true,
-              placeholder: "搜索已安装技能 (中英文/拼音/意图)...",
+              placeholder: "搜索技能 (中英文/拼音)...",
               value: searchKw,
               onChange: (e) => setSearchKw(e.target.value),
               onKeyDown: handleKeyDown
@@ -2451,7 +2470,7 @@ window.__ModuleLoader__.load({
                 "✕"
               )
           ),
-          // 列表内容区
+          // 列表内容区 (仅本地实装技能，简洁无冗余文字)
           h(
             "div",
             { className: "ch-pk-list", ref: listRef },
@@ -2460,7 +2479,7 @@ window.__ModuleLoader__.load({
                   "div",
                   {
                     style: {
-                      padding: "24px 0",
+                      padding: "20px 0",
                       textAlign: "center",
                       color: "var(--dsw-alias-label-tertiary, #8a94a6)",
                       fontSize: "12px"
@@ -2473,14 +2492,14 @@ window.__ModuleLoader__.load({
                   "div",
                   {
                     style: {
-                      padding: "24px 0",
+                      padding: "20px 0",
                       textAlign: "center",
                       color: "var(--dsw-alias-label-tertiary, #8a94a6)",
                       fontSize: "12px"
                     }
                   },
                   installedList.length === 0
-                    ? "暂无已安装技能，可在左侧「技能集市」下载"
+                    ? "暂无已安装技能，可在「技能集市」下载"
                     : "无匹配技能"
                 )
               : filtered.map((item, index) => {
@@ -2519,7 +2538,7 @@ window.__ModuleLoader__.load({
                   );
                 })
           ),
-          // 底部操作与提示栏
+          // 底部操作与提示栏 (简约纯粹)
           h(
             "div",
             { className: "ch-pk-footer" },
@@ -2527,7 +2546,7 @@ window.__ModuleLoader__.load({
               ? h(
                   "div",
                   { className: "ch-pk-footer-hint" },
-                  "💡 单击直接插入 · 勾选支持多选 · Enter 确认"
+                  "单击单选 · 勾选多选 · Enter 插入"
                 )
               : h(
                   React.Fragment,
@@ -2538,7 +2557,7 @@ window.__ModuleLoader__.load({
                       className: "ch-pk-footer-selected",
                       title: selected.map((s) => "/" + s).join(" ")
                     },
-                    "已选 " + selected.length + " 项: " + selected.map((s) => "/" + s).join(" ")
+                    "已选 " + selected.length + " 项"
                   ),
                   h(
                     "div",
