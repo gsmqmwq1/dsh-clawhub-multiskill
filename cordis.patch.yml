@@ -1,0 +1,6 @@
+# dsh-clawhub-multiskill cordis patch
+- insert:
+    - id: dsh-clawhub-multiskill
+      name: "dsh-clawhub-multiskill"
+      config:
+        marketUrl: "https://clawhub.com"
