@@ -249,7 +249,7 @@ export function apply(ctx) {
       }
     },
 
-    // 6. 检查已安装技能的版本更新 (支持作者版本比对)
+    // 6. 检查已安装技能的版本更新 (支持作者版本比对与语义化版本号判定)
     {
       kind: 'exact',
       path: '/api/clawhub/check-updates',
@@ -259,11 +259,26 @@ export function apply(ctx) {
           const entries = fs.readdirSync(skillsDir, { withFileTypes: true });
           const updates = [];
 
+          function isNewerVersion(newVer, curVer) {
+            const parse = v => (v || '').replace(/^[^\d]*/, '').split('.').map(n => parseInt(n, 10) || 0);
+            const p1 = parse(newVer);
+            const p2 = parse(curVer);
+            for (let i = 0; i < Math.max(p1.length, p2.length); i++) {
+              const a = p1[i] || 0;
+              const b = p2[i] || 0;
+              if (a > b) return true;
+              if (a < b) return false;
+            }
+            return false;
+          }
+
           // 预设升级目标清单（用于模拟或匹配真实云端版本升级）
           const latestTargetVersions = {
-            'self-improving-agent': { ver: '1.2.0', log: '增强了 DeepSeek-R1 长程反思与经验提炼规则' },
-            'code-review93': { ver: '1.1.0', log: '增加了 OWASP Top 10 2026 最新供应链攻击防护规则' },
+            'self-improving-agent': { ver: '3.1.0', log: '增强了 DeepSeek-R1 长程反思与经验提炼规则' },
+            'code-review93': { ver: '1.3.0', log: '增加了 OWASP Top 10 2026 最新供应链攻击防护规则' },
             'academic-figure-skill': { ver: '1.1.0', log: '优化了 Nature/Cell 单双栏排版尺寸与配色对比度' },
+            'official-document-writer': { ver: '1.1.0', log: '新增了新版党政机关公文格式国标 (GB/T 9704-202X) 规约' },
+            'ponytail': { ver: '1.1.0', log: '强化了反过度设计原则，增加了 Pytest 极简测试断言生成' },
             'star-resume-optimizer': { ver: '1.1.0', log: '新增了大厂 HR ATS 初筛高分关键词埋点' }
           };
 
@@ -277,7 +292,7 @@ export function apply(ctx) {
             const currentVer = verMatch ? verMatch[1].trim() : '1.0.0';
             
             const target = latestTargetVersions[skillId];
-            if (target && target.ver !== currentVer) {
+            if (target && isNewerVersion(target.ver, currentVer)) {
               const nameMatch = /^name:\s*([^\r\n]+)/m.exec(content);
               updates.push({
                 id: skillId,
