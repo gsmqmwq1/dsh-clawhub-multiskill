@@ -587,36 +587,110 @@ window.__ModuleLoader__.load({
   flex-wrap: wrap; gap: 8px;
 }
 .mkt-subtabs-group {
-  display: flex; align-items: center; gap: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: var(--ch-segmented-bg, rgba(128, 128, 128, 0.1));
+  padding: 3px;
+  border-radius: 10px;
 }
 .mkt-subtab-pill {
-  padding: 4px 12px; border-radius: 14px; font-size: 12px; cursor: pointer;
-  background: var(--ch-pill-bg); color: var(--ch-text-secondary);
-  border: 1px solid var(--ch-card-border); user-select: none;
-  transition: all 0.15s ease; display: inline-flex; align-items: center; gap: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--ch-text-secondary);
+  cursor: pointer;
+  user-select: none;
+  background: transparent;
+  border: none;
+  transition: all 0.15s ease;
 }
 .mkt-subtab-pill:hover {
-  background: var(--ch-pill-hover); color: var(--ch-text-primary);
+  color: var(--ch-text-primary);
 }
 .mkt-subtab-pill.active {
-  background: var(--ch-text-primary); color: var(--ch-bg); font-weight: 600;
-  border-color: var(--ch-text-primary);
-}
-.mkt-subtab-pill.updates-pill {
-  color: #f59e0b; border-color: rgba(245, 158, 11, 0.4);
-}
-.mkt-subtab-pill.updates-pill.active {
-  background: #f59e0b; color: #ffffff; border-color: #f59e0b;
+  background: var(--ch-surface);
+  color: var(--ch-text-primary);
+  font-weight: 600;
+  border: none;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12), 0 0 1px rgba(0, 0, 0, 0.08);
 }
 .mkt-subtab-badge {
-  font-size: 10px; padding: 1px 6px; border-radius: 8px;
-  background: rgba(0, 0, 0, 0.15); margin-left: 3px;
+  font-size: 11px;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background: rgba(128, 128, 128, 0.16);
+  color: var(--ch-text-secondary);
+  font-weight: 500;
+}
+.mkt-subtab-pill.active .mkt-subtab-badge {
+  background: var(--ch-brand);
+  color: #ffffff;
 }
 .mkt-subtab-pill.updates-pill .mkt-subtab-badge {
-  background: #f59e0b; color: #ffffff;
+  background: #f59e0b;
+  color: #ffffff;
 }
 .mkt-subtab-pill.updates-pill.active .mkt-subtab-badge {
-  background: #ffffff; color: #d97706;
+  background: #f59e0b;
+  color: #ffffff;
+}
+
+/* 刷新检测纯图标按钮 (iOS 圆角矩形，无生硬黑边) */
+.mkt-icon-refresh-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  background: var(--ch-segmented-bg, rgba(128, 128, 128, 0.1));
+  color: var(--ch-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+.mkt-icon-refresh-btn:hover {
+  background: var(--ch-pill-hover, rgba(128, 128, 128, 0.18));
+  color: var(--ch-text-primary);
+}
+.mkt-icon-refresh-btn:active {
+  transform: scale(0.95);
+}
+.mkt-icon-refresh-btn.spinning svg {
+  animation: mktSpin 0.8s linear infinite;
+}
+@keyframes mktSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 全选圆角矩形控制器 (iOS 风格，无黑边) */
+.mkt-select-all-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 12.5px;
+  color: var(--ch-text-primary);
+  user-select: none;
+  padding: 4px 10px;
+  height: 32px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  background: var(--ch-segmented-bg, rgba(128, 128, 128, 0.1));
+  border: none;
+  transition: all 0.15s ease;
+}
+.mkt-select-all-pill:hover {
+  background: var(--ch-pill-hover, rgba(128, 128, 128, 0.18));
 }
 
 /* 批量更新工具栏 (复选框与批量升级) */
@@ -2202,7 +2276,7 @@ window.__ModuleLoader__.load({
           )
         ),
 
-        // 待更新专栏顶部快速工具条
+        // 待更新专栏顶部快速工具条 (统一 iOS 圆角矩形分段控制器风格，彻底去除黑边)
         activeTab === "updates" &&
           h(
             "div",
@@ -2210,6 +2284,7 @@ window.__ModuleLoader__.load({
             h(
               "div",
               { style: { display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" } },
+              // 1. 待升级 / 已屏蔽 分段控制器 (同顶层一致的 iOS 圆角矩形分段风格)
               h(
                 "div",
                 { className: "mkt-subtabs-group" },
@@ -2219,7 +2294,8 @@ window.__ModuleLoader__.load({
                     className: "mkt-subtab-pill " + (updatesViewMode === "pending" ? "active" : ""),
                     onClick: () => setUpdatesViewMode("pending")
                   },
-                  "待升级 (" + pendingUpdatesList.length + ")"
+                  "待升级",
+                  h("span", { className: "mkt-subtab-badge" }, pendingUpdatesList.length)
                 ),
                 h(
                   "div",
@@ -2227,34 +2303,44 @@ window.__ModuleLoader__.load({
                     className: "mkt-subtab-pill " + (updatesViewMode === "ignored" ? "active" : ""),
                     onClick: () => setUpdatesViewMode("ignored")
                   },
-                  "已屏蔽 (" + ignoredUpdatesList.length + ")"
+                  "已屏蔽",
+                  h("span", { className: "mkt-subtab-badge" }, ignoredUpdatesList.length)
                 )
               ),
-              h("button", {
-                className: "mkt-card-link-btn",
-                onClick: () => { fetchInstalled(); fetchUpdates(); },
-                disabled: checkingUpdates
-              }, checkingUpdates ? "⏳ 检测中..." : "🔄 刷新检测"),
+              // 2. 刷新检测纯图标按钮 (iOS 圆角矩形，彻底去除任何生硬黑边，点击旋转)
+              h(
+                "button",
+                {
+                  type: "button",
+                  className: "mkt-icon-refresh-btn" + (checkingUpdates ? " spinning" : ""),
+                  title: checkingUpdates ? "正在检测更新..." : "刷新检测云端新版本",
+                  disabled: checkingUpdates,
+                  onClick: () => { fetchInstalled(); fetchUpdates(); }
+                },
+                h(
+                  "svg",
+                  {
+                    viewBox: "0 0 24 24",
+                    width: 15,
+                    height: 15,
+                    fill: "none",
+                    stroke: "currentColor",
+                    strokeWidth: "2.2",
+                    strokeLinecap: "round",
+                    strokeLinejoin: "round"
+                  },
+                  h("path", { d: "M21.5 2v6h-6M2.5 22v-6h6" }),
+                  h("path", { d: "M2.5 11.5a9 9 0 0 1 15.4-5.2L21.5 8M21.5 12.5a9 9 0 0 1-15.4 5.2L2.5 16" })
+                )
+              ),
 
-              // 全选 / 全不选 控制器
+              // 3. 全选 / 全不选 圆角矩形控制器 (iOS 风格，零黑边)
               updatesViewMode === "pending" && pendingUpdatesList.length > 0 &&
                 h(
                   "label",
                   {
-                    style: {
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "6px",
-                      cursor: "pointer",
-                      fontSize: "12.5px",
-                      color: "var(--ch-text-primary)",
-                      userSelect: "none",
-                      padding: "4px 10px",
-                      borderRadius: "6px",
-                      background: "var(--ch-pill-bg, rgba(128, 128, 128, 0.1))",
-                      border: "1px solid var(--ch-card-border, rgba(128, 128, 128, 0.2))",
-                      marginLeft: "4px"
-                    }
+                    className: "mkt-select-all-pill",
+                    title: "全选或取消全选可升级技能"
                   },
                   h("input", {
                     type: "checkbox",
@@ -2267,18 +2353,18 @@ window.__ModuleLoader__.load({
                         setSelectedForUpdate(allIds);
                       }
                     },
-                    style: { accentColor: "#f59e0b", cursor: "pointer", width: "15px", height: "15px" }
+                    style: { accentColor: "#f59e0b", cursor: "pointer", width: "15px", height: "15px", margin: 0 }
                   }),
                   h("span", null, selectedForUpdate.length === pendingUpdatesList.length ? "全不选" : "全选"),
                   selectedForUpdate.length > 0 &&
                     h(
                       "span",
-                      { style: { color: "#f59e0b", fontWeight: 600 } },
+                      { style: { color: "#f59e0b", fontWeight: 600, fontSize: "11.5px" } },
                       "(" + selectedForUpdate.length + "/" + pendingUpdatesList.length + ")"
                     )
                 )
             ),
-            // 右上角升级操作按钮 (动态联动勾选数量)
+            // 右上角升级操作按钮 (统一 iOS 8px 圆角矩形，去除生硬阴影，与勾选状态实时联动)
             updatesViewMode === "pending" && pendingUpdatesList.length > 0 &&
               h(
                 "button",
@@ -2286,11 +2372,17 @@ window.__ModuleLoader__.load({
                   className: "mkt-pill-btn upgrade",
                   disabled: upgradingIds.length > 0,
                   style: {
+                    height: "32px",
+                    padding: "0 16px",
+                    borderRadius: "8px",
+                    border: "none",
                     background: selectedForUpdate.length > 0 ? "#f59e0b" : "var(--ch-brand, #2563eb)",
-                    borderColor: selectedForUpdate.length > 0 ? "#f59e0b" : "var(--ch-brand, #2563eb)",
                     color: "#ffffff",
                     fontWeight: 600,
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.15)"
+                    fontSize: "13px",
+                    cursor: "pointer",
+                    boxShadow: "0 1px 4px rgba(0,0,0,0.12)",
+                    transition: "all 0.15s ease"
                   },
                   onClick: () => {
                     var ids = selectedForUpdate.length > 0
@@ -2736,173 +2828,237 @@ window.__ModuleLoader__.load({
       );
     }
 
-    // ── iOS 风格晶体圆角矢量图标组件 (支持 28x28 与 48x48，含确定性语义哈希防重机制) ───────────
+    // ── iOS 风格低饱和度极简简笔画矢量图标系统 (纯线描 Line-art，对齐 DeepSeek Harness 与 SF Symbols) ───
     function SkillSquircleIcon(props) {
       var id = String(props.skillId || "").toLowerCase();
       var size = props.size || 28;
       var isLarge = size >= 40;
-      var svgSize = isLarge ? 24 : 15;
+      var svgSize = isLarge ? 22 : 14;
       var borderRadius = isLarge ? "12px" : "8px";
 
-      var meta = {
-        "graphrag": {
-          bg: "linear-gradient(135deg, #172554 0%, #1e3a8a 100%)",
-          border: "rgba(56, 189, 248, 0.25)",
-          color: "#38bdf8",
-          path: [
-            h("line", { key: "l1", x1: 6, y1: 14, x2: 12, y2: 6, stroke: "#60a5fa", strokeWidth: 1.5, opacity: 0.6 }),
-            h("line", { key: "l2", x1: 12, y1: 6, x2: 18, y2: 14, stroke: "#818cf8", strokeWidth: 1.5, opacity: 0.6 }),
-            h("line", { key: "l3", x1: 6, y1: 14, x2: 9, y2: 19, stroke: "#38bdf8", strokeWidth: 1.5, opacity: 0.6 }),
-            h("line", { key: "l4", x1: 18, y1: 14, x2: 15, y2: 19, stroke: "#818cf8", strokeWidth: 1.5, opacity: 0.6 }),
-            h("line", { key: "l5", x1: 9, y1: 19, x2: 15, y2: 19, stroke: "#60a5fa", strokeWidth: 1.5, opacity: 0.6 }),
-            h("circle", { key: "c1", cx: 6, cy: 14, r: 2.2, fill: "#38bdf8" }),
-            h("circle", { key: "c2", cx: 12, cy: 6, r: 2.5, fill: "#60a5fa" }),
-            h("circle", { key: "c3", cx: 18, cy: 14, r: 2.2, fill: "#818cf8" }),
-            h("circle", { key: "c4", cx: 9, cy: 19, r: 2, fill: "#38bdf8" }),
-            h("circle", { key: "c5", cx: 15, cy: 19, r: 2, fill: "#60a5fa" })
-          ]
-        },
-        "self-improving-agent": {
-          bg: "linear-gradient(135deg, #064e3b 0%, #022c22 100%)",
-          border: "rgba(52, 211, 153, 0.25)",
-          color: "#34d399",
-          path: [
-            h("path", { key: "p1", d: "M12 4L4 8l8 4 8-4-8-4z", fill: "#34d399", opacity: 0.95 }),
-            h("path", { key: "p2", d: "M4 11.5l8 4 8-4", stroke: "#10b981", strokeWidth: 2.2, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
-            h("path", { key: "p3", d: "M4 15.5l8 4 8-4", stroke: "#059669", strokeWidth: 2.2, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" })
-          ]
-        },
-        "autogen": {
-          bg: "linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)",
-          border: "rgba(129, 140, 248, 0.25)",
-          color: "#818cf8",
-          path: [
-            h("circle", { key: "c1", cx: 12, cy: 5, r: 2.8, fill: "#818cf8" }),
-            h("circle", { key: "c2", cx: 5.5, cy: 17, r: 2.8, fill: "#a78bfa" }),
-            h("circle", { key: "c3", cx: 18.5, cy: 17, r: 2.8, fill: "#c084fc" }),
-            h("line", { key: "l1", x1: 12, y1: 7.8, x2: 6.8, y2: 14.5, stroke: "#818cf8", strokeWidth: 1.5, opacity: 0.6 }),
-            h("line", { key: "l2", x1: 12, y1: 7.8, x2: 17.2, y2: 14.5, stroke: "#c084fc", strokeWidth: 1.5, opacity: 0.6 }),
-            h("line", { key: "l3", x1: 8.3, y1: 17, x2: 15.7, y2: 17, stroke: "#a78bfa", strokeWidth: 1.5, opacity: 0.6 })
-          ]
-        },
-        "dev-expert": {
-          bg: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
-          border: "rgba(56, 189, 248, 0.25)",
-          color: "#38bdf8",
-          path: [
-            h("polyline", { key: "p1", points: "4 17 10 11 4 5", stroke: "#38bdf8", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
-            h("line", { key: "l1", x1: 12, y1: 19, x2: 20, y2: 19, stroke: "#38bdf8", strokeWidth: 2, strokeLinecap: "round" })
-          ]
-        },
-        "code-review93": {
-          bg: "linear-gradient(135deg, #042f2e 0%, #0f766e 100%)",
-          border: "rgba(45, 212, 191, 0.25)",
-          color: "#2dd4bf",
-          path: h("path", { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 12l2 2 4-4", stroke: "#2dd4bf", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" })
-        },
-        "academic-figure-skill": {
-          bg: "linear-gradient(135deg, #3b0764 0%, #581c87 100%)",
-          border: "rgba(192, 132, 252, 0.25)",
-          color: "#c084fc",
-          path: [
-            h("rect", { key: "r1", x: 4, y: 12, width: 3.5, height: 8, rx: 1, fill: "#f472b6" }),
-            h("rect", { key: "r2", x: 10.25, y: 6, width: 3.5, height: 14, rx: 1, fill: "#c084fc" }),
-            h("rect", { key: "r3", x: 16.5, y: 9, width: 3.5, height: 11, rx: 1, fill: "#a855f7" })
-          ]
-        },
-        "scientific-visualization": {
-          bg: "linear-gradient(135deg, #4c0519 0%, #881337 100%)",
-          border: "rgba(251, 113, 133, 0.25)",
-          color: "#fb7185",
-          path: h("path", { d: "M12 2a10 10 0 0 0 0 20c1.5 0 2.5-1 2.5-2.5 0-.7-.3-1.3-.7-1.7-.4-.4-.6-1-.6-1.6 0-1.4 1.1-2.5 2.5-2.5H18a4 4 0 0 0 4-4c0-5.5-4.5-10-10-10z", stroke: "#fb7185", strokeWidth: 1.8, fill: "none" })
-        },
-        "official-document-writer": {
-          bg: "linear-gradient(135deg, #451a03 0%, #78350f 100%)",
-          border: "rgba(251, 191, 36, 0.25)",
-          color: "#fbbf24",
-          path: h("path", { d: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8", stroke: "#fbbf24", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" })
-        },
-        "patent-disclosure-writer": {
-          bg: "linear-gradient(135deg, #083344 0%, #0e7490 100%)",
-          border: "rgba(34, 211, 238, 0.25)",
-          color: "#22d3ee",
-          path: h("path", { d: "M9 18h6M10 22h4M12 2a7 7 0 0 0-7 7c0 2.5 1.5 4.5 3 6h8c1.5-1.5 3-3.5 3-6a7 7 0 0 0-7-7z", stroke: "#22d3ee", strokeWidth: 1.8, strokeLinecap: "round", fill: "none" })
-        },
-        "series-vocab": {
-          bg: "linear-gradient(135deg, #7c2d12 0%, #c2410c 100%)",
-          border: "rgba(251, 146, 60, 0.25)",
-          color: "#fb923c",
-          path: [
-            h("path", { key: "p1", d: "M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z", stroke: "#fb923c", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
-            h("path", { key: "p2", d: "M8 9h8m-5 4h5", stroke: "#fdba74", strokeWidth: 1.8, strokeLinecap: "round" })
-          ]
-        },
-        "ponytail": {
-          bg: "linear-gradient(135deg, #172554 0%, #1d4ed8 100%)",
-          border: "rgba(96, 165, 250, 0.25)",
-          color: "#60a5fa",
-          path: h("path", { d: "M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5", stroke: "#60a5fa", strokeWidth: 1.8, strokeLinecap: "round", fill: "none" })
-        },
-        "skill-orchestrator": {
-          bg: "linear-gradient(135deg, #042f2e 0%, #0d9488 100%)",
-          border: "rgba(45, 212, 191, 0.25)",
-          color: "#2dd4bf",
-          path: [
-            h("circle", { key: "c1", cx: 18, cy: 5, r: 2.8, fill: "#2dd4bf" }),
-            h("circle", { key: "c2", cx: 6, cy: 12, r: 2.8, fill: "#5eead4" }),
-            h("circle", { key: "c3", cx: 18, cy: 19, r: 2.8, fill: "#2dd4bf" }),
-            h("path", { key: "p1", d: "M8.6 13.5l6.8 4M15.4 6.5l-6.8 4", stroke: "#99f6e4", strokeWidth: 1.5, strokeLinecap: "round" })
-          ]
-        }
+      // 8 组极致克制、低饱和度的柔和配色 (绝无刺眼高饱和霓虹色，贴合 DeepSeek Harness 极简深色/浅色质感)
+      var PALETTES = [
+        { bg: "rgba(103, 232, 249, 0.07)", border: "rgba(103, 232, 249, 0.18)", color: "#67e8f9" }, // 0: 冰青 (知识图谱/数据)
+        { bg: "rgba(134, 239, 172, 0.07)", border: "rgba(134, 239, 172, 0.18)", color: "#86efac" }, // 1: 鼠尾草绿 (自进化/代码审查)
+        { bg: "rgba(165, 180, 252, 0.07)", border: "rgba(165, 180, 252, 0.18)", color: "#a5b4fc" }, // 2: 柔和靛紫 (多智能体/推理)
+        { bg: "rgba(147, 197, 253, 0.07)", border: "rgba(147, 197, 253, 0.18)", color: "#93c5fd" }, // 3: 柔粉蓝 (终端/编程/开发)
+        { bg: "rgba(253, 224, 71, 0.07)", border: "rgba(253, 224, 71, 0.18)", color: "#fde047" },  // 4: 浅琥珀 (文档/PRD/写作)
+        { bg: "rgba(216, 180, 254, 0.07)", border: "rgba(216, 180, 254, 0.18)", color: "#d8b4fe" }, // 5: 浅薰衣草 (学术/论文/CNS)
+        { bg: "rgba(253, 186, 116, 0.07)", border: "rgba(253, 186, 116, 0.18)", color: "#fdba74" }, // 6: 柔杏橙 (外语/翻译/词汇)
+        { bg: "rgba(148, 163, 184, 0.08)", border: "rgba(148, 163, 184, 0.18)", color: "#cbd5e1" }  // 7: 钛金灰银 (架构/系统/工具)
+      ];
+
+      // 28 种精细纯线描简笔画几何符号库 (fill="none", stroke="currentColor", strokeWidth="1.6")
+      var GLYPHS = {
+        "network-graph": [
+          h("circle", { key: "c1", cx: 6, cy: 12, r: 2.2, stroke: "currentColor", strokeWidth: 1.6, fill: "none" }),
+          h("circle", { key: "c2", cx: 12, cy: 5, r: 2.2, stroke: "currentColor", strokeWidth: 1.6, fill: "none" }),
+          h("circle", { key: "c3", cx: 18, cy: 12, r: 2.2, stroke: "currentColor", strokeWidth: 1.6, fill: "none" }),
+          h("circle", { key: "c4", cx: 12, cy: 19, r: 2.2, stroke: "currentColor", strokeWidth: 1.6, fill: "none" }),
+          h("path", { key: "l", d: "M7.8 10.5l2.7-3.8m3 0l2.7 3.8m0 3l-2.7 3.8m-3 0l-2.7-3.8m1.7-4.5h4.6", stroke: "currentColor", strokeWidth: 1.4, strokeLinecap: "round" })
+        ],
+        "layers-stack": [
+          h("path", { key: "p1", d: "M12 3l9 4.5-9 4.5-9-4.5L12 3z", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
+          h("path", { key: "p2", d: "M3 12l9 4.5 9-4.5", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
+          h("path", { key: "p3", d: "M3 16.5l9 4.5 9-4.5", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" })
+        ],
+        "brain-reasoning": [
+          h("path", { key: "b1", d: "M9.5 2A4.5 4.5 0 0 0 5 6.5c0 .6.1 1.2.3 1.7A4.5 4.5 0 0 0 4 12a4.5 4.5 0 0 0 2 3.8A4.5 4.5 0 0 0 10 20c.4 0 .7 0 1.1-.1", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", fill: "none" }),
+          h("path", { key: "b2", d: "M14.5 2A4.5 4.5 0 0 1 19 6.5c0 .6-.1 1.2-.3 1.7A4.5 4.5 0 0 1 20 12a4.5 4.5 0 0 1-2 3.8A4.5 4.5 0 0 1 14 20c-.4 0-.7 0-1.1-.1", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", fill: "none" }),
+          h("path", { key: "b3", d: "M12 4v16m-4-8h8", stroke: "currentColor", strokeWidth: 1.4, strokeLinecap: "round", strokeDasharray: "2 2" })
+        ],
+        "multi-agent": [
+          h("circle", { key: "a1", cx: 12, cy: 5, r: 2.8, stroke: "currentColor", strokeWidth: 1.6, fill: "none" }),
+          h("circle", { key: "a2", cx: 5.5, cy: 17, r: 2.8, stroke: "currentColor", strokeWidth: 1.6, fill: "none" }),
+          h("circle", { key: "a3", cx: 18.5, cy: 17, r: 2.8, stroke: "currentColor", strokeWidth: 1.6, fill: "none" }),
+          h("path", { key: "l", d: "M10.2 7.2L7.3 14.8m9.4 0l-2.9-7.6m-5.5 9.8h7.4", stroke: "currentColor", strokeWidth: 1.4, strokeLinecap: "round" })
+        ],
+        "terminal-code": [
+          h("polyline", { key: "p1", points: "4 17 10 11 4 5", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
+          h("line", { key: "l1", x1: 12, y1: 19, x2: 20, y2: 19, stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round" })
+        ],
+        "code-brackets": [
+          h("polyline", { key: "b1", points: "16 18 22 12 16 6", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
+          h("polyline", { key: "b2", points: "8 6 2 12 8 18", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" })
+        ],
+        "shield-check": [
+          h("path", { key: "s", d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
+          h("path", { key: "c", d: "M9 12l2 2 4-4", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" })
+        ],
+        "document-text": [
+          h("path", { key: "d", d: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
+          h("polyline", { key: "f", points: "14 2 14 8 20 8", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
+          h("line", { key: "l1", x1: 8, y1: 13, x2: 16, y2: 13, stroke: "currentColor", strokeWidth: 1.4, strokeLinecap: "round" }),
+          h("line", { key: "l2", x1: 8, y1: 17, x2: 13, y2: 17, stroke: "currentColor", strokeWidth: 1.4, strokeLinecap: "round" })
+        ],
+        "fountain-pen": [
+          h("path", { key: "p1", d: "M12 19l7-7 3 3-7 7-3-3z", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
+          h("path", { key: "p2", d: "M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
+          h("circle", { key: "c1", cx: 11, cy: 11, r: 1.2, fill: "currentColor" })
+        ],
+        "academic-cap": [
+          h("path", { key: "cap", d: "M22 10v6M2 10l10-5 10 5-10 5z", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
+          h("path", { key: "base", d: "M6 12v5c3 3 9 3 12 0v-5", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", fill: "none" })
+        ],
+        "chart-line": [
+          h("line", { key: "ax1", x1: 3, y1: 3, x2: 3, y2: 21, stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" }),
+          h("line", { key: "ax2", x1: 3, y1: 21, x2: 21, y2: 21, stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" }),
+          h("polyline", { key: "pts", points: "3 16 8 11 14 14 20 6", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" })
+        ],
+        "database-cylinders": [
+          h("ellipse", { key: "e1", cx: 12, cy: 5, rx: 9, ry: 3, stroke: "currentColor", strokeWidth: 1.6, fill: "none" }),
+          h("path", { key: "c1", d: "M21 12c0 1.66-4 3-9 3s-9-1.34-9-3", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", fill: "none" }),
+          h("path", { key: "c2", d: "M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", fill: "none" })
+        ],
+        "docker-cube": [
+          h("path", { key: "box", d: "M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" })
+        ],
+        "browser-window": [
+          h("rect", { key: "w", x: 2, y: 4, width: 20, height: 16, rx: 2.5, stroke: "currentColor", strokeWidth: 1.6, fill: "none" }),
+          h("line", { key: "bar", x1: 2, y1: 9, x2: 22, y2: 9, stroke: "currentColor", strokeWidth: 1.4 }),
+          h("circle", { key: "d1", cx: 5.5, cy: 6.5, r: 0.8, fill: "currentColor" }),
+          h("circle", { key: "d2", cx: 8.5, cy: 6.5, r: 0.8, fill: "currentColor" }),
+          h("circle", { key: "d3", cx: 11.5, cy: 6.5, r: 0.8, fill: "currentColor" })
+        ],
+        "speech-bubbles": [
+          h("path", { key: "b1", d: "M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
+          h("line", { key: "l1", x1: 8, y1: 9, x2: 16, y2: 9, stroke: "currentColor", strokeWidth: 1.4, strokeLinecap: "round" }),
+          h("line", { key: "l2", x1: 8, y1: 13, x2: 13, y2: 13, stroke: "currentColor", strokeWidth: 1.4, strokeLinecap: "round" })
+        ],
+        "tree-branch": [
+          h("circle", { key: "r", cx: 12, cy: 4, r: 2.2, stroke: "currentColor", strokeWidth: 1.5, fill: "none" }),
+          h("circle", { key: "l", cx: 6, cy: 14, r: 2.2, stroke: "currentColor", strokeWidth: 1.5, fill: "none" }),
+          h("circle", { key: "rt", cx: 18, cy: 14, r: 2.2, stroke: "currentColor", strokeWidth: 1.5, fill: "none" }),
+          h("line", { key: "e1", x1: 10.5, y1: 6, x2: 7.5, y2: 12, stroke: "currentColor", strokeWidth: 1.4 }),
+          h("line", { key: "e2", x1: 13.5, y1: 6, x2: 16.5, y2: 12, stroke: "currentColor", strokeWidth: 1.4 }),
+          h("path", { key: "e3", d: "M6 16.2v3m12-3v3", stroke: "currentColor", strokeWidth: 1.4, strokeLinecap: "round" })
+        ],
+        "system-architecture": [
+          h("rect", { key: "s1", x: 3, y: 3, width: 6, height: 6, rx: 1.5, stroke: "currentColor", strokeWidth: 1.6, fill: "none" }),
+          h("rect", { key: "s2", x: 15, y: 3, width: 6, height: 6, rx: 1.5, stroke: "currentColor", strokeWidth: 1.6, fill: "none" }),
+          h("rect", { key: "s3", x: 9, y: 15, width: 6, height: 6, rx: 1.5, stroke: "currentColor", strokeWidth: 1.6, fill: "none" }),
+          h("path", { key: "l", d: "M9 6h6M6 9v3a3 3 0 0 0 3 3m9-6v3a3 3 0 0 1-3 3", stroke: "currentColor", strokeWidth: 1.4, fill: "none" })
+        ],
+        "sparkle-tuning": [
+          h("path", { key: "s1", d: "M12 2l2.2 6.3 6.3 2.2-6.3 2.2L12 19l-2.2-6.3L3.5 10.5l6.3-2.2L12 2z", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
+          h("path", { key: "s2", d: "M19 16l1 2.5 2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1 1-2.5z", stroke: "currentColor", strokeWidth: 1.3, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" })
+        ],
+        "flask-test": [
+          h("path", { key: "f", d: "M10 2h4m-3 0v6l-5 9.5a1 1 0 0 0 .9 1.5h12.2a1 1 0 0 0 .9-1.5L15 8V2", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
+          h("line", { key: "liq", x1: 8.5, y1: 14, x2: 15.5, y2: 14, stroke: "currentColor", strokeWidth: 1.4, strokeDasharray: "2 2" })
+        ],
+        "layout-grid": [
+          h("rect", { key: "r1", x: 3, y: 3, width: 7, height: 7, rx: 1.5, stroke: "currentColor", strokeWidth: 1.6, fill: "none" }),
+          h("rect", { key: "r2", x: 14, y: 3, width: 7, height: 7, rx: 1.5, stroke: "currentColor", strokeWidth: 1.6, fill: "none" }),
+          h("rect", { key: "r3", x: 3, y: 14, width: 7, height: 7, rx: 1.5, stroke: "currentColor", strokeWidth: 1.6, fill: "none" }),
+          h("rect", { key: "r4", x: 14, y: 14, width: 7, height: 7, rx: 1.5, stroke: "currentColor", strokeWidth: 1.6, fill: "none" })
+        ],
+        "git-branch": [
+          h("line", { key: "l", x1: 6, y1: 3, x2: 6, y2: 21, stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" }),
+          h("circle", { key: "c1", cx: 6, cy: 6, r: 2.2, stroke: "currentColor", strokeWidth: 1.6, fill: "none" }),
+          h("circle", { key: "c2", cx: 6, cy: 18, r: 2.2, stroke: "currentColor", strokeWidth: 1.6, fill: "none" }),
+          h("circle", { key: "c3", cx: 18, cy: 9, r: 2.2, stroke: "currentColor", strokeWidth: 1.6, fill: "none" }),
+          h("path", { key: "fork", d: "M6 18c0-4 4-9 10-9", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", fill: "none" })
+        ],
+        "api-plug": [
+          h("path", { key: "plug", d: "M12 22v-5m-3-6v-3a3 3 0 0 1 6 0v3m-8 0h10a1 1 0 0 1 1 1v2a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-2a1 1 0 0 1 1-1z", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
+          h("line", { key: "p1", x1: 9, y1: 2, x2: 9, y2: 5, stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" }),
+          h("line", { key: "p2", x1: 15, y1: 2, x2: 15, y2: 5, stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" })
+        ],
+        "sliders-controls": [
+          h("line", { key: "l1", x1: 4, y1: 6, x2: 20, y2: 6, stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" }),
+          h("line", { key: "l2", x1: 4, y1: 12, x2: 20, y2: 12, stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" }),
+          h("line", { key: "l3", x1: 4, y1: 18, x2: 20, y2: 18, stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" }),
+          h("circle", { key: "c1", cx: 9, cy: 6, r: 2.2, stroke: "currentColor", strokeWidth: 1.5, fill: "none" }),
+          h("circle", { key: "c2", cx: 15, cy: 12, r: 2.2, stroke: "currentColor", strokeWidth: 1.5, fill: "none" }),
+          h("circle", { key: "c3", cx: 8, cy: 18, r: 2.2, stroke: "currentColor", strokeWidth: 1.5, fill: "none" })
+        ],
+        "table-cells": [
+          h("line", { key: "top", x1: 3, y1: 4, x2: 21, y2: 4, stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round" }),
+          h("line", { key: "mid", x1: 3, y1: 10, x2: 21, y2: 10, stroke: "currentColor", strokeWidth: 1.4, strokeLinecap: "round" }),
+          h("line", { key: "bot", x1: 3, y1: 20, x2: 21, y2: 20, stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round" }),
+          h("line", { key: "c1", x1: 9, y1: 4, x2: 9, y2: 20, stroke: "currentColor", strokeWidth: 1.2, strokeLinecap: "round" })
+        ],
+        "dna-biomed": [
+          h("path", { key: "s1", d: "M4 19c6 0 6-14 16-14m-16 0c6 0 6 14 16 14", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", fill: "none" }),
+          h("line", { key: "r1", x1: 6, y1: 8, x2: 18, y2: 16, stroke: "currentColor", strokeWidth: 1.3, strokeLinecap: "round" }),
+          h("line", { key: "r2", x1: 6, y1: 16, x2: 18, y2: 8, stroke: "currentColor", strokeWidth: 1.3, strokeLinecap: "round" })
+        ],
+        "gear-tools": [
+          h("circle", { key: "c", cx: 12, cy: 12, r: 3.5, stroke: "currentColor", strokeWidth: 1.6, fill: "none" }),
+          h("path", { key: "t", d: "M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" })
+        ],
+        "zap-fast": [
+          h("polygon", { key: "zap", points: "13 2 3 14 12 14 11 22 21 10 12 10 13 2", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" })
+        ],
+        "search-inspect": [
+          h("circle", { key: "c", cx: 11, cy: 11, r: 7, stroke: "currentColor", strokeWidth: 1.6, fill: "none" }),
+          h("line", { key: "h", x1: 21, y1: 21, x2: 16.65, y2: 16.65, stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round" })
+        ]
       };
 
-      var current = meta[id];
-      // 模糊匹配常见关键词
-      if (!current) {
-        if (id.includes("graph") || id.includes("rag")) current = meta["graphrag"];
-        else if (id.includes("improv") || id.includes("memory") || id.includes("learn")) current = meta["self-improving-agent"];
-        else if (id.includes("autogen") || id.includes("agent") || id.includes("orchestrat")) current = meta["autogen"];
-        else if (id.includes("review") || id.includes("pr-") || id.includes("audit")) current = meta["code-review93"];
-        else if (id.includes("code") || id.includes("dev") || id.includes("shell") || id.includes("linux") || id.includes("bash")) current = meta["dev-expert"];
-        else if (id.includes("writer") || id.includes("doc") || id.includes("patent")) current = meta["official-document-writer"];
-        else if (id.includes("figure") || id.includes("vis") || id.includes("chart") || id.includes("draw")) current = meta["academic-figure-skill"];
-        else if (id.includes("vocab") || id.includes("toefl") || id.includes("ielts") || id.includes("trans")) current = meta["series-vocab"];
+      var GLYPH_PALETTE_MAP = {
+        "network-graph": 0, "layers-stack": 1, "brain-reasoning": 2, "multi-agent": 2,
+        "terminal-code": 3, "code-brackets": 3, "shield-check": 1, "document-text": 4,
+        "fountain-pen": 4, "academic-cap": 5, "chart-line": 5, "database-cylinders": 0,
+        "docker-cube": 7, "browser-window": 3, "speech-bubbles": 6, "tree-branch": 1,
+        "system-architecture": 7, "sparkle-tuning": 2, "flask-test": 5, "layout-grid": 3,
+        "git-branch": 7, "api-plug": 0, "sliders-controls": 4, "table-cells": 0,
+        "dna-biomed": 1, "gear-tools": 7, "zap-fast": 4, "search-inspect": 3
+      };
+
+      // 智能语义分类推导
+      function resolveGlyphKey(skillId) {
+        if (skillId.includes("graph") || skillId.includes("rag") || skillId.includes("llamaindex") || skillId.includes("chatchat")) return "network-graph";
+        if (skillId.includes("improv") || skillId.includes("memory") || skillId.includes("mem0") || skillId.includes("learn")) return "layers-stack";
+        if (skillId.includes("deepseek") || skillId.includes("r1") || skillId.includes("reason") || skillId.includes("cot")) return "brain-reasoning";
+        if (skillId.includes("autogen") || skillId.includes("crew") || skillId.includes("metagpt") || skillId.includes("agent") || skillId.includes("orchestrat")) return "multi-agent";
+        if (skillId.includes("terminal") || skillId.includes("shell") || skillId.includes("linux") || skillId.includes("bash") || skillId.includes("cli") || skillId.includes("typer") || skillId.includes("rich") || skillId.includes("textual")) return "terminal-code";
+        if (skillId.includes("dev") || skillId.includes("clean-code") || skillId.includes("claude-code") || skillId.includes("fastapi") || skillId.includes("flask") || skillId.includes("django") || skillId.includes("refactor") || skillId.includes("ruff") || skillId.includes("poetry") || skillId.includes("ponytail")) return "code-brackets";
+        if (skillId.includes("review") || skillId.includes("audit") || skillId.includes("security") || skillId.includes("owasp") || skillId.includes("pr-")) return "shield-check";
+        if (skillId.includes("prd") || skillId.includes("doc") || skillId.includes("writer") || skillId.includes("official")) return "document-text";
+        if (skillId.includes("patent") || skillId.includes("pen") || skillId.includes("polish") || skillId.includes("novelty") || skillId.includes("rebuttal")) return "fountain-pen";
+        if (skillId.includes("academic") || skillId.includes("paper") || skillId.includes("cns") || skillId.includes("nature") || skillId.includes("latex") || skillId.includes("proposal") || skillId.includes("thesis")) return "academic-cap";
+        if (skillId.includes("vis") || skillId.includes("figure") || skillId.includes("chart") || skillId.includes("echarts") || skillId.includes("d3") || skillId.includes("origin") || skillId.includes("threejs") || skillId.includes("plot")) return "chart-line";
+        if (skillId.includes("sql") || skillId.includes("database") || skillId.includes("orm") || skillId.includes("duckdb") || skillId.includes("alembic") || skillId.includes("sqlalchemy")) return "database-cylinders";
+        if (skillId.includes("docker") || skillId.includes("container") || skillId.includes("k8s") || skillId.includes("devops")) return "docker-cube";
+        if (skillId.includes("browser") || skillId.includes("playwright") || skillId.includes("web") || skillId.includes("crawler") || skillId.includes("vue") || skillId.includes("nextjs")) return "browser-window";
+        if (skillId.includes("vocab") || skillId.includes("series") || skillId.includes("toefl") || skillId.includes("ielts") || skillId.includes("trans") || skillId.includes("anki") || skillId.includes("english")) return "speech-bubbles";
+        if (skillId.includes("interview") || skillId.includes("algorithm") || skillId.includes("leetcode") || skillId.includes("tree") || skillId.includes("deap")) return "tree-branch";
+        if (skillId.includes("system") || skillId.includes("architecture") || skillId.includes("blueprint") || skillId.includes("hld") || skillId.includes("microservice")) return "system-architecture";
+        if (skillId.includes("prompt") || skillId.includes("dspy") || skillId.includes("few-shot") || skillId.includes("cookbook") || skillId.includes("awesome-chatgpt") || skillId.includes("reverse")) return "sparkle-tuning";
+        if (skillId.includes("test") || skillId.includes("pytest") || skillId.includes("mock") || skillId.includes("hypo")) return "flask-test";
+        if (skillId.includes("ui") || skillId.includes("tailwind") || skillId.includes("shadcn") || skillId.includes("wireframe") || skillId.includes("ant-design")) return "layout-grid";
+        if (skillId.includes("git") || skillId.includes("commit") || skillId.includes("diff")) return "git-branch";
+        if (skillId.includes("fastmcp") || skillId.includes("mcp") || skillId.includes("protocol") || skillId.includes("api") || skillId.includes("graphql") || skillId.includes("schema")) return "api-plug";
+        if (skillId.includes("shap") || skillId.includes("tuning") || skillId.includes("xgboost") || skillId.includes("prophet") || skillId.includes("stats") || skillId.includes("forecaster") || skillId.includes("multidimensional")) return "sliders-controls";
+        if (skillId.includes("table") || skillId.includes("clean") || skillId.includes("pandas") || skillId.includes("excel") || skillId.includes("polars") || skillId.includes("parquet")) return "table-cells";
+        if (skillId.includes("bio") || skillId.includes("dna") || skillId.includes("rdkit") || skillId.includes("pymol") || skillId.includes("pathway") || skillId.includes("lifelines") || skillId.includes("chem")) return "dna-biomed";
+        if (skillId.includes("redis") || skillId.includes("lock") || skillId.includes("perf") || skillId.includes("speed") || skillId.includes("fast")) return "zap-fast";
+        if (skillId.includes("regex") || skillId.includes("search") || skillId.includes("eda") || skillId.includes("inspect")) return "search-inspect";
+        return null;
       }
 
-      // 确定性语义哈希兜底：零外部依赖、永不挂图、绝不重复
-      if (!current) {
+      var glyphKey = resolveGlyphKey(id);
+      var pal = null;
+
+      if (glyphKey && GLYPHS[glyphKey]) {
+        var palIdx = GLYPH_PALETTE_MAP[glyphKey] !== undefined ? GLYPH_PALETTE_MAP[glyphKey] : 7;
+        pal = PALETTES[palIdx];
+      } else {
+        // 确定性哈希兜底：零碰撞、全自动分配
+        var glyphKeys = Object.keys(GLYPHS);
         var hash = 0;
         for (var i = 0; i < id.length; i++) {
           hash = ((hash << 5) - hash) + id.charCodeAt(i);
           hash |= 0;
         }
         var abs = Math.abs(hash);
-        var palettes = [
-          { bg: "linear-gradient(135deg, #172554, #1e3a8a)", border: "rgba(56, 189, 248, 0.25)", color: "#38bdf8" },
-          { bg: "linear-gradient(135deg, #064e3b, #047857)", border: "rgba(52, 211, 153, 0.25)", color: "#34d399" },
-          { bg: "linear-gradient(135deg, #1e1b4b, #3730a3)", border: "rgba(129, 140, 248, 0.25)", color: "#818cf8" },
-          { bg: "linear-gradient(135deg, #451a03, #78350f)", border: "rgba(251, 191, 36, 0.25)", color: "#fbbf24" },
-          { bg: "linear-gradient(135deg, #3b0764, #581c87)", border: "rgba(192, 132, 252, 0.25)", color: "#c084fc" },
-          { bg: "linear-gradient(135deg, #4c0519, #881337)", border: "rgba(251, 113, 133, 0.25)", color: "#fb7185" },
-          { bg: "linear-gradient(135deg, #042f2e, #115e59)", border: "rgba(45, 212, 191, 0.25)", color: "#2dd4bf" },
-          { bg: "linear-gradient(135deg, #18181b, #27272a)", border: "rgba(161, 161, 170, 0.25)", color: "#a1a1aa" }
-        ];
-        var pal = palettes[abs % palettes.length];
-        var glyphIndex = Math.floor(abs / 8) % 5;
-        var glyphs = [
-          h("path", { d: "M12 2l2.4 6.9 6.9 2.4-6.9 2.4L12 20.6l-2.4-6.9-6.9-2.4 6.9-2.4z", stroke: pal.color, strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
-          h("path", { d: "M16 18l6-6-6-6M8 6l-6 6 6 6", stroke: pal.color, strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
-          h("path", { d: "M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5", stroke: pal.color, strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
-          h("path", { d: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8", stroke: pal.color, strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }),
-          h("circle", { cx: 12, cy: 12, r: 8, stroke: pal.color, strokeWidth: 1.8, fill: "none" })
-        ];
-        current = {
-          bg: pal.bg,
-          border: pal.border,
-          color: pal.color,
-          path: glyphs[glyphIndex]
-        };
+        glyphKey = glyphKeys[abs % glyphKeys.length];
+        pal = PALETTES[abs % PALETTES.length];
       }
+
+      var glyphPath = GLYPHS[glyphKey] || GLYPHS["gear-tools"];
 
       return h(
         "div",
@@ -2912,14 +3068,14 @@ window.__ModuleLoader__.load({
             width: size + "px",
             height: size + "px",
             borderRadius: borderRadius,
-            background: current.bg,
-            border: "1px solid " + (current.border || "rgba(255, 255, 255, 0.08)"),
-            color: current.color,
+            background: pal.bg,
+            border: "1px solid " + pal.border,
+            color: pal.color,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             flexShrink: 0,
-            boxShadow: isLarge ? "0 2px 8px rgba(0, 0, 0, 0.16)" : "none"
+            boxShadow: isLarge ? "0 1px 4px rgba(0, 0, 0, 0.08)" : "none"
           }
         },
         h(
@@ -2930,11 +3086,11 @@ window.__ModuleLoader__.load({
             height: svgSize,
             fill: "none",
             stroke: "currentColor",
-            strokeWidth: "1.8",
+            strokeWidth: "1.6",
             strokeLinecap: "round",
             strokeLinejoin: "round"
           },
-          current.path
+          glyphPath
         )
       );
     }
