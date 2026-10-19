@@ -589,20 +589,20 @@ window.__ModuleLoader__.load({
   background: transparent;
 }
 
-/* 悬浮轻量气泡卡片 (Apple iOS 毛玻璃拟态风格，深浅完美自适应) */
+/* 悬浮独立卡片 (参考现代圆角设计，深浅完美自适应) */
 .ch-popover-card {
   position: fixed;
-  width: 340px;
-  max-height: 420px;
+  width: 380px;
+  max-height: 480px;
   display: flex;
   flex-direction: column;
-  background: var(--dsw-specific-tip, rgba(28, 28, 32, 0.92));
+  background: var(--dsw-specific-tip, rgba(28, 30, 36, 0.94));
   backdrop-filter: blur(25px) saturate(180%);
   -webkit-backdrop-filter: blur(25px) saturate(180%);
   color: var(--dsw-alias-label-primary, inherit);
   border: 1px solid var(--dsw-alias-border-l1, rgba(255, 255, 255, 0.12));
   border-radius: 16px;
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.35), 0 0 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.32), 0 0 1px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   z-index: 2147482999;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
@@ -611,7 +611,7 @@ window.__ModuleLoader__.load({
 
 @media (prefers-color-scheme: light) {
   .ch-popover-card {
-    background: rgba(255, 255, 255, 0.94);
+    background: rgba(255, 255, 255, 0.96);
     border-color: rgba(0, 0, 0, 0.08);
     box-shadow: 0 20px 48px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.08);
   }
@@ -622,12 +622,39 @@ window.__ModuleLoader__.load({
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* iOS Spotlight 风格搜索条 */
-.ch-pk-search-box {
-  padding: 10px 12px 8px;
-  border-bottom: 0.5px solid var(--dsw-alias-border-l2, rgba(128, 128, 128, 0.12));
-  position: relative;
+/* 顶部 Header (标题 + 关闭按钮) */
+.ch-pk-header {
+  padding: 14px 16px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+.ch-pk-header-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--dsw-alias-label-primary, inherit);
+}
+.ch-pk-header-close {
   background: transparent;
+  border: none;
+  font-size: 16px;
+  line-height: 1;
+  color: var(--dsw-alias-label-tertiary, #8a94a6);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+.ch-pk-header-close:hover {
+  background: var(--dsw-alias-interactive-bg-hover, rgba(128, 128, 128, 0.1));
+  color: var(--dsw-alias-label-primary, inherit);
+}
+
+/* 顶部搜索框 (圆角胶囊风格) */
+.ch-pk-search-box {
+  padding: 0 16px 12px;
+  flex-shrink: 0;
 }
 .ch-pk-search-wrapper {
   position: relative;
@@ -638,13 +665,13 @@ window.__ModuleLoader__.load({
 .ch-pk-search-input {
   width: 100%;
   box-sizing: border-box;
-  height: 32px;
-  padding: 0 26px 0 30px;
+  height: 36px;
+  padding: 0 28px 0 32px;
   border-radius: 10px;
-  border: none;
-  background: var(--dsw-alias-interactive-bg-hover, rgba(128, 128, 128, 0.12));
+  border: 1px solid var(--dsw-alias-border-l2, rgba(128, 128, 128, 0.12));
+  background: var(--dsw-alias-interactive-bg-hover, rgba(128, 128, 128, 0.08));
   color: var(--dsw-alias-label-primary, inherit);
-  font-size: 13px;
+  font-size: 13.5px;
   outline: none;
   transition: all 0.15s ease;
 }
@@ -652,19 +679,20 @@ window.__ModuleLoader__.load({
   color: var(--dsw-alias-label-tertiary, rgba(142, 142, 147, 0.8));
 }
 .ch-pk-search-input:focus {
-  background: var(--dsw-alias-interactive-bg-active, rgba(128, 128, 128, 0.18));
+  background: var(--dsw-alias-interactive-bg-active, rgba(128, 128, 128, 0.14));
+  border-color: #007aff;
 }
 .ch-pk-search-icon {
   position: absolute;
-  left: 9px;
-  top: 9px;
+  left: 10px;
+  top: 11px;
   color: var(--dsw-alias-label-tertiary, #8a94a6);
   pointer-events: none;
 }
 .ch-pk-search-clear {
   position: absolute;
-  right: 6px;
-  top: 7px;
+  right: 8px;
+  top: 9px;
   width: 18px;
   height: 18px;
   border-radius: 50%;
@@ -680,12 +708,12 @@ window.__ModuleLoader__.load({
   padding: 0;
 }
 
-/* iOS 列表容器 */
+/* 列表容器 */
 .ch-pk-list {
   overflow-y: auto;
   flex: 1;
-  padding: 4px 6px;
-  max-height: 280px;
+  padding: 0 12px 6px;
+  max-height: 290px;
 }
 .ch-pk-list::-webkit-scrollbar {
   width: 4px;
@@ -695,82 +723,33 @@ window.__ModuleLoader__.load({
   border-radius: 4px;
 }
 
-/* iOS 风格列表项 (UITableView 优雅排版) */
+/* 单行圆角矩形卡片项 (对齐截图 2) */
 .ch-pk-item {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 10px;
+  padding: 10px 12px;
   border-radius: 10px;
   cursor: pointer;
   user-select: none;
-  transition: background 0.12s ease;
-  margin-bottom: 2px;
+  transition: all 0.12s ease;
+  margin-bottom: 4px;
+  border: 1px solid transparent;
 }
 .ch-pk-item:hover,
 .ch-pk-item.highlighted {
-  background: var(--dsw-alias-interactive-bg-hover, rgba(128, 128, 128, 0.1));
+  background: var(--dsw-alias-interactive-bg-hover, rgba(128, 128, 128, 0.08));
 }
 .ch-pk-item.checked {
-  background: rgba(0, 122, 255, 0.1);
+  background: rgba(0, 122, 255, 0.08);
+  border-color: rgba(0, 122, 255, 0.25);
 }
 
-/* iOS 28x28 柔和图标容器 */
-.ch-pk-icon-squircle {
-  width: 28px;
-  height: 28px;
-  border-radius: 7px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: transform 0.12s ease;
-}
-.ch-pk-item:hover .ch-pk-icon-squircle {
-  transform: scale(1.05);
-}
-
-/* 文本内容排版 */
-.ch-pk-content {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.ch-pk-row1 {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.ch-pk-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--dsw-alias-label-primary, inherit);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.ch-pk-slash {
-  font-size: 11px;
-  font-family: -apple-system, BlinkMacSystemFont, monospace;
-  color: var(--dsw-alias-label-tertiary, #8a94a6);
-  opacity: 0.85;
-}
-.ch-pk-summary {
-  font-size: 11.5px;
-  color: var(--dsw-alias-label-secondary, #8a94a6);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 1.3;
-}
-
-/* iOS 圆形选择框 Checkbox */
+/* 圆角矩形 Checkbox (18x18, border-radius: 5px) */
 .ch-ios-checkbox {
   width: 18px;
   height: 18px;
-  border-radius: 50%;
+  border-radius: 5px;
   border: 1.5px solid rgba(128, 128, 128, 0.35);
   display: flex;
   align-items: center;
@@ -787,56 +766,88 @@ window.__ModuleLoader__.load({
   border-color: #007aff;
 }
 
-/* iOS 风格底部操作栏 */
-.ch-pk-footer {
-  padding: 8px 14px;
-  border-top: 0.5px solid var(--dsw-alias-border-l2, rgba(128, 128, 128, 0.12));
+/* 28x28 圆角图标 */
+.ch-pk-icon-squircle {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* 单行排版：中文名 + 指令名平铺 */
+.ch-pk-content-single {
+  flex: 1;
+  min-width: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 11.5px;
-  background: var(--dsw-alias-bg-module-platform, rgba(128, 128, 128, 0.05));
-}
-.ch-pk-footer-hint {
-  color: var(--dsw-alias-label-tertiary, #8a94a6);
-  width: 100%;
-  text-align: center;
-  font-size: 11px;
-}
-.ch-pk-footer-selected {
-  color: var(--dsw-alias-label-primary, inherit);
-  font-weight: 600;
-  font-size: 12px;
-}
-.ch-pk-footer-actions {
-  display: flex;
-  align-items: center;
   gap: 8px;
 }
-.ch-pk-btn-clear {
-  background: transparent;
-  border: none;
-  color: var(--dsw-alias-label-tertiary, #8a94a6);
-  cursor: pointer;
-  font-size: 11.5px;
-  padding: 3px 6px;
-  border-radius: 4px;
-}
-.ch-pk-btn-clear:hover {
+.ch-pk-title {
+  font-size: 13.5px;
+  font-weight: 600;
   color: var(--dsw-alias-label-primary, inherit);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.ch-pk-btn-submit {
+.ch-pk-slash-pill {
+  font-size: 11.5px;
+  font-family: -apple-system, BlinkMacSystemFont, monospace;
+  color: var(--dsw-alias-label-secondary, #8a94a6);
+  background: rgba(128, 128, 128, 0.08);
+  padding: 2px 7px;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.ch-pk-item.checked .ch-pk-slash-pill {
+  color: #007aff;
+  background: rgba(0, 122, 255, 0.12);
+}
+
+/* 底部操作栏 (对齐截图 2：取消 + 添加到对话) */
+.ch-pk-footer {
+  padding: 10px 14px;
+  border-top: 1px solid var(--dsw-alias-border-l2, rgba(128, 128, 128, 0.12));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--dsw-alias-bg-module-platform, rgba(128, 128, 128, 0.04));
+  flex-shrink: 0;
+}
+.ch-pk-btn-cancel {
+  flex: 1;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--dsw-alias-border-l2, rgba(128, 128, 128, 0.2));
+  background: var(--dsw-alias-interactive-bg-hover, rgba(128, 128, 128, 0.1));
+  color: var(--dsw-alias-label-primary, inherit);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+.ch-pk-btn-cancel:hover {
+  background: var(--dsw-alias-interactive-bg-active, rgba(128, 128, 128, 0.16));
+}
+.ch-pk-btn-confirm {
+  flex: 1.6;
+  height: 36px;
+  border-radius: 10px;
+  border: none;
   background: #007aff;
   color: #ffffff;
-  border: none;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
-  padding: 4px 12px;
-  border-radius: 14px;
   transition: opacity 0.15s ease;
 }
-.ch-pk-btn-submit:hover {
+.ch-pk-btn-confirm:hover {
   opacity: 0.9;
 }
     `;
@@ -2473,14 +2484,24 @@ window.__ModuleLoader__.load({
                 "self-improving-agent": "zwfszf ziwofanxiyufupan fs self 自省 复盘 进化 经验",
                 "skill-orchestrator": "dgnbply duojinengbianpailuyou bp route 编排 调度 路由 协同"
               };
+              var cleanNames = {
+                "ponytail": "极简主义架构",
+                "code-review93": "代码质量自检",
+                "dev-expert": "全栈编程专家",
+                "academic-figure-skill": "CNS 顶刊图表",
+                "official-document-writer": "体制内公文写作",
+                "patent-disclosure-writer": "专利交底书撰写",
+                "scientific-visualization": "科学配色审计",
+                "self-improving-agent": "自我进化复盘",
+                "skill-orchestrator": "技能协同调度"
+              };
               var mapped = activeSkills.map((s) => {
                 var cat = SKILLS_CATALOG.find((c) => c.id === s.id);
+                var rawName = cleanNames[s.id] || (cat ? cat.name : (s.name || s.id));
                 return {
                   id: s.id,
-                  name: cat ? cat.name : (s.name || s.id),
+                  name: rawName,
                   slash: cat ? cat.slash : ("/" + s.id),
-                  summary: cat ? cat.summary : (s.description || "本地已安装技能"),
-                  tags: cat ? (cat.tags || []) : [],
                   pinyin: pinyinMap[s.id] || ""
                 };
               });
@@ -2498,10 +2519,8 @@ window.__ModuleLoader__.load({
         return installedList.filter((item) => {
           var nameMatch = item.name.toLowerCase().includes(k);
           var idMatch = item.id.toLowerCase().includes(k);
-          var descMatch = item.summary.toLowerCase().includes(k);
           var pyMatch = (item.pinyin || "").toLowerCase().includes(k);
-          var tagMatch = (item.tags || []).some((t) => t.toLowerCase().includes(k));
-          return nameMatch || idMatch || descMatch || pyMatch || tagMatch;
+          return nameMatch || idMatch || pyMatch;
         });
       }, [installedList, searchKw]);
 
@@ -2592,15 +2611,30 @@ window.__ModuleLoader__.load({
               position: "fixed",
               right: pos.right + "px",
               bottom: pos.bottom + "px",
-              width: "340px",
-              maxHeight: "420px",
+              width: "380px",
+              maxHeight: "480px",
               zIndex: 2147482999,
               display: "flex",
               flexDirection: "column"
             },
             onClick: (e) => e.stopPropagation()
           },
-          // 顶部 iOS Spotlight 搜索框
+          // 1. 顶部 Header (标题 + ✕ 关闭按钮)
+          h(
+            "div",
+            { className: "ch-pk-header" },
+            h("div", { className: "ch-pk-header-title" }, "选择 Skill"),
+            h(
+              "button",
+              {
+                className: "ch-pk-header-close",
+                onClick: props.onClose,
+                title: "关闭"
+              },
+              "✕"
+            )
+          ),
+          // 2. 顶部 iOS 胶囊搜索框
           h(
             "div",
             { className: "ch-pk-search-box" },
@@ -2642,7 +2676,7 @@ window.__ModuleLoader__.load({
                 )
             )
           ),
-          // 独立列表项清单 (iOS Inset List 排列)
+          // 3. 独立单行列表清单 (iOS Inset List 排列)
           h(
             "div",
             { className: "ch-pk-list", ref: listRef },
@@ -2686,102 +2720,14 @@ window.__ModuleLoader__.load({
                         "ch-pk-item" +
                         (isChecked ? " checked" : "") +
                         (isHighlighted ? " highlighted" : ""),
-                      style: {
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "10px",
-                        padding: "8px 10px",
-                        borderRadius: "10px",
-                        cursor: "pointer",
-                        userSelect: "none",
-                        marginBottom: "2px"
-                      },
                       onClick: () => handleRowClick(item),
                       onMouseEnter: () => setActiveIdx(index)
                     },
-                    // 1. 左侧 iOS 柔和色块矢量图标 (28x28 优雅圆角)
-                    h(SkillSquircleIcon, { skillId: item.id }),
-                    // 2. 中间名称与极简指令/说明
-                    h(
-                      "div",
-                      {
-                        className: "ch-pk-content",
-                        style: {
-                          flex: 1,
-                          minWidth: 0,
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: "2px"
-                        }
-                      },
-                      h(
-                        "div",
-                        {
-                          className: "ch-pk-row1",
-                          style: { display: "flex", alignItems: "center", gap: "6px" }
-                        },
-                        h(
-                          "span",
-                          {
-                            className: "ch-pk-title",
-                            style: {
-                              fontSize: "13px",
-                              fontWeight: 600,
-                              color: "var(--dsw-alias-label-primary, inherit)",
-                              whiteSpace: "nowrap",
-                              overflow: "hidden",
-                              textOverflow: "ellipsis"
-                            }
-                          },
-                          item.name
-                        ),
-                        h(
-                          "span",
-                          {
-                            className: "ch-pk-slash",
-                            style: {
-                              fontSize: "11px",
-                              fontFamily: "monospace",
-                              color: "var(--dsw-alias-label-tertiary, #8a94a6)"
-                            }
-                          },
-                          item.slash
-                        )
-                      ),
-                      h(
-                        "div",
-                        {
-                          className: "ch-pk-summary",
-                          style: {
-                            fontSize: "11.5px",
-                            color: "var(--dsw-alias-label-secondary, #8a94a6)",
-                            whiteSpace: "nowrap",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            lineHeight: "1.3"
-                          }
-                        },
-                        item.summary
-                      )
-                    ),
-                    // 3. 右侧 iOS 优雅圆形选择框 Checkbox
+                    // ① 左侧 iOS 圆角矩形复选框 (18x18, border-radius: 5px)
                     h(
                       "div",
                       {
                         className: "ch-ios-checkbox" + (isChecked ? " checked" : ""),
-                        style: {
-                          width: "18px",
-                          height: "18px",
-                          borderRadius: "50%",
-                          border: isChecked
-                            ? "none"
-                            : "1.5px solid rgba(128, 128, 128, 0.35)",
-                          background: isChecked ? "#007aff" : "transparent",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          flexShrink: 0
-                        },
                         onClick: (e) => toggleSelect(item.id, e)
                       },
                       isChecked &&
@@ -2799,52 +2745,53 @@ window.__ModuleLoader__.load({
                           },
                           h("polyline", { points: "20 6 9 17 4 12" })
                         )
+                    ),
+                    // ② 中间 28x28 柔和色块圆角矢量图标
+                    h(SkillSquircleIcon, { skillId: item.id }),
+                    // ③ 单行极简排版：中文名 + 指令徽标平铺同行，彻底去除冗余灰字描述
+                    h(
+                      "div",
+                      { className: "ch-pk-content-single" },
+                      h("span", { className: "ch-pk-title" }, item.name),
+                      h("span", { className: "ch-pk-slash-pill" }, item.slash)
                     )
                   );
                 })
           ),
-          // 底部操作与提示栏 (iOS 质感栏)
+          // 4. 底部操作栏 (彻底去除提示文字，对齐图2 [取消] 与 [添加到对话])
           h(
             "div",
             { className: "ch-pk-footer" },
-            selected.length === 0
-              ? h(
-                  "div",
-                  { className: "ch-pk-footer-hint" },
-                  "单击直接插入 · 勾选支持多选 · Enter 插入"
-                )
-              : h(
-                  React.Fragment,
-                  null,
-                  h(
-                    "div",
-                    {
-                      className: "ch-pk-footer-selected",
-                      title: selected.map((s) => "/" + s).join(" ")
-                    },
-                    "已选 " + selected.length + " 项"
-                  ),
-                  h(
-                    "div",
-                    { className: "ch-pk-footer-actions" },
-                    h(
-                      "button",
-                      {
-                        className: "ch-pk-btn-clear",
-                        onClick: () => setSelected([])
-                      },
-                      "取消"
-                    ),
-                    h(
-                      "button",
-                      {
-                        className: "ch-pk-btn-submit",
-                        onClick: () => executeInsert(selected)
-                      },
-                      "插入已选 (" + selected.length + ")"
-                    )
-                  )
-                )
+            h(
+              "button",
+              {
+                className: "ch-pk-btn-cancel",
+                onClick: () => {
+                  if (selected.length > 0) {
+                    setSelected([]);
+                  } else {
+                    props.onClose();
+                  }
+                }
+              },
+              "取消"
+            ),
+            h(
+              "button",
+              {
+                className: "ch-pk-btn-confirm",
+                onClick: () => {
+                  if (selected.length > 0) {
+                    executeInsert(selected);
+                  } else if (filtered[activeIdx]) {
+                    executeInsert([filtered[activeIdx].id]);
+                  }
+                }
+              },
+              selected.length > 0
+                ? "添加到对话 (" + selected.length + ")"
+                : "添加到对话"
+            )
           )
         )
       );
@@ -2862,7 +2809,7 @@ window.__ModuleLoader__.load({
           var rect = btnRef.current.getBoundingClientRect();
           var bottom = Math.round(window.innerHeight - rect.top + 8);
           var right = Math.min(
-            window.innerWidth - 360,
+            window.innerWidth - 400,
             Math.max(16, Math.round(window.innerWidth - rect.right))
           );
           setPos({ right: right, bottom: bottom });
