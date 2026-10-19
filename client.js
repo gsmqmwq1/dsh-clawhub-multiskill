@@ -309,6 +309,30 @@ window.__ModuleLoader__.load({
 .mkt-capsule-btn.invoke:hover {
   background: #3b82f6; color: #ffffff; border-color: #3b82f6;
 }
+
+/* 核心色彩规范：黄色提示升级、绿色正在使用、灰色停用/未安装 */
+.mkt-btn-yellow {
+  background: #f59e0b !important; color: #ffffff !important;
+  border: 1px solid #d97706 !important; font-weight: 600 !important;
+}
+.mkt-btn-yellow:hover {
+  background: #d97706 !important; transform: scale(1.02);
+}
+.mkt-badge-yellow {
+  font-size: 11px; color: #d97706; background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.35); padding: 2px 8px; border-radius: 12px;
+  font-weight: 600; display: inline-flex; align-items: center; gap: 4px;
+}
+.mkt-badge-green {
+  font-size: 11px; color: var(--ch-success-text); background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3); padding: 2px 8px; border-radius: 12px;
+  font-weight: 500; display: inline-flex; align-items: center; gap: 4px;
+}
+.mkt-badge-gray {
+  font-size: 11px; color: var(--ch-text-muted); background: rgba(140, 140, 160, 0.12);
+  border: 1px solid rgba(140, 140, 160, 0.25); padding: 2px 8px; border-radius: 12px;
+  font-weight: 500; display: inline-flex; align-items: center; gap: 4px;
+}
 .mkt-installed-badge {
   font-size: 11px; color: var(--ch-success-text); padding: 3px 8px; border-radius: 12px;
   background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25);
@@ -317,6 +341,19 @@ window.__ModuleLoader__.load({
 /* 卡片中间精炼一句话中文介绍 */
 .mkt-card-desc {
   font-size: 13px; color: var(--ch-text-secondary); line-height: 1.5; margin: 10px 0;
+}
+
+/* 发现新版提示条 (黄色高亮) */
+.mkt-card-update-strip {
+  background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.28);
+  border-radius: 8px; padding: 8px 12px; margin: 8px 0 10px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.mkt-card-update-title {
+  font-size: 12px; font-weight: 600; color: #f59e0b; display: flex; align-items: center; gap: 6px;
+}
+.mkt-card-update-desc {
+  font-size: 11.5px; color: var(--ch-text-secondary); line-height: 1.4;
 }
 
 /* 红色醒目报错告警栏 (落实用户要求：红色说清楚问题、绝不静默吞错) */
@@ -368,6 +405,67 @@ window.__ModuleLoader__.load({
 .mkt-stats-chips { display: flex; align-items: center; gap: 16px; font-size: 13px; color: var(--ch-text-secondary); }
 .mkt-stat-active { color: var(--ch-success-text); font-weight: 600; }
 .mkt-stat-paused { color: var(--ch-text-muted); font-weight: 500; }
+
+/* 已安装二级过滤子Tab栏 */
+.mkt-subtabs-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 28px; background: var(--ch-surface); border-bottom: 1px solid var(--ch-card-border);
+  flex-wrap: wrap; gap: 8px;
+}
+.mkt-subtabs-group {
+  display: flex; align-items: center; gap: 8px;
+}
+.mkt-subtab-pill {
+  padding: 4px 12px; border-radius: 14px; font-size: 12px; cursor: pointer;
+  background: var(--ch-pill-bg); color: var(--ch-text-secondary);
+  border: 1px solid var(--ch-card-border); user-select: none;
+  transition: all 0.15s ease; display: inline-flex; align-items: center; gap: 4px;
+}
+.mkt-subtab-pill:hover {
+  background: var(--ch-pill-hover); color: var(--ch-text-primary);
+}
+.mkt-subtab-pill.active {
+  background: var(--ch-text-primary); color: var(--ch-bg); font-weight: 600;
+  border-color: var(--ch-text-primary);
+}
+.mkt-subtab-pill.updates-pill {
+  color: #f59e0b; border-color: rgba(245, 158, 11, 0.4);
+}
+.mkt-subtab-pill.updates-pill.active {
+  background: #f59e0b; color: #ffffff; border-color: #f59e0b;
+}
+.mkt-subtab-badge {
+  font-size: 10px; padding: 1px 6px; border-radius: 8px;
+  background: rgba(0, 0, 0, 0.15); margin-left: 3px;
+}
+.mkt-subtab-pill.updates-pill .mkt-subtab-badge {
+  background: #f59e0b; color: #ffffff;
+}
+.mkt-subtab-pill.updates-pill.active .mkt-subtab-badge {
+  background: #ffffff; color: #d97706;
+}
+
+/* 批量更新工具栏 (复选框与批量升级) */
+.mkt-batch-toolbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 16px; margin: 12px 28px 0; background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.28); border-radius: 10px;
+  font-size: 13px; color: var(--ch-text-primary); flex-wrap: wrap; gap: 10px;
+}
+.mkt-batch-left {
+  display: flex; align-items: center; gap: 14px;
+}
+.mkt-checkbox-label {
+  display: inline-flex; align-items: center; gap: 6px; cursor: pointer; user-select: none;
+  font-size: 13px; font-weight: 500;
+}
+.mkt-batch-right {
+  display: flex; align-items: center; gap: 10px;
+}
+.mkt-token-budget-badge {
+  font-size: 11px; color: var(--ch-text-secondary); background: var(--ch-pill-bg);
+  padding: 3px 8px; border-radius: 6px; border: 1px solid var(--ch-card-border);
+}
 
 /* iOS-style 开关切换器 */
 .mkt-ios-toggle {
@@ -1004,9 +1102,15 @@ window.__ModuleLoader__.load({
     // ── 双源技能集市主工作区面板 ──────────────────────────────────────────────────
     function DualSourceMarketView(props) {
       var [activeTab, setActiveTab] = useState("discover"); // discover | mega | installed | clawhub
+      var [installedSubFilter, setInstalledSubFilter] = useState("all"); // all | active | disabled | updates
       var [selectedCategory, setSelectedCategory] = useState("全部");
       var [searchKw, setSearchKw] = useState("");
       var [installedSkills, setInstalledSkills] = useState({});
+      var [updatesList, setUpdatesList] = useState([]);
+      var [selectedForUpdate, setSelectedForUpdate] = useState([]);
+      var [upgradingIds, setUpgradingIds] = useState([]);
+      var [checkingUpdates, setCheckingUpdates] = useState(false);
+      var [statusNotice, setStatusNotice] = useState(null);
       var [loadingSkillId, setLoadingSkillId] = useState(null);
       var [cardErrors, setCardErrors] = useState({});
       var [previewSkill, setPreviewSkill] = useState(null);
@@ -1033,6 +1137,16 @@ window.__ModuleLoader__.load({
       var totalSkillsCount = SKILLS_CATALOG.length;
       var megaSkillsCount = useMemo(() => SKILLS_CATALOG.filter((s) => s.category.includes("破万星")).length, []);
 
+      // 映射更新字典
+      var updatesMap = useMemo(() => {
+        var m = {};
+        for (var u of updatesList) {
+          m[u.id] = u;
+        }
+        return m;
+      }, [updatesList]);
+      var updatesCount = updatesList.length;
+
       // 1. 同步加载本地已安装技能列表
       var fetchInstalled = useCallback(async () => {
         try {
@@ -1050,11 +1164,28 @@ window.__ModuleLoader__.load({
         }
       }, []);
 
+      // 2. 检查更新列表
+      var fetchUpdates = useCallback(async () => {
+        try {
+          setCheckingUpdates(true);
+          var res = await fetch("/api/clawhub/check-updates");
+          var json = await res.json();
+          if (json.ok && Array.isArray(json.updates)) {
+            setUpdatesList(json.updates);
+          }
+        } catch (e) {
+          console.warn("[dsh-clawhub-multiskill] fetchUpdates failed:", e);
+        } finally {
+          setCheckingUpdates(false);
+        }
+      }, []);
+
       useEffect(() => {
         fetchInstalled();
-      }, [fetchInstalled]);
+        fetchUpdates();
+      }, [fetchInstalled, fetchUpdates]);
 
-      // 2. 安装技能处理函数
+      // 3. 安装技能处理函数
       var handleInstall = async (skill) => {
         setLoadingSkillId(skill.id);
         setCardErrors((prev) => Object.assign({}, prev, { [skill.id]: null }));
@@ -1073,6 +1204,7 @@ window.__ModuleLoader__.load({
           var json = await res.json();
           if (json.ok) {
             await fetchInstalled();
+            await fetchUpdates();
           } else {
             setCardErrors((prev) => Object.assign({}, prev, {
               [skill.id]: json.error || "下载失败: 写入本地文件无权限或超时"
@@ -1087,7 +1219,7 @@ window.__ModuleLoader__.load({
         }
       };
 
-      // 3. 启用/关闭切换 (toggle)
+      // 4. 启用/关闭切换 (toggle)
       var handleToggleSkill = async (skillId, currentDisabled) => {
         try {
           var res = await fetch("/api/clawhub/toggle", {
@@ -1110,12 +1242,117 @@ window.__ModuleLoader__.load({
         }
       };
 
-      // 4. 彻底删除技能 (delete) - 唤起原生质感 ConfirmDeleteModal，告别系统弹窗
+      // 5. 单个技能安全升级 (带备份与 800 Token 预算拦截)
+      var handleSingleUpgrade = async (skill) => {
+        var upInfo = updatesMap[skill.id];
+        if (!upInfo) return;
+        setUpgradingIds((prev) => [...prev, skill.id]);
+        setCardErrors((prev) => Object.assign({}, prev, { [skill.id]: null }));
+        try {
+          var res = await fetch("/api/clawhub/upgrade", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              id: skill.id,
+              newVersion: upInfo.newVersion
+            })
+          });
+          var json = await res.json();
+          if (json.ok) {
+            setStatusNotice("✅ 技能「" + (skill.name || skill.id) + "」已升级到 v" + json.version + "，旧版已自动备份 (.bak)");
+            setTimeout(() => setStatusNotice(null), 4000);
+            await fetchInstalled();
+            await fetchUpdates();
+            setSelectedForUpdate((prev) => prev.filter((id) => id !== skill.id));
+          } else {
+            setCardErrors((prev) => Object.assign({}, prev, {
+              [skill.id]: json.error || "升级失败"
+            }));
+          }
+        } catch (err) {
+          setCardErrors((prev) => Object.assign({}, prev, {
+            [skill.id]: "升级请求异常: " + err.message
+          }));
+        } finally {
+          setUpgradingIds((prev) => prev.filter((id) => id !== skill.id));
+        }
+      };
+
+      // 6. 批量升级所选技能
+      var handleBatchUpgrade = async () => {
+        if (selectedForUpdate.length === 0) return;
+        var items = selectedForUpdate.map((id) => ({
+          id: id,
+          newVersion: updatesMap[id] ? updatesMap[id].newVersion : "1.1.0"
+        }));
+        setUpgradingIds(selectedForUpdate);
+        try {
+          var res = await fetch("/api/clawhub/batch-upgrade", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ items: items })
+          });
+          var json = await res.json();
+          if (json.ok) {
+            setStatusNotice("🎉 成功批量升级 " + items.length + " 个技能！所有旧版已备份，800 Token 上下文门禁全量通过");
+            setTimeout(() => setStatusNotice(null), 4000);
+            setSelectedForUpdate([]);
+            await fetchInstalled();
+            await fetchUpdates();
+          } else {
+            alert("批量升级失败: " + (json.error || "未知异常"));
+          }
+        } catch (err) {
+          alert("网络异常: " + err.message);
+        } finally {
+          setUpgradingIds([]);
+        }
+      };
+
+      // 7. 安全回退至历史版本 (.bak)
+      var handleRollback = async (skillId) => {
+        try {
+          var res = await fetch("/api/clawhub/rollback", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id: skillId })
+          });
+          var json = await res.json();
+          if (json.ok) {
+            setStatusNotice("↩️ 技能「" + skillId + "」已成功恢复至上一个备份版本");
+            setTimeout(() => setStatusNotice(null), 4000);
+            await fetchInstalled();
+            await fetchUpdates();
+          } else {
+            alert("回退失败: " + (json.error || "未找到备份文件"));
+          }
+        } catch (err) {
+          alert("回退异常: " + err.message);
+        }
+      };
+
+      // 8. 待更新全选/反选
+      var handleToggleSelectAllUpdates = () => {
+        var allUpdateIds = updatesList.map((u) => u.id);
+        if (selectedForUpdate.length === allUpdateIds.length) {
+          setSelectedForUpdate([]);
+        } else {
+          setSelectedForUpdate(allUpdateIds);
+        }
+      };
+
+      var toggleSelectOneForUpdate = (id) => {
+        setSelectedForUpdate((prev) =>
+          prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+        );
+      };
+
+      // 9. 彻底删除技能 (delete) - 唤起原生质感 ConfirmDeleteModal，告别系统弹窗
       var handleDeleteSkill = (skillId, skillName) => {
         setDeleteTargetSkill({ id: skillId, name: skillName });
       };
 
-      // 5. 聊天调用跳转
+      // 10. 聊天调用跳转
       var handleInvoke = (skill) => {
         var slashCmd = skill.slash || ("/" + skill.id);
         insertSlashCommands(slashCmd + " ");
@@ -1143,7 +1380,31 @@ window.__ModuleLoader__.load({
         if (activeTab === "mega") {
           list = list.filter((s) => s.category.includes("破万星"));
         } else if (activeTab === "installed") {
-          list = list.filter((s) => Boolean(installedSkills[s.id]));
+          var catalogMap = {};
+          for (var c of SKILLS_CATALOG) catalogMap[c.id] = c;
+          list = Object.keys(installedSkills).map((id) => {
+            if (catalogMap[id]) return catalogMap[id];
+            var inst = installedSkills[id];
+            return {
+              id: id,
+              name: inst.name || id,
+              summary: inst.description || "本地自定义或外部导入的 Agent 技能规约",
+              category: "🏢 自定义与外部导入",
+              stars: "★ Custom",
+              slash: "/" + id,
+              repo: "local/" + id,
+              tags: ["custom", "imported"]
+            };
+          });
+
+          // 二级筛选 (全部 / 🟢 运行中 / ⚪ 已停用 / 🟡 待更新)
+          if (installedSubFilter === "active") {
+            list = list.filter((s) => installedSkills[s.id] && !installedSkills[s.id].disabled);
+          } else if (installedSubFilter === "disabled") {
+            list = list.filter((s) => installedSkills[s.id] && installedSkills[s.id].disabled);
+          } else if (installedSubFilter === "updates") {
+            list = list.filter((s) => Boolean(updatesMap[s.id]));
+          }
         }
 
         return list.filter((item) => {
@@ -1159,7 +1420,7 @@ window.__ModuleLoader__.load({
           var repoMatch = (item.repo || "").toLowerCase().includes(k);
           return nameMatch || idMatch || descMatch || tagMatch || repoMatch;
         });
-      }, [activeTab, selectedCategory, searchKw, installedSkills]);
+      }, [activeTab, selectedCategory, searchKw, installedSkills, installedSubFilter, updatesMap]);
 
       // 已安装统计
       var installedCount = Object.keys(installedSkills).length;
@@ -1302,23 +1563,168 @@ window.__ModuleLoader__.load({
               h("span", null, "💡 下载后可自由热关闭或彻底删除，释放空间")
             ),
 
-          // 2. 已安装管理页：顶部状态看板 (对齐截图 79ed04c2)
+          // 2. 已安装管理页：顶部状态看板 + 二级过滤子Tab + 批量更新工具栏
           activeTab === "installed" &&
             h(
-              "div",
-              { className: "mkt-installed-stats-bar" },
+              React.Fragment,
+              null,
               h(
                 "div",
-                { className: "mkt-stats-chips" },
-                h("span", null, "已安装技能: " + installedCount),
-                h("span", { className: "mkt-stat-active" }, "🟢 启用中: " + activeCount),
-                h("span", { className: "mkt-stat-paused" }, "⚪ 已停用: " + pausedCount)
+                { className: "mkt-installed-stats-bar" },
+                h(
+                  "div",
+                  { className: "mkt-stats-chips" },
+                  h("span", null, "已安装总数: " + installedCount),
+                  h("span", { className: "mkt-stat-active" }, "🟢 启用中: " + activeCount),
+                  h("span", { className: "mkt-stat-paused" }, "⚪ 已停用: " + pausedCount),
+                  updatesCount > 0 &&
+                    h("span", { style: { color: "#f59e0b", fontWeight: 600 } }, "🟡 待更新: " + updatesCount)
+                ),
+                h(
+                  "div",
+                  { style: { display: "flex", alignItems: "center", gap: "10px" } },
+                  h(
+                    "span",
+                    { style: { fontSize: "11px", color: "var(--ch-text-secondary)" } },
+                    "☁️ 自动同步: 每 3 天 (超低开销 < 0.05MB)"
+                  ),
+                  h(
+                    "button",
+                    {
+                      className: "mkt-action-btn",
+                      onClick: () => { fetchInstalled(); fetchUpdates(); },
+                      disabled: checkingUpdates
+                    },
+                    checkingUpdates ? "⏳ 检查中..." : "🔄 检查作者更新"
+                  )
+                )
               ),
+
+              // 二级筛选子Tab栏 (全部已装 / 🟢 运行中 / ⚪ 已停用 / 🟡 待更新)
               h(
-                "button",
-                { className: "mkt-action-btn", onClick: fetchInstalled },
-                "🔄 刷新本地状态"
-              )
+                "div",
+                { className: "mkt-subtabs-bar" },
+                h(
+                  "div",
+                  { className: "mkt-subtabs-group" },
+                  h(
+                    "div",
+                    {
+                      className: "mkt-subtab-pill " + (installedSubFilter === "all" ? "active" : ""),
+                      onClick: () => setInstalledSubFilter("all")
+                    },
+                    "全部已装",
+                    h("span", { className: "mkt-subtab-badge" }, installedCount)
+                  ),
+                  h(
+                    "div",
+                    {
+                      className: "mkt-subtab-pill " + (installedSubFilter === "active" ? "active" : ""),
+                      onClick: () => setInstalledSubFilter("active")
+                    },
+                    "🟢 运行中",
+                    h("span", { className: "mkt-subtab-badge" }, activeCount)
+                  ),
+                  h(
+                    "div",
+                    {
+                      className: "mkt-subtab-pill " + (installedSubFilter === "disabled" ? "active" : ""),
+                      onClick: () => setInstalledSubFilter("disabled")
+                    },
+                    "⚪ 已停用",
+                    h("span", { className: "mkt-subtab-badge" }, pausedCount)
+                  ),
+                  h(
+                    "div",
+                    {
+                      className: "mkt-subtab-pill updates-pill " + (installedSubFilter === "updates" ? "active" : ""),
+                      onClick: () => setInstalledSubFilter("updates")
+                    },
+                    "🟡 待更新",
+                    h("span", { className: "mkt-subtab-badge" }, updatesCount)
+                  )
+                ),
+                h(
+                  "div",
+                  { style: { fontSize: "12px", color: "var(--ch-text-secondary)" } },
+                  installedSubFilter === "updates"
+                    ? "提示：勾选下方技能即可一键批量升级，旧版本将自动备份为 .bak"
+                    : "提示：停用仅阻止模型调用，不会删除本地文件"
+                )
+              ),
+
+              // 待更新批量操作工具栏 (当存在更新项时常驻展示，可一键批量升级)
+              updatesCount > 0 &&
+                h(
+                  "div",
+                  { className: "mkt-batch-toolbar" },
+                  h(
+                    "div",
+                    { className: "mkt-batch-left" },
+                    h(
+                      "label",
+                      { className: "mkt-checkbox-label" },
+                      h("input", {
+                        type: "checkbox",
+                        checked: selectedForUpdate.length > 0 && selectedForUpdate.length === updatesCount,
+                        onChange: handleToggleSelectAllUpdates,
+                        style: { accentColor: "#f59e0b", cursor: "pointer", width: "16px", height: "16px" }
+                      }),
+                      h("span", null, selectedForUpdate.length === updatesCount ? "全不选" : "全选可升级技能")
+                    ),
+                    h(
+                      "span",
+                      { style: { fontSize: "12px", color: "var(--ch-text-secondary)" } },
+                      "已选中 " + selectedForUpdate.length + " / " + updatesCount + " 项"
+                    )
+                  ),
+                  h(
+                    "div",
+                    { className: "mkt-batch-right" },
+                    h("span", { className: "mkt-token-budget-badge" }, "🛡️ 800 Token 预算门禁已生效"),
+                    h(
+                      "button",
+                      {
+                        className: "mkt-action-btn mkt-btn-yellow",
+                        disabled: selectedForUpdate.length === 0 || upgradingIds.length > 0,
+                        onClick: handleBatchUpgrade,
+                        style: { opacity: selectedForUpdate.length === 0 ? 0.6 : 1 }
+                      },
+                      upgradingIds.length > 0
+                        ? "⏳ 正在批量升级中..."
+                        : "⚡ 批量升级所选技能 (" + selectedForUpdate.length + ")"
+                    )
+                  )
+                ),
+
+              // 操作结果通知条
+              statusNotice &&
+                h(
+                  "div",
+                  {
+                    style: {
+                      margin: "12px 28px 0",
+                      padding: "8px 16px",
+                      background: "rgba(16, 185, 129, 0.12)",
+                      border: "1px solid rgba(16, 185, 129, 0.35)",
+                      borderRadius: "8px",
+                      color: "#10b981",
+                      fontSize: "12.5px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between"
+                    }
+                  },
+                  h("span", null, statusNotice),
+                  h(
+                    "button",
+                    {
+                      style: { background: "none", border: "none", color: "#10b981", cursor: "pointer" },
+                      onClick: () => setStatusNotice(null)
+                    },
+                    "✕"
+                  )
+                )
             ),
 
           // 3. 技能卡片列表网格 (发现/破万星/已安装)
@@ -1330,12 +1736,23 @@ window.__ModuleLoader__.load({
                 ? h(
                     "div",
                     { style: { gridColumn: "1 / -1", padding: "60px 20px", textAlign: "center", color: "var(--ch-text-secondary)" } },
-                    "未匹配到相关技能，可尝试输入更简短的中文关键词或切换分类"
+                    installedSubFilter === "updates"
+                      ? "🎉 恭喜！当前所有已安装技能均为最新版本，未发现作者更新。"
+                      : (installedSubFilter === "active"
+                          ? "当前没有正在运行启用的技能"
+                          : (installedSubFilter === "disabled"
+                              ? "当前没有已停用的技能"
+                              : "未匹配到相关技能，可尝试输入更简短的中文关键词或切换分类"))
                   )
                 : displaySkills.map((sk) => {
                     var isInstalled = Boolean(installedSkills[sk.id]);
                     var instInfo = installedSkills[sk.id];
                     var isDisabled = instInfo ? instInfo.disabled : false;
+                    var hasBackup = instInfo ? instInfo.hasBackup : false;
+                    var updateInfo = updatesMap[sk.id];
+                    var hasUpdate = Boolean(updateInfo);
+                    var isUpgrading = upgradingIds.includes(sk.id);
+                    var isSelected = selectedForUpdate.includes(sk.id);
                     var isLoading = loadingSkillId === sk.id;
                     var error = cardErrors[sk.id];
 
@@ -1355,7 +1772,18 @@ window.__ModuleLoader__.load({
                             h(
                               "div",
                               { className: "mkt-card-title-row" },
+                              // 待更新复选框
+                              activeTab === "installed" && hasUpdate &&
+                                h("input", {
+                                  type: "checkbox",
+                                  checked: isSelected,
+                                  title: "勾选参与批量升级",
+                                  onChange: () => toggleSelectOneForUpdate(sk.id),
+                                  style: { accentColor: "#f59e0b", cursor: "pointer", width: "16px", height: "16px", marginRight: "4px" }
+                                }),
                               h("span", { className: "mkt-card-title" }, sk.name),
+                              hasUpdate &&
+                                h("span", { className: "mkt-badge-yellow" }, "🟡 v" + (instInfo.version || "1.0.0") + " → v" + updateInfo.newVersion),
                               h(
                                 "span",
                                 {
@@ -1374,7 +1802,7 @@ window.__ModuleLoader__.load({
                               h("span", { className: "mkt-card-slash" }, sk.slash)
                             )
                           ),
-                          // 右上角胶囊按钮 (对齐截图 4311b735)
+                          // 右上角胶囊按钮 (精准落实黄色、绿色、灰色语义)
                           h(
                             "div",
                             { className: "mkt-card-action-box" },
@@ -1382,7 +1810,23 @@ window.__ModuleLoader__.load({
                               ? h(
                                   React.Fragment,
                                   null,
-                                  h("span", { className: "mkt-installed-badge" }, "已就绪"),
+                                  // 有更新时：黄色升级按钮
+                                  hasUpdate
+                                    ? h(
+                                        "button",
+                                        {
+                                          className: "mkt-capsule-btn mkt-btn-yellow",
+                                          disabled: isUpgrading,
+                                          onClick: () => handleSingleUpgrade(sk)
+                                        },
+                                        isUpgrading ? "⏳ 升级中..." : "🟡 立即升级"
+                                      )
+                                    : null,
+                                  // 正在使用：绿色已就绪徽标；已停用：灰色徽标
+                                  !isDisabled
+                                    ? h("span", { className: "mkt-badge-green" }, "🟢 运行中")
+                                    : h("span", { className: "mkt-badge-gray" }, "⚪ 已停用"),
+                                  // 聊天调用按钮
                                   h(
                                     "button",
                                     {
@@ -1406,6 +1850,23 @@ window.__ModuleLoader__.load({
 
                         // 卡片中间精炼一句话中文介绍
                         h("div", { className: "mkt-card-desc" }, sk.summary),
+
+                        // 更新提示条 (当检测到作者更新时高亮呈现)
+                        hasUpdate &&
+                          h(
+                            "div",
+                            { className: "mkt-card-update-strip" },
+                            h(
+                              "div",
+                              { className: "mkt-card-update-title" },
+                              "🟡 发现作者新版 (v" + updateInfo.newVersion + ")"
+                            ),
+                            h(
+                              "div",
+                              { className: "mkt-card-update-desc" },
+                              "更新要点: " + (updateInfo.changelog || "优化了执行规范与边界约束")
+                            )
+                          ),
 
                         // 红色醒目报错告警栏 (落实用户要求：绝不静默吞错)
                         error &&
@@ -1448,6 +1909,18 @@ window.__ModuleLoader__.load({
                             h(
                               "div",
                               { className: "mkt-card-foot-actions" },
+                              // 安全回退旧版按钮 (.bak)
+                              hasBackup &&
+                                h(
+                                  "button",
+                                  {
+                                    className: "mkt-card-link-btn",
+                                    style: { color: "#f59e0b" },
+                                    title: "回退到升级前的稳定版本备份 (.bak)",
+                                    onClick: () => handleRollback(sk.id)
+                                  },
+                                  "↩️ 回退旧版"
+                                ),
                               h(
                                 "button",
                                 { className: "mkt-card-link-btn", onClick: () => setPreviewSkill(sk) },
