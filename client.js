@@ -66,6 +66,33 @@ window.__ModuleLoader__.load({
       }
     }
 
+    function focusComposer() {
+      try {
+        var editor = document.querySelector('[data-lexical-editor="true"]') ||
+                     document.querySelector('[contenteditable="true"]');
+        if (editor) {
+          editor.focus();
+          var range = document.createRange();
+          range.selectNodeContents(editor);
+          range.collapse(false);
+          var sel = window.getSelection();
+          if (sel) {
+            sel.removeAllRanges();
+            sel.addRange(range);
+          }
+          return;
+        }
+        var input = document.querySelector('[data-composer-input]') ||
+                    document.querySelector('.dsh-composer-input') ||
+                    document.querySelector('textarea');
+        if (input) {
+          input.focus();
+          var len = (input.value || "").length;
+          input.setSelectionRange(len, len);
+        }
+      } catch (e) {}
+    }
+
     // ── 原生深色/浅色自适应 CSS 样式 ──────────────────────────────────────────────
     var CSS = `
 :root {
@@ -526,16 +553,238 @@ window.__ModuleLoader__.load({
   background: var(--ch-bg);
 }
 
-/* 输入框底部右下角触发按钮 (单色细线简笔画拼图 + 技能文字) */
-.ch-btn-trigger {
-  display: inline-flex; align-items: center; gap: 5px;
-  padding: 4px 10px; margin: 0 4px; border-radius: 6px; font-size: 12px;
-  background: var(--ch-surface); color: var(--ch-text-primary);
-  border: 1px solid var(--ch-card-border); cursor: pointer; transition: all 0.15s ease;
-  user-select: none;
+/* 输入框底部右下角触发按钮 (24x24 DSH 原生对齐) */
+.ch-composer-picker-btn, .ch-btn-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin: 0 2px;
+  padding: 0;
+  border: 1px solid var(--dsw-alias-border-l2, rgba(128, 128, 128, 0.25));
+  border-radius: 8px;
+  background: transparent;
+  color: var(--dsw-alias-label-secondary, #c9d2e0);
+  cursor: pointer;
+  line-height: 1;
+  flex: none;
+  transition: all 0.15s ease;
 }
-.ch-btn-trigger:hover {
-  background: var(--ch-surface-hover); border-color: var(--ch-brand); color: var(--ch-brand);
+.ch-composer-picker-btn:hover,
+.ch-composer-picker-btn.active,
+.ch-btn-trigger:hover,
+.ch-btn-trigger.active {
+  background: var(--dsw-alias-interactive-bg-hover, rgba(128, 128, 128, 0.12));
+  color: var(--dsw-alias-label-primary-bluish, #3b82f6);
+  border-color: var(--dsw-alias-border-l1, rgba(128, 128, 128, 0.35));
+}
+
+/* 透明遮罩 (用于点击外部快速退出 Popover，零遮挡对话) */
+.ch-popover-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2147482998;
+  background: transparent;
+}
+
+/* 悬浮轻量气泡卡片 (宽 330px，高质感悬浮) */
+.ch-popover-card {
+  position: fixed;
+  width: 330px;
+  max-height: 380px;
+  display: flex;
+  flex-direction: column;
+  background: var(--dsw-specific-tip, #1e222b);
+  border: 1px solid var(--dsw-alias-border-l1, rgba(128, 128, 128, 0.3));
+  border-radius: 12px;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+  z-index: 2147482999;
+  font-family: var(--dsw-font-family, sans-serif);
+  animation: chPopoverFadeIn 0.12s ease-out;
+}
+
+@keyframes chPopoverFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 气泡顶部紧凑搜索条 */
+.ch-pk-search-box {
+  padding: 8px 10px 6px;
+  border-bottom: 1px solid var(--dsw-alias-border-l2, rgba(128, 128, 128, 0.15));
+  position: relative;
+}
+.ch-pk-search-input {
+  width: 100%;
+  box-sizing: border-box;
+  height: 30px;
+  padding: 0 24px 0 28px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: var(--dsw-alias-interactive-bg-hover, rgba(128, 128, 128, 0.1));
+  color: var(--dsw-alias-label-primary, #e6ebf2);
+  font-size: 13px;
+  outline: none;
+  transition: all 0.15s ease;
+}
+.ch-pk-search-input:focus {
+  background: var(--dsw-alias-interactive-bg-active, rgba(128, 128, 128, 0.16));
+  border-color: var(--dsw-alias-border-l1, rgba(128, 128, 128, 0.35));
+}
+.ch-pk-search-icon {
+  position: absolute;
+  left: 17px;
+  top: 15px;
+  font-size: 11px;
+  color: var(--dsw-alias-label-tertiary, #8a94a6);
+  pointer-events: none;
+}
+.ch-pk-search-clear {
+  position: absolute;
+  right: 16px;
+  top: 13px;
+  font-size: 11px;
+  color: var(--dsw-alias-label-tertiary, #8a94a6);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+.ch-pk-search-clear:hover {
+  color: var(--dsw-alias-label-primary, #e6ebf2);
+}
+
+/* 气泡列表内容区 */
+.ch-pk-list {
+  overflow-y: auto;
+  flex: 1;
+  padding: 4px 6px;
+  max-height: 250px;
+}
+.ch-pk-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.12s ease;
+  margin-bottom: 2px;
+}
+.ch-pk-item:hover,
+.ch-pk-item.highlighted {
+  background: var(--dsw-alias-interactive-bg-hover, rgba(128, 128, 128, 0.14));
+}
+.ch-pk-item.checked {
+  background: rgba(59, 130, 246, 0.12);
+}
+
+/* 复选框样式 */
+.ch-pk-checkbox {
+  width: 14px;
+  height: 14px;
+  accent-color: #3b82f6;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.ch-pk-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.ch-pk-row1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+.ch-pk-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--dsw-alias-label-primary, #e6ebf2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ch-pk-slash {
+  font-size: 11px;
+  font-family: monospace;
+  color: #3b82f6;
+  background: rgba(59, 130, 246, 0.12);
+  padding: 1px 5px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.ch-pk-summary {
+  font-size: 11px;
+  color: var(--dsw-alias-label-tertiary, #8a94a6);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+/* 底部操作与提示条 */
+.ch-pk-footer {
+  padding: 6px 10px;
+  border-top: 1px solid var(--dsw-alias-border-l2, rgba(128, 128, 128, 0.15));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  background: rgba(0, 0, 0, 0.15);
+}
+.ch-pk-footer-hint {
+  color: var(--dsw-alias-label-tertiary, #8a94a6);
+  width: 100%;
+  text-align: center;
+}
+.ch-pk-footer-selected {
+  color: var(--dsw-alias-label-primary, #e6ebf2);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
+}
+.ch-pk-footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.ch-pk-btn-clear {
+  background: transparent;
+  border: none;
+  color: var(--dsw-alias-label-tertiary, #8a94a6);
+  cursor: pointer;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.ch-pk-btn-clear:hover {
+  color: var(--dsw-alias-label-primary, #e6ebf2);
+}
+.ch-pk-btn-submit {
+  background: #3b82f6;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 4px;
+  transition: background 0.15s ease;
+}
+.ch-pk-btn-submit:hover {
+  background: #2563eb;
 }
     `;
 
@@ -2046,162 +2295,313 @@ window.__ModuleLoader__.load({
       );
     }
 
-    // ── 聊天框右下角：多技能中文意图检索与多选加载器 ─────────────────────────────
-    function MultiSkillPickerModal(props) {
+    // ── 聊天框右下角：极速单选 + 多选已安装技能轻量悬浮气泡 ─────────────────────────
+    function ComposerSkillPopover(props) {
       var [searchKw, setSearchKw] = useState("");
       var [selected, setSelected] = useState([]);
       var [installedList, setInstalledList] = useState([]);
+      var [loading, setLoading] = useState(true);
+      var [activeIdx, setActiveIdx] = useState(0);
+      var listRef = useRef(null);
+      var itemRefs = useRef([]);
 
+      // 仅加载本地 ~/.dsh/skills 中已安装的技能
       useEffect(() => {
         fetch("/api/clawhub/installed")
           .then((r) => r.json())
           .then((j) => {
             if (j.ok && Array.isArray(j.skills)) {
-              setInstalledList(j.skills.map((s) => s.id));
+              var activeSkills = j.skills.filter((s) => !s.disabled);
+              var pinyinMap = {
+                "ponytail": "mwb maweibian ponytail jg jiagou",
+                "code-review93": "dmsc daimachashen cr codereview",
+                "dev-expert": "yfzj yanfazhuanjia dev devexpert",
+                "academic-figure-skill": "dkkyzt dingkankeyanzhitu acad figure",
+                "official-document-writer": "jggwxz jigouangongwen gw doc",
+                "patent-disclosure-writer": "zljds zhuanlijiadishu zl patent",
+                "scientific-visualization": "kxsjksz kexueshujukeshihua kx visual",
+                "self-improving-agent": "zwfszf ziwofanxiyufupan fs self",
+                "skill-orchestrator": "dgnbply duojinengbianpailuyou bp route"
+              };
+              var mapped = activeSkills.map((s) => {
+                var cat = SKILLS_CATALOG.find((c) => c.id === s.id);
+                return {
+                  id: s.id,
+                  name: cat ? cat.name : (s.name || s.id),
+                  slash: cat ? cat.slash : ("/" + s.id),
+                  summary: cat ? cat.summary : (s.description || "本地已安装技能"),
+                  tags: cat ? (cat.tags || []) : [],
+                  pinyin: pinyinMap[s.id] || ""
+                };
+              });
+              setInstalledList(mapped);
             }
           })
-          .catch(() => {});
+          .catch((e) => console.warn("[dsh-clawhub-multiskill] load installed error:", e))
+          .finally(() => setLoading(false));
       }, []);
 
+      // 关键词与拼音直接定位过滤
       var filtered = useMemo(() => {
-        return SKILLS_CATALOG.filter((item) => {
-          if (!searchKw.trim()) return true;
-          var k = searchKw.toLowerCase().trim();
+        var k = searchKw.toLowerCase().trim();
+        if (!k) return installedList;
+        return installedList.filter((item) => {
           var nameMatch = item.name.toLowerCase().includes(k);
           var idMatch = item.id.toLowerCase().includes(k);
           var descMatch = item.summary.toLowerCase().includes(k);
+          var pyMatch = (item.pinyin || "").toLowerCase().includes(k);
           var tagMatch = (item.tags || []).some((t) => t.toLowerCase().includes(k));
-          return nameMatch || idMatch || descMatch || tagMatch;
+          return nameMatch || idMatch || descMatch || pyMatch || tagMatch;
         });
+      }, [installedList, searchKw]);
+
+      // 搜索变化时重置高亮索引
+      useEffect(() => {
+        setActiveIdx(0);
       }, [searchKw]);
 
-      var toggleSelect = (id) => {
+      // 键盘滚动跟随
+      useEffect(() => {
+        if (itemRefs.current[activeIdx]) {
+          itemRefs.current[activeIdx].scrollIntoView({ block: "nearest" });
+        }
+      }, [activeIdx]);
+
+      // 执行插入并聚焦回输入框
+      var executeInsert = (ids) => {
+        if (!ids || ids.length === 0) return;
+        var slashes = ids.map((s) => "/" + s).join(" ") + " ";
+        insertSlashCommands(slashes);
+        props.onClose();
+        setTimeout(focusComposer, 30);
+      };
+
+      // 切换复选框多选
+      var toggleSelect = (id, e) => {
+        if (e) e.stopPropagation();
         setSelected((prev) =>
           prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
         );
       };
 
-      var handleConfirm = () => {
-        if (selected.length === 0) return;
-        var slashes = selected.map((s) => "/" + s).join(" ") + " ";
-        insertSlashCommands(slashes);
-        props.onClose();
+      // 点击整行行为：未激活多选时 => 极速单选秒插并关闭；激活多选后 => 切换选中状态
+      var handleRowClick = (item) => {
+        if (selected.length === 0) {
+          executeInsert([item.id]);
+        } else {
+          toggleSelect(item.id);
+        }
       };
 
+      // 键盘导航
+      var handleKeyDown = (e) => {
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          setActiveIdx((i) => Math.min(i + 1, Math.max(0, filtered.length - 1)));
+        } else if (e.key === "ArrowUp") {
+          e.preventDefault();
+          setActiveIdx((i) => Math.max(i - 1, 0));
+        } else if (e.key === "Enter") {
+          e.preventDefault();
+          if (selected.length > 0) {
+            executeInsert(selected);
+          } else if (filtered[activeIdx]) {
+            executeInsert([filtered[activeIdx].id]);
+          }
+        } else if (e.key === "Escape") {
+          e.preventDefault();
+          props.onClose();
+        }
+      };
+
+      var pos = props.position || { right: 24, bottom: 60 };
+
       return h(
-        "div",
-        { className: "mkt-modal-backdrop", onClick: props.onClose },
+        React.Fragment,
+        null,
+        // 透明遮罩用于快速点击空白处退出，不遮挡聊天
+        h("div", { className: "ch-popover-backdrop", onClick: props.onClose }),
         h(
           "div",
-          { className: "mkt-modal-card", onClick: (e) => e.stopPropagation() },
+          {
+            className: "ch-popover-card",
+            style: { right: pos.right + "px", bottom: pos.bottom + "px" },
+            onClick: (e) => e.stopPropagation()
+          },
+          // 顶部搜索条
           h(
             "div",
-            { className: "mkt-modal-header" },
-            h("div", { className: "mkt-modal-title" },
-              h(PuzzleIcon, { size: 18 }),
-              "多技能快速中文检索与批量加载"
-            ),
-            h("button", { className: "mkt-modal-close", onClick: props.onClose }, "✕")
-          ),
-          h(
-            "div",
-            { style: { padding: "12px 22px 6px" } },
+            { className: "ch-pk-search-box" },
+            h("span", { className: "ch-pk-search-icon" }, "🔍"),
             h("input", {
-              className: "mkt-search-input",
+              className: "ch-pk-search-input",
               autoFocus: true,
-              placeholder: "🔍 搜索中文功能意图 (如: 辅助编程、写代码、代码审查、画图、专利、重构)...",
+              placeholder: "搜索已安装技能 (中英文/拼音/意图)...",
               value: searchKw,
-              onChange: (e) => setSearchKw(e.target.value)
-            })
+              onChange: (e) => setSearchKw(e.target.value),
+              onKeyDown: handleKeyDown
+            }),
+            searchKw &&
+              h(
+                "button",
+                {
+                  className: "ch-pk-search-clear",
+                  onClick: () => setSearchKw("")
+                },
+                "✕"
+              )
           ),
+          // 列表内容区
           h(
             "div",
-            { style: { flex: 1, overflowY: "auto", padding: "6px 22px" } },
-            filtered.length === 0
-              ? h("div", { style: { padding: "40px", textAlign: "center", color: "var(--ch-text-secondary)" } }, "未匹配到相关技能")
-              : filtered.map((sk) => {
-                  var isChecked = selected.includes(sk.id);
-                  var isLocal = installedList.includes(sk.id);
+            { className: "ch-pk-list", ref: listRef },
+            loading
+              ? h(
+                  "div",
+                  {
+                    style: {
+                      padding: "24px 0",
+                      textAlign: "center",
+                      color: "var(--dsw-alias-label-tertiary, #8a94a6)",
+                      fontSize: "12px"
+                    }
+                  },
+                  "加载已安装技能..."
+                )
+              : filtered.length === 0
+              ? h(
+                  "div",
+                  {
+                    style: {
+                      padding: "24px 0",
+                      textAlign: "center",
+                      color: "var(--dsw-alias-label-tertiary, #8a94a6)",
+                      fontSize: "12px"
+                    }
+                  },
+                  installedList.length === 0
+                    ? "暂无已安装技能，可在左侧「技能集市」下载"
+                    : "无匹配技能"
+                )
+              : filtered.map((item, index) => {
+                  var isChecked = selected.includes(item.id);
+                  var isHighlighted = index === activeIdx;
                   return h(
                     "div",
                     {
-                      key: sk.id,
-                      onClick: () => toggleSelect(sk.id),
-                      style: {
-                        display: "flex",
-                        alignItems: "flex-start",
-                        gap: "12px",
-                        padding: "10px 12px",
-                        borderRadius: "8px",
-                        border: "1px solid " + (isChecked ? "var(--ch-brand)" : "var(--ch-card-border)"),
-                        background: isChecked ? "rgba(59, 130, 246, 0.12)" : "var(--ch-card-bg)",
-                        marginBottom: "6px",
-                        cursor: "pointer"
-                      }
+                      key: item.id,
+                      ref: (el) => (itemRefs.current[index] = el),
+                      className:
+                        "ch-pk-item" +
+                        (isChecked ? " checked" : "") +
+                        (isHighlighted ? " highlighted" : ""),
+                      onClick: () => handleRowClick(item),
+                      onMouseEnter: () => setActiveIdx(index)
                     },
                     h("input", {
                       type: "checkbox",
+                      className: "ch-pk-checkbox",
                       checked: isChecked,
-                      onChange: () => {},
-                      style: { marginTop: "3px", accentColor: "var(--ch-brand)", cursor: "pointer" }
+                      onChange: (e) => toggleSelect(item.id, e),
+                      onClick: (e) => e.stopPropagation()
                     }),
                     h(
                       "div",
-                      { style: { flex: 1, minWidth: 0 } },
+                      { className: "ch-pk-content" },
                       h(
                         "div",
-                        { style: { display: "flex", alignItems: "center", gap: "8px", marginBottom: "3px" } },
-                        h("span", { style: { fontWeight: 600, fontSize: "13px" } }, sk.name),
-                        h("span", { style: { fontSize: "11px", color: "var(--ch-brand)", fontFamily: "monospace" } }, sk.slash),
-                        isLocal && h("span", { className: "mkt-installed-badge" }, "已安装")
+                        { className: "ch-pk-row1" },
+                        h("span", { className: "ch-pk-title" }, item.name),
+                        h("span", { className: "ch-pk-slash" }, item.slash)
                       ),
-                      h("div", { style: { fontSize: "12px", color: "var(--ch-text-secondary)", lineHeight: "1.4" } }, sk.summary),
-                      sk.tags && h("div", { style: { fontSize: "11px", color: "var(--ch-text-muted)", marginTop: "2px" } },
-                        "🎯 意图标签：" + sk.tags.join(" · ")
-                      )
+                      h("div", { className: "ch-pk-summary" }, item.summary)
                     )
                   );
                 })
           ),
+          // 底部操作与提示栏
           h(
             "div",
-            { className: "mkt-modal-footer" },
-            h("div", { style: { fontSize: "12px", color: "var(--ch-text-secondary)", marginRight: "auto" } },
-              selected.length > 0 ? "已选 " + selected.length + " 个: " + selected.map((s) => "/" + s).join(" ") : "请在上方勾选技能"
-            ),
-            selected.length > 0 && h("button", { className: "mkt-action-btn", onClick: () => setSelected([]) }, "清空"),
-            h("button", { className: "mkt-action-btn", onClick: props.onClose }, "取消"),
-            h(
-              "button",
-              {
-                className: "mkt-action-btn primary",
-                disabled: selected.length === 0,
-                onClick: handleConfirm
-              },
-              "加载所选技能 (" + selected.length + ")"
-            )
+            { className: "ch-pk-footer" },
+            selected.length === 0
+              ? h(
+                  "div",
+                  { className: "ch-pk-footer-hint" },
+                  "💡 单击直接插入 · 勾选支持多选 · Enter 确认"
+                )
+              : h(
+                  React.Fragment,
+                  null,
+                  h(
+                    "div",
+                    {
+                      className: "ch-pk-footer-selected",
+                      title: selected.map((s) => "/" + s).join(" ")
+                    },
+                    "已选 " + selected.length + " 项: " + selected.map((s) => "/" + s).join(" ")
+                  ),
+                  h(
+                    "div",
+                    { className: "ch-pk-footer-actions" },
+                    h(
+                      "button",
+                      {
+                        className: "ch-pk-btn-clear",
+                        onClick: () => setSelected([])
+                      },
+                      "清空"
+                    ),
+                    h(
+                      "button",
+                      {
+                        className: "ch-pk-btn-submit",
+                        onClick: () => executeInsert(selected)
+                      },
+                      "批量插入 (" + selected.length + ")"
+                    )
+                  )
+                )
           )
         )
       );
     }
 
-    // 输入框触发按钮 (细线简笔画拼图 + 技能文字)
+    // 输入框触发按钮 (24x24 原生对齐无边框简笔画拼图)
     function MultiSkillPickerTrigger(props) {
       var [isOpen, setIsOpen] = useState(false);
+      var [pos, setPos] = useState({ right: 24, bottom: 60 });
+      var btnRef = useRef(null);
+
+      var handleToggle = () => {
+        if (!isOpen && btnRef.current) {
+          var rect = btnRef.current.getBoundingClientRect();
+          var bottom = Math.round(window.innerHeight - rect.top + 8);
+          var right = Math.max(16, Math.round(window.innerWidth - rect.right));
+          setPos({ right: right, bottom: bottom });
+        }
+        setIsOpen((prev) => !prev);
+      };
+
       return h(
         React.Fragment,
         null,
         h(
           "button",
           {
-            className: "ch-btn-trigger",
-            onClick: () => setIsOpen(true),
-            title: "多技能快速中文意图检索与批量加载"
+            ref: btnRef,
+            type: "button",
+            className: "ch-composer-picker-btn" + (isOpen ? " active" : ""),
+            onClick: handleToggle,
+            title: "选择技能（插入 /技能名 到输入框）",
+            "aria-label": "选择技能"
           },
-          h(PuzzleIcon, { size: 14 }),
-          h("span", null, "技能")
+          h(PuzzleIcon, { size: 14 })
         ),
-        isOpen && h(MultiSkillPickerModal, { onClose: () => setIsOpen(false) })
+        isOpen &&
+          h(ComposerSkillPopover, {
+            position: pos,
+            onClose: () => setIsOpen(false)
+          })
       );
     }
 
