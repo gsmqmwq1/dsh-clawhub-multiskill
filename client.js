@@ -1387,8 +1387,8 @@ window.__ModuleLoader__.load({
             var inst = installedSkills[id];
             return {
               id: id,
-              name: inst.name || id,
-              summary: inst.description || "本地自定义或外部导入的 Agent 技能规约",
+              name: (inst && inst.name) || id,
+              summary: (inst && inst.description) || "本地自定义或外部导入的 Agent 技能规约",
               category: "🏢 自定义与外部导入",
               stars: "★ Custom",
               slash: "/" + id,
@@ -1750,11 +1750,13 @@ window.__ModuleLoader__.load({
                     var isDisabled = instInfo ? instInfo.disabled : false;
                     var hasBackup = instInfo ? instInfo.hasBackup : false;
                     var updateInfo = updatesMap[sk.id];
-                    var hasUpdate = Boolean(updateInfo);
+                    var hasUpdate = isInstalled && Boolean(updateInfo);
                     var isUpgrading = upgradingIds.includes(sk.id);
                     var isSelected = selectedForUpdate.includes(sk.id);
                     var isLoading = loadingSkillId === sk.id;
                     var error = cardErrors[sk.id];
+                    var currentVer = (instInfo && instInfo.version) || (updateInfo && updateInfo.currentVersion) || "1.0.0";
+                    var targetNewVer = updateInfo ? updateInfo.newVersion : "";
 
                     return h(
                       "div",
@@ -1783,7 +1785,7 @@ window.__ModuleLoader__.load({
                                 }),
                               h("span", { className: "mkt-card-title" }, sk.name),
                               hasUpdate &&
-                                h("span", { className: "mkt-badge-yellow" }, "🟡 v" + (instInfo.version || "1.0.0") + " → v" + updateInfo.newVersion),
+                                h("span", { className: "mkt-badge-yellow" }, "🟡 v" + currentVer + " → v" + targetNewVer),
                               h(
                                 "span",
                                 {
@@ -1859,12 +1861,12 @@ window.__ModuleLoader__.load({
                             h(
                               "div",
                               { className: "mkt-card-update-title" },
-                              "🟡 发现作者新版 (v" + updateInfo.newVersion + ")"
+                              "🟡 发现作者新版 (v" + targetNewVer + ")"
                             ),
                             h(
                               "div",
                               { className: "mkt-card-update-desc" },
-                              "更新要点: " + (updateInfo.changelog || "优化了执行规范与边界约束")
+                              "更新要点: " + ((updateInfo && updateInfo.changelog) || "优化了执行规范与边界约束")
                             )
                           ),
 
