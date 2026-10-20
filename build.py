@@ -28,8 +28,17 @@ def generate():
  * 原生深色/浅色自适应 · iOS/macOS 纯净扁平微胶囊 · 呼吸感 3 列卡片
  */
 
+var _pluginBundleId = "dsh-skills-market";
+try {
+  if (typeof document !== "undefined" && document.currentScript && document.currentScript.src) {
+    if (document.currentScript.src.indexOf("dsh-clawhub-multiskill") !== -1) {
+      _pluginBundleId = "dsh-clawhub-multiskill";
+    }
+  }
+} catch (e) {}
+
 window.__ModuleLoader__.load({
-  id: "dsh-clawhub-multiskill",
+  id: _pluginBundleId,
   factory: (require) => {
     var module = { exports: {} };
     var exports = module.exports;
@@ -1293,7 +1302,7 @@ window.__ModuleLoader__.load({
 
       var handleDismiss = () => {
         try {
-          var targetVer = props.latestVersion || "1.1.0.2";
+          var targetVer = props.latestVersion || "1.1.0.3";
           localStorage.setItem("dsh_dismissed_update_ver", targetVer);
         } catch(e) {}
         props.onClose();
@@ -1306,7 +1315,7 @@ window.__ModuleLoader__.load({
           var data = await res.json();
           if (data.ok) {
             try {
-              localStorage.setItem("dsh_dismissed_update_ver", props.latestVersion || "1.1.0.2");
+              localStorage.setItem("dsh_dismissed_update_ver", props.latestVersion || "1.1.0.3");
             } catch(e) {}
             setResultMsg("升级已完成！按快捷键 Ctrl + R 刷新即可无缝生效。");
           } else {
@@ -1332,7 +1341,7 @@ window.__ModuleLoader__.load({
               "div",
               { style: { display: "flex", alignItems: "center", gap: "10px" } },
               h(ColorToteIcon, { size: 26 }),
-              h("div", { className: "mkt-modal-title" }, "dsh-skills-market v" + (props.latestVersion || "1.1.0.2") + " 就绪")
+              h("div", { className: "mkt-modal-title" }, "dsh-skills-market v" + (props.latestVersion || "1.1.0.3") + " 就绪")
             ),
             h("button", { className: "mkt-modal-close", onClick: handleDismiss }, "✕")
           ),
@@ -1556,6 +1565,7 @@ window.__ModuleLoader__.load({
       var [deleteTargetSkill, setDeleteTargetSkill] = useState(null);
       var [aliasTargetSkill, setAliasTargetSkill] = useState(null);
       var [showPluginUpdateModal, setShowPluginUpdateModal] = useState(false);
+      var [pluginUpdateInfo, setPluginUpdateInfo] = useState(null);
       var [openMenuId, setOpenMenuId] = useState(null);
 
       // 本地收藏状态与屏蔽更新状态 (永久持久化在 localStorage)
@@ -1982,7 +1992,7 @@ window.__ModuleLoader__.load({
                       onClick: () => setShowPluginUpdateModal(true),
                       title: "点击查看插件版本与更新"
                     },
-                    "v1.1.0.2"
+                    "v1.1.0.3"
                   )
                 ),
                 h("div", { className: "mkt-subtitle" }, "AI Agent 精选实战技能库")

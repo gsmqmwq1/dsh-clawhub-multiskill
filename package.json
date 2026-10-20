@@ -1,6 +1,6 @@
 {
   "name": "dsh-skills-market",
-  "version": "1.1.0.2",
+  "version": "1.1.0.3",
   "description": "DeepSeek Harness 原生 AI Agent 技能集市与多技能中文意图批量调度插件",
   "author": "gsmqmwq1",
   "license": "MIT",

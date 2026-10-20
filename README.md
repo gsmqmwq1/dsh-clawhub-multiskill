@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/gsmqmwq1/dsh-skills-market/releases"><img src="https://img.shields.io/badge/版本-v1.1.0.2-blue.svg?style=flat-square" alt="版本 v1.1.0.2" /></a>
+  <a href="https://github.com/gsmqmwq1/dsh-skills-market/releases"><img src="https://img.shields.io/badge/版本-v1.1.0.3-blue.svg?style=flat-square" alt="版本 v1.1.0.3" /></a>
   <img src="https://img.shields.io/badge/精选技能-217款实战技能-brightgreen.svg?style=flat-square" alt="217款精选技能" />
   <img src="https://img.shields.io/badge/费用-永久完全免费-orange.svg?style=flat-square" alt="完全免费" />
   <img src="https://img.shields.io/badge/开源协议-MIT-purple.svg?style=flat-square" alt="MIT" />
@@ -129,6 +129,11 @@ A：当然可以！右上角专门准备了 **「+ 导入技能」** 按钮，�
 ---
 
 ## 📝 版本更新日志 (Changelog)
+
+### [v1.1.0.3] - 2026-10-21
+- 🚀 **彻底修复启动崩溃与模块加载异常 (Web Boot Crash Fix)**：重构底层 `window.__ModuleLoader__` 动态识别机制，支持 `dsh-skills-market` 新官方包名与旧版环境无缝自适应注入，彻底杜绝 `client-modules: duplicate factory registration` 与 `import failed` 启动报错。
+- 🛡️ **修复更新检查引用异常 (ReferenceError Fix)**：补齐 `DualSourceMarketViewInner` 中 `pluginUpdateInfo` 响应式状态声明，彻底解决部分用户与新更新机器上因变量未定义导致的 React 渲染红屏崩溃问题。
+- 🧹 **配置与软链接自动去重治理**：优化安装脚本 `install.ps1` 与 `cordis.patch.yml`，自动清理旧版 `dsh-clawhub-multiskill` 冗余 bundle 注册与过期 junction 软链接，确保宿主容器环境绝对纯净。
 
 ### [v1.1.0.2] - 2026-10-21
 - 🔒 **对话框连续追加技能绝不覆盖 (Zero Overwrite)**：重构输入框底层定位算法，精准锁定真实活跃会话的聊天输入框，无论何时追加新技能，已有的多个技能及用户手打文字 100% 完整保留并以空格无缝追加。

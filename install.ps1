@@ -51,7 +51,7 @@ if (-not (Test-Path $targetPluginDir)) {
     Pop-Location
 }
 
-# 4. Create Junction links (dual support for seamless compatibility)
+# 4. Create Junction link
 if (-not (Test-Path $nodeModulesDir)) {
     New-Item -ItemType Directory -Path $nodeModulesDir -Force | Out-Null
 }
@@ -61,9 +61,9 @@ if (-not (Test-Path $junctionPath)) {
     New-Item -ItemType Junction -Path $junctionPath -Target $targetPluginDir -Force | Out-Null
 }
 
-# Also ensure legacy junction points to target for backward compatibility
-if (-not (Test-Path $legacyJunctionPath)) {
-    New-Item -ItemType Junction -Path $legacyJunctionPath -Target $targetPluginDir -Force | Out-Null
+# Clean up legacy junction if it exists to prevent duplicate bundle loading
+if (Test-Path $legacyJunctionPath) {
+    Remove-Item -Path $legacyJunctionPath -Force -Recurse -ErrorAction SilentlyContinue
 }
 
 # 5. Register in desktop/package.json
@@ -77,8 +77,8 @@ if (Test-Path $pkgJsonPath) {
     if (-not $jsonContent.dependencies."dsh-skills-market") {
         $jsonContent.dependencies | Add-Member -MemberType NoteProperty -Name "dsh-skills-market" -Value "*" -Force
     }
-    if (-not $jsonContent.dependencies."dsh-clawhub-multiskill") {
-        $jsonContent.dependencies | Add-Member -MemberType NoteProperty -Name "dsh-clawhub-multiskill" -Value "*" -Force
+    if ($jsonContent.dependencies.PSObject.Properties["dsh-clawhub-multiskill"]) {
+        $jsonContent.dependencies.PSObject.Properties.Remove("dsh-clawhub-multiskill")
     }
 
     if (-not $jsonContent.dsh) {
@@ -95,8 +95,8 @@ if (Test-Path $pkgJsonPath) {
     if (-not $bundleList.Contains("dsh-skills-market")) {
         $bundleList.Add("dsh-skills-market") | Out-Null
     }
-    if (-not $bundleList.Contains("dsh-clawhub-multiskill")) {
-        $bundleList.Add("dsh-clawhub-multiskill") | Out-Null
+    while ($bundleList.Contains("dsh-clawhub-multiskill")) {
+        $bundleList.Remove("dsh-clawhub-multiskill") | Out-Null
     }
     $jsonContent.dsh.profile.bundles = $bundleList
 

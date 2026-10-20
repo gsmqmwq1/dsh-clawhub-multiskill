@@ -2,5 +2,4 @@
 - insert:
     - id: dsh-skills-market
       name: 'dsh-skills-market'
-    - id: dsh-clawhub-multiskill
-      name: 'dsh-clawhub-multiskill'
+
