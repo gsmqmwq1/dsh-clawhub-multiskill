@@ -1,5 +1,25 @@
 [
   {
+    "id": "humanizer",
+    "name": "AI机感消除与纯正文本润色 (Humanizer)",
+    "slash": "/humanizer",
+    "repo": "blader/humanizer",
+    "stars": "★ 1.2k",
+    "category": "🏢 职场办公",
+    "summary": "重构并消除 AI 生成文本中的机械重复、过度修饰与生硬套话结构，还原自然纯正、毫无AI感的专业人类写作笔触",
+    "tags": [
+      "去ai感",
+      "文本润色",
+      "人类语气",
+      "写作优化",
+      "去油腻",
+      "文案编辑"
+    ],
+    "installed": true,
+    "added_at": "2026-10-21",
+    "version": "3.1.0"
+  },
+  {
     "id": "langchain-core",
     "name": "LangChain 现代 Agent 链式调度中枢",
     "slash": "/langchain-core",

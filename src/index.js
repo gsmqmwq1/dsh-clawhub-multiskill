@@ -97,6 +97,71 @@ function applyVersionUpdate(oldContent, newVersion) {
   return `---\nversion: "${ver}"\n---\n\n` + oldContent;
 }
 
+
+const FAMOUS_SKILLS_MAP = {
+  "humanizer": {
+    name: "AI机感消除与纯正文本润色 (Humanizer)",
+    summary: "消除大模型文本中机械重复、过度修饰与套话结构，还原自然纯正、毫无AI感的专业人类写作笔触",
+    repo: "blader/humanizer",
+    stars: "★ 1.2k",
+    category: "🏢 职场办公",
+    version: "3.1.0"
+  },
+  "anti-defensive-writing": {
+    name: "论文反防御性写作与去谦虚润色",
+    summary: "消除学术论文与提案中不必要的免责声明、过度谦虚与防御性冗余，使论点直接自信、逻辑坚定严密",
+    repo: "Kiterlin/anti-defensive-writing",
+    stars: "★ 1.2k",
+    category: "🔬 科研学术",
+    version: "1.0.0"
+  }
+};
+
+function parseSkillMarkdown(content) {
+  let name = '';
+  let description = '';
+  let version = '1.0.0';
+  let repo = '';
+
+  const fmMatch = /^---\r?\n([\s\S]*?)\r?\n---/.exec(content);
+  if (fmMatch) {
+    const fm = fmMatch[1];
+    const nameM = /^name:\s*["']?([^"'\r\n]+)/m.exec(fm);
+    if (nameM) name = nameM[1].trim();
+
+    const verM = /version:\s*["']?([^"'\r\n]+)/m.exec(fm);
+    if (verM) version = verM[1].trim();
+
+    const repoM = /(?:repo|github):\s*["']?([^"'\r\n]+)/m.exec(fm);
+    if (repoM) repo = repoM[1].trim();
+
+    const multiDescM = /^description:\s*([|>]?)\s*\r?\n((?:[ \t]+[^\r\n]*\r?\n?)+)/m.exec(fm);
+    if (multiDescM) {
+      const lines = multiDescM[2]
+        .split(/\r?\n/)
+        .map(l => l.trim())
+        .filter(Boolean);
+      description = lines.join(' ');
+    } else {
+      const singleDescM = /^description:\s*([^\r\n]+)/m.exec(fm);
+      if (singleDescM) {
+        description = singleDescM[1].trim();
+      }
+    }
+  }
+
+  if (!description || description === '|' || description === '>') {
+    const bodyText = content.replace(/^---[\s\S]*?---/, '').trim();
+    const lines = bodyText.split(/\r?\n/).map(l => l.trim()).filter(l => l && !l.startsWith('#') && !l.startsWith('---'));
+    if (lines.length > 0) {
+      description = lines.slice(0, 3).join(' ');
+    }
+  }
+
+  return { name, description, version, repo };
+}
+
+
 export function apply(ctx) {
   const routes = [
     // 1. 获取本地已安装技能列表及运行状态 (包含版本号、备份标志与用户自定义别名)
@@ -120,16 +185,31 @@ export function apply(ctx) {
               content = fs.readFileSync(skillFile, 'utf8');
             } catch (e) {}
             const isDisabled = /disable-model-invocation:\s*(true|yes|1|on)/i.test(content);
-            const nameMatch = /^name:\s*([^\r\n]+)/m.exec(content);
-            const descMatch = /^description:\s*([^\r\n]+)/m.exec(content);
-            const verMatch = /^version:\s*["']?([^"'\r\n]+)/m.exec(content);
             const bakExists = fs.existsSync(path.join(skillsDir, skillId, 'SKILL.md.bak'));
+
+            let meta = {};
+            const metaFile = path.join(skillsDir, skillId, '.meta.json');
+            if (fs.existsSync(metaFile)) {
+              try { meta = JSON.parse(fs.readFileSync(metaFile, 'utf8')); } catch (e) {}
+            }
+
+            const parsed = parseSkillMarkdown(content);
+            const famous = FAMOUS_SKILLS_MAP[skillId] || {};
+
+            const finalName = aliases[skillId] || meta.name || famous.name || parsed.name || skillId;
+            const finalDesc = famous.summary || meta.summary || meta.description || parsed.description || '';
+            const finalVer = meta.version || famous.version || parsed.version || '1.0.0';
+            const finalRepo = meta.repo || famous.repo || parsed.repo || '';
+            const finalStars = meta.stars || famous.stars || '1.2k';
+
             installed.push({
               id: skillId,
-              name: nameMatch ? nameMatch[1].trim() : skillId,
+              name: finalName,
               alias: aliases[skillId] || '',
-              description: descMatch ? descMatch[1].trim() : '',
-              version: verMatch ? verMatch[1].trim() : '1.0.0',
+              description: finalDesc,
+              version: finalVer,
+              repo: finalRepo,
+              stars: finalStars,
               disabled: isDisabled,
               hasBackup: bakExists,
               path: skillFile,
@@ -275,7 +355,9 @@ export function apply(ctx) {
             .replace(/\.git$/i, '')
             .replace(/^\/+|\/+$/g, '');
 
-          // 构建候选拉取 URL 列表（支持 GitHub Raw 与 jsDelivr 高速 CDN 容灾互备）
+          const cleanRepo = repoPath.split('/').slice(0, 2).join('/');
+
+          // 多选拉取 URL 列表（支持 GitHub Raw 与 jsDelivr 双 CDN 冗余）
           let candidateUrls = [];
           if (rawInput.includes('raw.githubusercontent.com') || rawInput.includes('cdn.jsdelivr.net')) {
             candidateUrls.push(rawInput);
@@ -286,7 +368,7 @@ export function apply(ctx) {
             candidateUrls.push(`https://raw.githubusercontent.com/${repo}/${fileSub}`);
             candidateUrls.push(`https://cdn.jsdelivr.net/gh/${repo}@${fileSub}`);
           } else {
-            const cleanRepo = repoPath.split('/').slice(0, 2).join('/');
+            // cleanRepo hoisted
             candidateUrls.push(`https://raw.githubusercontent.com/${cleanRepo}/main/SKILL.md`);
             candidateUrls.push(`https://cdn.jsdelivr.net/gh/${cleanRepo}@main/SKILL.md`);
             candidateUrls.push(`https://raw.githubusercontent.com/${cleanRepo}/master/SKILL.md`);
@@ -347,6 +429,19 @@ export function apply(ctx) {
           }
           const targetFile = path.join(targetDir, 'SKILL.md');
           fs.writeFileSync(targetFile, fetchedText, 'utf8');
+
+          const metaData = {
+            id: skillId,
+            repo: cleanRepo,
+            url: rawInput,
+            name: skillName,
+            version: skillVer,
+            description: skillDesc,
+            importedAt: Date.now()
+          };
+          try {
+            fs.writeFileSync(path.join(targetDir, '.meta.json'), JSON.stringify(metaData, null, 2), 'utf8');
+          } catch (e) {}
 
           const skillObj = {
             id: skillId,

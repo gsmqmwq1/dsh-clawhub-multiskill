@@ -52,44 +52,50 @@ window.__ModuleLoader__.load({
     // ── 多斜杠指令智能插入到输入框 ──────────────────────────────────────────────────
     function insertSlashCommands(text) {
       try {
-        var composer =
-          document.querySelector(".dsh-composer-textarea") ||
-          document.querySelector("textarea[placeholder*='输入']") ||
-          document.querySelector("textarea");
+        var textareas = document.querySelectorAll("textarea");
+        for (var i = 0; i < textareas.length; i++) {
+          var ta = textareas[i];
+          if (ta.offsetParent !== null && !ta.closest(".ch-pk-popover-portal") && !ta.closest(".mkt-panel")) {
+            ta.focus();
+            var start = ta.selectionStart != null ? ta.selectionStart : ta.value.length;
+            var end = ta.selectionEnd != null ? ta.selectionEnd : ta.value.length;
+            var val = ta.value || "";
+            var prefix = val.slice(0, start);
+            var suffix = val.slice(end);
+            var sep = prefix.length > 0 && !prefix.endsWith(" ") && !prefix.endsWith("\n") ? " " : "";
+            var insertText = sep + text + " ";
+            var newVal = prefix + insertText + suffix;
 
-        if (composer) {
-          composer.focus();
-          var start = composer.selectionStart || 0;
-          var end = composer.selectionEnd || 0;
-          var val = composer.value || "";
-          var prefix = val.slice(0, start);
-          var suffix = val.slice(end);
-          var sep = prefix.length > 0 && !prefix.endsWith(" ") && !prefix.endsWith("\n") ? " " : "";
-          var insertText = sep + text + " ";
-          composer.value = prefix + insertText + suffix;
-          var newPos = start + insertText.length;
-          composer.setSelectionRange(newPos, newPos);
-          composer.dispatchEvent(new Event("input", { bubbles: true }));
-          return;
-        }
-
-        var editable = document.querySelector('[contenteditable="true"]');
-        if (editable) {
-          editable.focus();
-          var sel = window.getSelection();
-          if (sel && sel.rangeCount > 0) {
-            var range = sel.getRangeAt(0);
-            range.deleteContents();
-            var node = document.createTextNode(text + " ");
-            range.insertNode(node);
-            range.setStartAfter(node);
-            range.setEndAfter(node);
-            sel.removeAllRanges();
-            sel.addRange(range);
+            var nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value").set;
+            if (nativeSetter) {
+              nativeSetter.call(ta, newVal);
+            } else {
+              ta.value = newVal;
+            }
+            ta.dispatchEvent(new Event("input", { bubbles: true }));
+            ta.dispatchEvent(new Event("change", { bubbles: true }));
+            var newPos = start + insertText.length;
+            if (typeof ta.setSelectionRange === "function") {
+              ta.setSelectionRange(newPos, newPos);
+            }
+            return true;
           }
-          return;
         }
-      } catch (e) {}
+
+        var editables = document.querySelectorAll('[contenteditable="true"]');
+        for (var j = 0; j < editables.length; j++) {
+          var ed = editables[j];
+          if (ed.offsetParent !== null && !ed.closest(".ch-pk-popover-portal") && !ed.closest(".mkt-panel")) {
+            ed.focus();
+            document.execCommand("insertText", false, text + " ");
+            ed.dispatchEvent(new Event("input", { bubbles: true }));
+            return true;
+          }
+        }
+      } catch (e) {
+        console.warn("[dsh-clawhub-multiskill] insertSlashCommands error:", e);
+      }
+      return false;
     }
 
     // ── 原生深色/浅色自适应 CSS (零生硬黑框，macOS/iOS 扁平微胶囊规范) ──────────────
@@ -238,6 +244,14 @@ window.__ModuleLoader__.load({
 }
 
 /* macOS / iOS Segmented Control 分段药丸栏 (无黑框，纯净白底浮层) */
+.mkt-installed-subbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 28px 4px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
 .mkt-tabs-bar {
   padding: 10px 28px 6px;
   background: var(--ch-surface);
@@ -1432,6 +1446,25 @@ window.__ModuleLoader__.load({
     }
 
     // ── 防御性字符串转换辅助函数 ────────────────────────────────────────────────
+    var FAMOUS_SKILLS_MAP = {
+      "humanizer": {
+        name: "AI机感消除与纯正文本润色 (Humanizer)",
+        summary: "消除大模型文本中机械重复、过度修饰与套话结构，还原自然纯正、毫无AI感的专业人类写作笔触",
+        repo: "blader/humanizer",
+        stars: "★ 1.2k",
+        category: "🏢 职场办公",
+        version: "3.1.0"
+      },
+      "anti-defensive-writing": {
+        name: "论文反防御性写作与去谦虚润色",
+        summary: "消除学术论文与提案中不必要的免责声明、过度谦虚与防御性冗余，使论点直接自信、逻辑坚定严密",
+        repo: "Kiterlin/anti-defensive-writing",
+        stars: "★ 1.2k",
+        category: "🔬 科研学术",
+        version: "1.0.0"
+      }
+    };
+
     function safeStr(val) {
       if (val === null || val === undefined) return "";
       return typeof val === "string" ? val : String(val);
@@ -1623,16 +1656,24 @@ window.__ModuleLoader__.load({
 
             var repoPath = inst.repo || (inst.id.includes("/") ? inst.id : "github/" + inst.id);
 
+            var famous = FAMOUS_SKILLS_MAP[inst.id] || {};
+            var cleanName = inst.alias || famous.name || inst.name || inst.id;
+            var cleanRepo = inst.repo || famous.repo || (inst.id.includes("/") ? inst.id : (inst.id === "humanizer" ? "blader/humanizer" : inst.id));
+            var cleanStars = inst.stars || famous.stars || "1.2k";
+            var cleanVer = inst.version || famous.version || "1.0.0";
+            var cleanCat = famous.category || inferredCat;
+            var finalSummary = famous.summary || cleanSummary;
+
             catalogMap.set(inst.id, {
               id: inst.id,
-              name: inst.alias || inst.name || inst.id,
+              name: cleanName,
               alias: inst.alias || "",
               slash: "/" + inst.id,
-              summary: cleanSummary,
-              repo: repoPath,
-              stars: defaultStars,
-              category: inferredCat,
-              version: inst.version || "1.0.0",
+              summary: finalSummary,
+              repo: cleanRepo,
+              stars: cleanStars,
+              category: cleanCat,
+              version: cleanVer,
               color: "#4f46e5",
               custom: true
             });
@@ -2274,7 +2315,16 @@ window.__ModuleLoader__.load({
                                     className: "mkt-dropdown-item",
                                     onClick: () => {
                                       setOpenMenuId(null);
-                                      window.open("https://github.com/" + (sk.repo || ""), "_blank");
+                                      var targetRepo = sk.repo;
+                                      if (!targetRepo || targetRepo === "github/" + sk.id) {
+                                        if (sk.id === "humanizer") targetRepo = "blader/humanizer";
+                                        else if (sk.id === "anti-defensive-writing") targetRepo = "Kiterlin/anti-defensive-writing";
+                                      }
+                                      if (targetRepo && targetRepo.includes("/") && !targetRepo.startsWith("github/")) {
+                                        window.open("https://github.com/" + targetRepo, "_blank");
+                                      } else {
+                                        window.open("https://github.com/search?q=" + encodeURIComponent(sk.id) + "&type=repositories", "_blank");
+                                      }
                                     }
                                   },
                                   "↗ 在 GitHub 查看"
@@ -2479,7 +2529,31 @@ window.__ModuleLoader__.load({
         var targets = installedList.filter((x) => ids.includes(x.id));
         if (targets.length === 0) return;
         var textToInsert = targets.map((t) => t.slash).join(" ");
-        insertSlashCommands(textToInsert);
+
+        var actions = props.inputActions || window.__dsh_inputActions;
+        var inserted = false;
+
+        if (actions && typeof actions.setDraft === "function") {
+          try {
+            var cur = typeof actions.getDraft === "function" ? actions.getDraft() : "";
+            var sep = cur && !cur.endsWith(" ") ? " " : "";
+            actions.setDraft((cur || "") + sep + textToInsert + " ");
+            if (typeof actions.focus === "function") actions.focus();
+            inserted = true;
+          } catch (ae) {
+            console.warn("[dsh-clawhub-multiskill] inputActions error:", ae);
+          }
+        }
+
+        if (!inserted) {
+          inserted = insertSlashCommands(textToInsert);
+        }
+
+        try {
+          var ev = new CustomEvent("dsh-skill-hub-insert", { detail: { skill: textToInsert, text: textToInsert } });
+          window.dispatchEvent(ev);
+        } catch (ee) {}
+
         props.onClose();
       };
 
@@ -2616,6 +2690,9 @@ window.__ModuleLoader__.load({
 
     // ── 输入框触发按钮 (纯图标形式，对齐参考) ──────────────────────────────────
     function MultiSkillPickerTrigger(props) {
+      if (props.inputActions) {
+        window.__dsh_inputActions = props.inputActions;
+      }
       var [isOpen, setIsOpen] = useState(false);
       var [pos, setPos] = useState({ right: 24, bottom: 60 });
       var btnRef = useRef(null);
@@ -2666,6 +2743,7 @@ window.__ModuleLoader__.load({
         isOpen &&
           h(ComposerSkillPopover, {
             position: pos,
+            inputActions: props.inputActions,
             onClose: () => setIsOpen(false)
           })
       );
