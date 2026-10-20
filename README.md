@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/gsmqmwq1/dsh-skills-market/releases"><img src="https://img.shields.io/badge/版本-v1.1.0.1-blue.svg?style=flat-square" alt="版本 v1.1.0.1" /></a>
+  <a href="https://github.com/gsmqmwq1/dsh-skills-market/releases"><img src="https://img.shields.io/badge/版本-v1.1.0.2-blue.svg?style=flat-square" alt="版本 v1.1.0.2" /></a>
   <img src="https://img.shields.io/badge/精选技能-217款实战技能-brightgreen.svg?style=flat-square" alt="217款精选技能" />
   <img src="https://img.shields.io/badge/费用-永久完全免费-orange.svg?style=flat-square" alt="完全免费" />
   <img src="https://img.shields.io/badge/开源协议-MIT-purple.svg?style=flat-square" alt="MIT" />
@@ -129,6 +129,10 @@ A：当然可以！右上角专门准备了 **「+ 导入技能」** 按钮，�
 ---
 
 ## 📝 版本更新日志 (Changelog)
+
+### [v1.1.0.2] - 2026-10-21
+- 🔒 **对话框连续追加技能绝不覆盖 (Zero Overwrite)**：重构输入框底层定位算法，精准锁定真实活跃会话的聊天输入框，无论何时追加新技能，已有的多个技能及用户手打文字 100% 完整保留并以空格无缝追加。
+- 🔕 **新版本弹窗智能免打扰 (Single Prompt Per Version)**：彻底修复每次刷新界面（Ctrl + R）都重复弹出升级窗口的 bug；每个新版本仅提示一次，点击「稍后提醒」或关闭后绝不再重复弹窗打扰用户正常会话。
 
 ### [v1.1.0.1] - 2026-10-21
 - 🏷️ **项目官方更名规范化**：插件全面更名为 `dsh-skills-market`，命名更贴合“技能集市”核心定位，保留旧名称 Junction 双向兼容，平滑迁移零阻碍。

@@ -1291,15 +1291,26 @@ window.__ModuleLoader__.load({
       var [updating, setUpdating] = useState(false);
       var [resultMsg, setResultMsg] = useState(null);
 
+      var handleDismiss = () => {
+        try {
+          var targetVer = props.latestVersion || "1.1.0.2";
+          localStorage.setItem("dsh_dismissed_update_ver", targetVer);
+        } catch(e) {}
+        props.onClose();
+      };
+
       var handleDoUpdate = async () => {
         setUpdating(true);
         try {
           var res = await fetch("/api/clawhub/plugin-self-update", { method: "POST" });
           var data = await res.json();
           if (data.ok) {
-            setResultMsg("更新成功！请刷新 DeepSeek Harness 窗口使改动生效。");
+            try {
+              localStorage.setItem("dsh_dismissed_update_ver", props.latestVersion || "1.1.0.2");
+            } catch(e) {}
+            setResultMsg("升级已完成！按快捷键 Ctrl + R 刷新即可无缝生效。");
           } else {
-            setResultMsg("更新失败: " + (data.error || "未知原因"));
+            setResultMsg("提示: " + (data.error || "本地已为最新版本"));
           }
         } catch (e) {
           setResultMsg("请求异常: " + e.message);
@@ -1310,7 +1321,7 @@ window.__ModuleLoader__.load({
 
       return h(
         "div",
-        { className: "mkt-modal-backdrop", onClick: props.onClose },
+        { className: "mkt-modal-backdrop", onClick: handleDismiss },
         h(
           "div",
           { className: "mkt-modal-sheet", onClick: (e) => e.stopPropagation(), style: { maxWidth: "460px" } },
@@ -1321,9 +1332,9 @@ window.__ModuleLoader__.load({
               "div",
               { style: { display: "flex", alignItems: "center", gap: "10px" } },
               h(ColorToteIcon, { size: 26 }),
-              h("div", { className: "mkt-modal-title" }, "dsh-clawhub-multiskill v1.1.0 就绪")
+              h("div", { className: "mkt-modal-title" }, "dsh-skills-market v" + (props.latestVersion || "1.1.0.2") + " 就绪")
             ),
-            h("button", { className: "mkt-modal-close", onClick: props.onClose }, "✕")
+            h("button", { className: "mkt-modal-close", onClick: handleDismiss }, "✕")
           ),
           h(
             "div",
@@ -1332,18 +1343,17 @@ window.__ModuleLoader__.load({
               "本次升级核心改进亮点："
             ),
             h("ul", { style: { margin: "0 0 14px 18px", padding: 0, fontSize: "12.5px", color: "var(--ch-text-secondary)", lineHeight: "1.7" } },
-              h("li", null, "macOS 系统设置扁平微胶囊规范与深浅双色模式自适应（零生硬黑框）"),
-              h("li", null, "支持热插拔安全停用与生命周期优雅解绑"),
-              h("li", null, "恢复「我的收藏 ★」独立专栏与卡片星标记忆"),
-              h("li", null, "支持「屏蔽更新」与「回退旧版 (.bak)」"),
-              h("li", null, "本地中文别名（重命名）永久保护与输入框毫秒检索")
+              h("li", null, "连续添加多个技能绝不覆盖：多技能无缝增量追加，保留原有草稿与文字"),
+              h("li", null, "更新弹窗智能防骚扰：每个新版本仅提示一次，刷新页面不再重复弹出"),
+              h("li", null, "全量 217 款技能上线真实生态版本，支持 GitHub 72h 自动拉取更新"),
+              h("li", null, "GitHub 技能导入全 URL 智能规范与一键精准直达原仓库")
             ),
             resultMsg && h("div", { style: { padding: "8px 12px", borderRadius: "6px", background: "rgba(16, 185, 129, 0.12)", color: "#10b981", fontSize: "12.5px" } }, resultMsg)
           ),
           h(
             "div",
             { className: "mkt-modal-footer" },
-            h("button", { className: "mkt-modal-btn", onClick: props.onClose }, "稍后提醒"),
+            h("button", { className: "mkt-modal-btn", onClick: handleDismiss }, "稍后提醒"),
             h(
               "button",
               { className: "mkt-modal-btn confirm", disabled: updating, onClick: handleDoUpdate },
@@ -1645,8 +1655,15 @@ window.__ModuleLoader__.load({
           try {
             var pRes = await fetch("/api/clawhub/plugin-version");
             var pJson = await pRes.json();
-            if (pJson.ok && pJson.hasUpdate) {
-              setShowPluginUpdateModal(true);
+            if (pJson.ok) {
+              setPluginUpdateInfo(pJson);
+              if (pJson.hasUpdate && pJson.latestVersion) {
+                var dismissedVer = localStorage.getItem("dsh_dismissed_update_ver");
+                if (dismissedVer !== pJson.latestVersion) {
+                  localStorage.setItem("dsh_dismissed_update_ver", pJson.latestVersion);
+                  setShowPluginUpdateModal(true);
+                }
+              }
             }
           } catch (pe) {}
         } catch (e) {
@@ -1965,7 +1982,7 @@ window.__ModuleLoader__.load({
                       onClick: () => setShowPluginUpdateModal(true),
                       title: "点击查看插件版本与更新"
                     },
-                    "v1.1.0"
+                    "v1.1.0.2"
                   )
                 ),
                 h("div", { className: "mkt-subtitle" }, "AI Agent 精选实战技能库")
@@ -2521,8 +2538,39 @@ window.__ModuleLoader__.load({
           }),
         deleteTargetSkill && h(ConfirmDeleteModal, { skill: deleteTargetSkill, onClose: () => setDeleteTargetSkill(null), onConfirm: handleDeleteConfirm }),
         aliasTargetSkill && h(AliasEditModal, { target: aliasTargetSkill, onClose: () => setAliasTargetSkill(null), onSave: handleSaveAlias }),
-        showPluginUpdateModal && h(PluginUpdateModal, { isOpen: true, onClose: () => setShowPluginUpdateModal(false) })
+        showPluginUpdateModal && h(PluginUpdateModal, { isOpen: true, latestVersion: pluginUpdateInfo && pluginUpdateInfo.latestVersion, onClose: () => setShowPluginUpdateModal(false) })
       );
+    }
+
+    function findComposerTextarea(anchorEl) {
+      if (anchorEl) {
+        var container = anchorEl.closest("form, [class*='composer'], [class*='input'], [class*='chat-box'], [class*='conversation']");
+        if (container) {
+          var ta = container.querySelector("textarea");
+          if (ta && ta.offsetParent !== null && !ta.closest(".ch-pk-popover-portal") && !ta.closest(".mkt-panel")) {
+            return ta;
+          }
+        }
+        var parent = anchorEl.parentElement;
+        for (var depth = 0; depth < 5 && parent; depth++) {
+          var ta = parent.querySelector("textarea");
+          if (ta && ta.offsetParent !== null && !ta.closest(".ch-pk-popover-portal") && !ta.closest(".mkt-panel")) {
+            return ta;
+          }
+          parent = parent.parentElement;
+        }
+      }
+      var textareas = Array.from(document.querySelectorAll("textarea")).filter(function(t) {
+        return t.offsetParent !== null && !t.closest(".ch-pk-popover-portal") && !t.closest(".mkt-panel");
+      });
+      if (textareas.length === 1) return textareas[0];
+      if (textareas.length > 1) {
+        textareas.sort(function(a, b) {
+          return b.getBoundingClientRect().top - a.getBoundingClientRect().top;
+        });
+        return textareas[0];
+      }
+      return null;
     }
 
     // ── 输入框唤出面板 (ComposerSkillPopover, 100% 对齐截图 media_1792481020508_6c1516be.png) ────────
@@ -2596,22 +2644,25 @@ window.__ModuleLoader__.load({
         if (targets.length === 0) return;
         var slashesToAdd = targets.map((t) => t.slash);
 
-        // 1. 获取当前输入框中的现有内容 (不保留任何历史缓存，严格以当前激活输入框为准)
+        var activeTa = findComposerTextarea(props.anchorEl);
         var existingText = "";
-        var activeTa = null;
         var actions = props.inputActions || window.__dsh_inputActions;
 
-        var textareas = document.querySelectorAll("textarea");
-        for (var i = 0; i < textareas.length; i++) {
-          var ta = textareas[i];
-          if (ta.offsetParent !== null && !ta.closest(".ch-pk-popover-portal") && !ta.closest(".mkt-panel")) {
-            activeTa = ta;
-            existingText = ta.value || "";
-            break;
-          }
+        // 1. 获取输入框当前真实存在的草稿内容 (支持多路探测，绝不丢失已有技能)
+        if (activeTa && typeof activeTa.value === "string" && activeTa.value.trim().length > 0) {
+          existingText = activeTa.value;
+        }
+        if (!existingText && props.input && typeof props.input.draft === "string" && props.input.draft.trim().length > 0) {
+          existingText = props.input.draft;
+        }
+        if (!existingText && actions && typeof actions.getDraft === "function") {
+          try {
+            var d = actions.getDraft();
+            if (d && typeof d === "string" && d.trim().length > 0) existingText = d;
+          } catch (e) {}
         }
 
-        // 2. 智能合并：保留输入框中用户当前手打的文字和其他指令，但绝不从历史缓存中唤醒旧技能
+        // 2. 智能合并：保留已有的技能指令与用户手打文字，绝不覆盖已有技能！
         var currentTrimmed = (existingText || "").trim();
         var tokens = currentTrimmed ? currentTrimmed.split(/\s+/) : [];
 
@@ -2841,6 +2892,8 @@ window.__ModuleLoader__.load({
         isOpen &&
           h(ComposerSkillPopover, {
             position: pos,
+            anchorEl: btnRef.current,
+            input: props.input,
             inputActions: props.inputActions,
             onClose: () => setIsOpen(false)
           })
