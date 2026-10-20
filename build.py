@@ -1328,14 +1328,128 @@ window.__ModuleLoader__.load({
       );
     }
 
-    // ── 技能集市主工作区面板 (DualSourceMarketView) ──────────────────────────────
+    // ── 防黑屏崩溃安全边界 (SafeBoundary - React ErrorBoundary) ─────────────────
+    class SafeBoundary extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = { hasError: false, error: null };
+      }
+      static getDerivedStateFromError(error) {
+        return { hasError: true, error: error };
+      }
+      componentDidCatch(error, errorInfo) {
+        console.error("[dsh-clawhub-multiskill] SafeBoundary caught UI crash:", error, errorInfo);
+      }
+      render() {
+        if (this.state.hasError) {
+          return h(
+            "div",
+            {
+              style: {
+                padding: "60px 24px",
+                textAlign: "center",
+                color: "#f85149",
+                background: "var(--ch-bg-card, #0d1117)",
+                minHeight: "100%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                boxSizing: "border-box"
+              }
+            },
+            h("div", { style: { fontSize: "44px", marginBottom: "16px" } }, "🛡️"),
+            h("h3", { style: { fontSize: "20px", color: "var(--ch-text-primary, #f0f6fc)", marginBottom: "8px", fontWeight: "600" } }, "技能集市已自动进入安全防护模式"),
+            h("p", { style: { fontSize: "13px", color: "var(--ch-text-secondary, #8b949e)", maxWidth: "520px", lineHeight: "1.6", marginBottom: "24px" } },
+              "插件已拦截了界面渲染异常，有效防止了界面黑屏。此情况通常是由于技能描述包含特殊符号或网络数据解析异常导致。您可以点击下方按钮一键重置恢复："
+            ),
+            h(
+              "div",
+              { style: { display: "flex", gap: "12px" } },
+              h(
+                "button",
+                {
+                  style: {
+                    padding: "8px 22px",
+                    background: "var(--ch-accent-blue, #007aff)",
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: "8px",
+                    cursor: "pointer",
+                    fontWeight: "600",
+                    fontSize: "13px"
+                  },
+                  onClick: () => {
+                    this.setState({ hasError: false, error: null });
+                  }
+                },
+                "🔄 一键重试恢复"
+              ),
+              h(
+                "button",
+                {
+                  style: {
+                    padding: "8px 22px",
+                    background: "rgba(255, 255, 255, 0.08)",
+                    color: "var(--ch-text-primary, #f0f6fc)",
+                    border: "1px solid var(--ch-card-border, #30363d)",
+                    borderRadius: "8px",
+                    cursor: "pointer",
+                    fontSize: "13px"
+                  },
+                  onClick: () => {
+                    try { localStorage.removeItem("dsh_skill_favorites"); } catch(e) {}
+                    try { localStorage.removeItem("dsh_skill_ignored_updates"); } catch(e) {}
+                    this.setState({ hasError: false, error: null });
+                  }
+                },
+                "🧹 重置缓存"
+              )
+            ),
+            h(
+              "pre",
+              {
+                style: {
+                  marginTop: "28px",
+                  padding: "14px 18px",
+                  background: "#161b22",
+                  borderRadius: "8px",
+                  border: "1px solid #30363d",
+                  fontSize: "11px",
+                  color: "#8b949e",
+                  maxWidth: "620px",
+                  overflowX: "auto",
+                  textAlign: "left",
+                  whiteSpace: "pre-wrap"
+                }
+              },
+              String(this.state.error && this.state.error.stack ? this.state.error.stack : this.state.error)
+            )
+          );
+        }
+        return this.props.children;
+      }
+    }
+
+    // ── 防御性字符串转换辅助函数 ────────────────────────────────────────────────
+    function safeStr(val) {
+      if (val === null || val === undefined) return "";
+      return typeof val === "string" ? val : String(val);
+    }
+
+    // ── 技能集市主工作区面板入口 (包装 SafeBoundary 防崩溃) ───────────────────────
     function DualSourceMarketView(props) {
+      return h(SafeBoundary, null, h(DualSourceMarketViewInner, props));
+    }
+
+    function DualSourceMarketViewInner(props) {
       // 5 大主 Tab：发现 (214) | 🌟 破万星 (33) | 已安装 (X) | 待更新 (Y) | 我的收藏 ★ (Z)
       var [activeTab, setActiveTab] = useState("discover"); // discover | mega | installed | updates | favorites
       var [installedSubFilter, setInstalledSubFilter] = useState("all"); // all | active | disabled | updates
       var [selectedCategory, setSelectedCategory] = useState("全部");
       var [searchKw, setSearchKw] = useState("");
       var [installedSkills, setInstalledSkills] = useState({});
+      var [isLoadingInstalled, setIsLoadingInstalled] = useState(true);
       var [updatesList, setUpdatesList] = useState([]);
       var [selectedForUpdate, setSelectedForUpdate] = useState([]);
       var [upgradingIds, setUpgradingIds] = useState([]);
@@ -1415,37 +1529,23 @@ window.__ModuleLoader__.load({
         "🌍 英语考培"
       ];
 
-      var totalSkillsCount = SKILLS_CATALOG.length;
-      var megaSkillsCount = useMemo(() => SKILLS_CATALOG.filter((s) => s.category.includes("热门") || s.category.includes("破万星")).length, []);
-
-      // 映射更新字典
-      var updatesMap = useMemo(() => {
-        var m = {};
-        for (var u of updatesList) {
-          m[u.id] = u;
-        }
-        return m;
-      }, [updatesList]);
-
-      // 有效待更新计数 (剔除已屏蔽的技能)
-      var activeUpdatesCount = useMemo(() => {
-        return updatesList.filter((u) => !ignoredUpdates.includes(u.id)).length;
-      }, [updatesList, ignoredUpdates]);
-
       // 1. 同步加载本地已安装技能列表
       var fetchInstalled = useCallback(async () => {
+        setIsLoadingInstalled(true);
         try {
           var res = await fetch("/api/clawhub/installed");
           var json = await res.json();
           if (json.ok && Array.isArray(json.skills)) {
             var map = {};
             for (var sk of json.skills) {
-              map[sk.id] = sk;
+              if (sk && sk.id) map[sk.id] = sk;
             }
             setInstalledSkills(map);
           }
         } catch (e) {
           console.warn("[dsh-clawhub-multiskill] fetchInstalled failed:", e);
+        } finally {
+          setIsLoadingInstalled(false);
         }
       }, []);
 
@@ -1476,6 +1576,87 @@ window.__ModuleLoader__.load({
         fetchInstalled();
         fetchUpdates();
       }, [fetchInstalled, fetchUpdates]);
+
+      // 动态合成全量技能元数据表 (静态预置 215 技能 + 磁盘/导入的所有自定义技能)
+      var allCatalog = useMemo(() => {
+        var catalogMap = new Map();
+        for (var s of SKILLS_CATALOG) {
+          if (s && s.id) {
+            catalogMap.set(s.id, { ...s });
+          }
+        }
+        for (var key in installedSkills) {
+          var inst = installedSkills[key];
+          if (!inst || !inst.id) continue;
+          if (catalogMap.has(inst.id)) {
+            var existing = catalogMap.get(inst.id);
+            if (inst.alias) existing.alias = inst.alias;
+            if (inst.version) existing.version = inst.version;
+            if (inst.description && !existing.summary) {
+              existing.summary = inst.description.replace(/^["'\s]+|["'\s]+$/g, "");
+            }
+          } else {
+            // 为外部导入技能动态生成 100% 对齐标准的集市卡片对象
+            var desc = safeStr(inst.description || inst.summary || "");
+            var lowDesc = desc.toLowerCase();
+            var inferredCat = "🌟 热门标杆";
+            if (lowDesc.includes("write") || lowDesc.includes("writing") || lowDesc.includes("写作") || lowDesc.includes("公文") || lowDesc.includes("文本") || lowDesc.includes("防卫")) {
+              inferredCat = "🏢 职场办公";
+            } else if (lowDesc.includes("code") || lowDesc.includes("git") || lowDesc.includes("架构") || lowDesc.includes("开发") || lowDesc.includes("python") || lowDesc.includes("backend")) {
+              inferredCat = "💻 编程开发";
+            } else if (lowDesc.includes("figure") || lowDesc.includes("paper") || lowDesc.includes("学术") || lowDesc.includes("科研") || lowDesc.includes("sci") || lowDesc.includes("nature")) {
+              inferredCat = "🔬 科研学术";
+            } else if (lowDesc.includes("design") || lowDesc.includes("ui") || lowDesc.includes("ux") || lowDesc.includes("界面") || lowDesc.includes("设计")) {
+              inferredCat = "🎨 界面设计";
+            } else if (lowDesc.includes("data") || lowDesc.includes("sql") || lowDesc.includes("分析") || lowDesc.includes("统计")) {
+              inferredCat = "📊 数据分析";
+            } else if (lowDesc.includes("english") || lowDesc.includes("ielts") || lowDesc.includes("英语") || lowDesc.includes("雅思")) {
+              inferredCat = "🌍 英语考培";
+            }
+
+            var cleanSummary = desc.replace(/^["'\s]+|["'\s]+$/g, "");
+            if (!cleanSummary) cleanSummary = "通过 GitHub / 本地导入的自定义技能组件，即开即用";
+            if (cleanSummary.length > 130) cleanSummary = cleanSummary.slice(0, 127) + "...";
+
+            var defaultStars = "1.2k";
+            if (inst.stars) defaultStars = String(inst.stars);
+
+            var repoPath = inst.repo || (inst.id.includes("/") ? inst.id : "github/" + inst.id);
+
+            catalogMap.set(inst.id, {
+              id: inst.id,
+              name: inst.alias || inst.name || inst.id,
+              alias: inst.alias || "",
+              slash: "/" + inst.id,
+              summary: cleanSummary,
+              repo: repoPath,
+              stars: defaultStars,
+              category: inferredCat,
+              version: inst.version || "1.0.0",
+              color: "#4f46e5",
+              custom: true
+            });
+          }
+        }
+        return Array.from(catalogMap.values());
+      }, [installedSkills]);
+
+      var totalSkillsCount = allCatalog.length;
+      var megaSkillsCount = useMemo(() => allCatalog.filter((s) => safeStr(s.category).includes("热门") || safeStr(s.category).includes("破万星")).length, [allCatalog]);
+
+      // 映射更新字典
+      var updatesMap = useMemo(() => {
+        var m = {};
+        for (var u of updatesList) {
+          m[u.id] = u;
+        }
+        return m;
+      }, [updatesList]);
+
+      // 有效待更新计数 (剔除已屏蔽的技能)
+      var activeUpdatesCount = useMemo(() => {
+        return updatesList.filter((u) => !ignoredUpdates.includes(u.id)).length;
+      }, [updatesList, ignoredUpdates]);
 
       // 统计数字
       var installedList = Object.values(installedSkills);
@@ -1509,7 +1690,7 @@ window.__ModuleLoader__.load({
             setCardErrors((prev) => ({ ...prev, [skill.id]: data.error || "安装失败" }));
           }
         } catch (e) {
-          setCardErrors((prev) => ({ ...prev, [skill.id]: "网络请求异常: " + e.message }));
+          setCardErrors((prev) => ({ ...prev, [skill.id]: "网络请求异常: " + (e.message || String(e)) }));
         } finally {
           setLoadingSkillId(null);
         }
@@ -1550,7 +1731,7 @@ window.__ModuleLoader__.load({
             setCardErrors((prev) => ({ ...prev, [skill.id]: data.error || "升级失败" }));
           }
         } catch (e) {
-          setCardErrors((prev) => ({ ...prev, [skill.id]: "网络请求异常: " + e.message }));
+          setCardErrors((prev) => ({ ...prev, [skill.id]: "网络请求异常: " + (e.message || String(e)) }));
         } finally {
           setUpgradingIds((prev) => prev.filter((x) => x !== skill.id));
         }
@@ -1574,7 +1755,7 @@ window.__ModuleLoader__.load({
             alert(data.error || "回退失败");
           }
         } catch (e) {
-          alert("回退请求失败: " + e.message);
+          alert("回退请求失败: " + (e.message || String(e)));
         }
       };
 
@@ -1614,7 +1795,7 @@ window.__ModuleLoader__.load({
             alert(data.error || "卸载失败");
           }
         } catch (e) {
-          alert("卸载请求失败: " + e.message);
+          alert("卸载请求失败: " + (e.message || String(e)));
         }
       };
 
@@ -1622,43 +1803,45 @@ window.__ModuleLoader__.load({
       var displaySkills = useMemo(() => {
         var list = [];
         if (activeTab === "discover") {
-          list = SKILLS_CATALOG;
+          list = allCatalog;
           if (selectedCategory !== "全部") {
-            list = list.filter((s) => s.category.includes(selectedCategory.replace(/^[^\s]+\s+/, "")));
+            var catKey = selectedCategory.replace(/^[^\s]+\s+/, "");
+            list = list.filter((s) => safeStr(s.category).includes(catKey));
           }
         } else if (activeTab === "mega") {
-          list = SKILLS_CATALOG.filter((s) => s.category.includes("热门") || s.category.includes("破万星"));
+          list = allCatalog.filter((s) => safeStr(s.category).includes("热门") || safeStr(s.category).includes("破万星"));
         } else if (activeTab === "installed") {
-          list = SKILLS_CATALOG.filter((s) => Boolean(installedSkills[s.id]));
+          list = allCatalog.filter((s) => Boolean(installedSkills[s.id]));
           if (installedSubFilter === "active") {
-            list = list.filter((s) => !installedSkills[s.id].disabled);
+            list = list.filter((s) => !installedSkills[s.id] || !installedSkills[s.id].disabled);
           } else if (installedSubFilter === "disabled") {
-            list = list.filter((s) => installedSkills[s.id].disabled);
+            list = list.filter((s) => installedSkills[s.id] && installedSkills[s.id].disabled);
           } else if (installedSubFilter === "updates") {
             list = list.filter((s) => Boolean(updatesMap[s.id]) && !ignoredUpdates.includes(s.id));
           }
         } else if (activeTab === "updates") {
-          list = SKILLS_CATALOG.filter((s) => Boolean(updatesMap[s.id]) && !ignoredUpdates.includes(s.id));
+          list = allCatalog.filter((s) => Boolean(updatesMap[s.id]) && !ignoredUpdates.includes(s.id));
         } else if (activeTab === "favorites") {
-          list = SKILLS_CATALOG.filter((s) => favorites.includes(s.id));
+          list = allCatalog.filter((s) => favorites.includes(s.id));
         }
 
         if (searchKw.trim()) {
-          var q = searchKw.trim().toLowerCase();
+          var q = safeStr(searchKw).trim().toLowerCase();
           list = list.filter((s) => {
+            if (!s) return false;
             var inst = installedSkills[s.id];
-            var alias = inst && inst.alias ? inst.alias.toLowerCase() : "";
+            var alias = safeStr(inst && inst.alias).toLowerCase();
             return (
-              s.name.toLowerCase().includes(q) ||
-              s.slash.toLowerCase().includes(q) ||
-              s.summary.toLowerCase().includes(q) ||
-              s.repo.toLowerCase().includes(q) ||
+              safeStr(s.name).toLowerCase().includes(q) ||
+              safeStr(s.slash).toLowerCase().includes(q) ||
+              safeStr(s.summary).toLowerCase().includes(q) ||
+              safeStr(s.repo).toLowerCase().includes(q) ||
               alias.includes(q)
             );
           });
         }
         return list;
-      }, [activeTab, selectedCategory, installedSubFilter, installedSkills, updatesMap, ignoredUpdates, favorites, searchKw]);
+      }, [allCatalog, activeTab, selectedCategory, installedSubFilter, installedSkills, updatesMap, ignoredUpdates, favorites, searchKw]);
 
       return h(
         "div",
@@ -1722,53 +1905,53 @@ window.__ModuleLoader__.load({
           h(
             "div",
             { className: "mkt-segmented-nav" },
-            // ① 发现 (214)
+            // ① 发现
             h(
               "button",
               {
                 className: "mkt-segmented-tab " + (activeTab === "discover" ? "active" : ""),
-                onClick: () => setActiveTab("discover")
+                onClick: () => { setActiveTab("discover"); setSearchKw(""); }
               },
               "发现",
               h("span", { className: "mkt-segmented-badge" }, totalSkillsCount)
             ),
-            // ② 🌟 破万星 (33)
+            // ② 🌟 破万星
             h(
               "button",
               {
                 className: "mkt-segmented-tab " + (activeTab === "mega" ? "active" : ""),
-                onClick: () => setActiveTab("mega")
+                onClick: () => { setActiveTab("mega"); setSearchKw(""); }
               },
               "🌟 破万星",
               h("span", { className: "mkt-segmented-badge" }, megaSkillsCount)
             ),
-            // ③ 已安装 (X)
+            // ③ 已安装
             h(
               "button",
               {
                 className: "mkt-segmented-tab " + (activeTab === "installed" ? "active" : ""),
-                onClick: () => setActiveTab("installed")
+                onClick: () => { setActiveTab("installed"); setSearchKw(""); }
               },
               "已安装",
               installedCount > 0 && h("span", { className: "mkt-segmented-badge" }, installedCount)
             ),
-            // ④ 待更新 (Y)
+            // ④ 待更新
             h(
               "button",
               {
                 className: "mkt-segmented-tab " + (activeTab === "updates" ? "active" : ""),
-                onClick: () => setActiveTab("updates")
+                onClick: () => { setActiveTab("updates"); setSearchKw(""); }
               },
               "待更新",
               activeUpdatesCount > 0 &&
                 h("span", { className: "mkt-segmented-badge mkt-badge-amber" }, activeUpdatesCount)
             ),
-            // ⑤ 我的收藏 ★ (Z)
+            // ⑤ 我的收藏 ★
             h(
               "button",
               {
                 className: "mkt-segmented-tab " + (activeTab === "favorites" ? "active" : ""),
-                onClick: () => setActiveTab("favorites")
+                onClick: () => { setActiveTab("favorites"); setSearchKw(""); }
               },
               "我的收藏 ★",
               favorites.length > 0 &&
@@ -1808,7 +1991,7 @@ window.__ModuleLoader__.load({
                   var count =
                     cat === "全部"
                       ? totalSkillsCount
-                      : SKILLS_CATALOG.filter((s) => s.category.includes(cat.replace(/^[^\s]+\s+/, ""))).length;
+                      : allCatalog.filter((s) => safeStr(s.category).includes(cat.replace(/^[^\s]+\s+/, ""))).length;
                   return h(
                     "div",
                     {
@@ -1822,11 +2005,11 @@ window.__ModuleLoader__.load({
               )
             ),
 
-          // (B) 已安装管理专栏：极简状态条 (无黑边黑框，无冗余废话)
+          // (B) 已安装子筛选胶囊条
           activeTab === "installed" &&
             h(
               "div",
-              { className: "mkt-installed-stats-bar" },
+              { className: "mkt-installed-subbar" },
               h(
                 "div",
                 { className: "mkt-subtabs-group" },
@@ -1868,7 +2051,7 @@ window.__ModuleLoader__.load({
                     h("span", { className: "mkt-subtab-badge mkt-badge-amber" }, activeUpdatesCount)
                   )
               ),
-              // 右侧极简检查作者更新图标按钮 (零多余提示废话)
+              // 右侧极简检查作者更新图标按钮
               h(
                 "button",
                 {
@@ -1927,29 +2110,60 @@ window.__ModuleLoader__.load({
             displaySkills.length === 0
               ? h(
                   "div",
-                  { style: { gridColumn: "1 / -1", padding: "60px 20px", textAlign: "center", color: "var(--ch-text-secondary)" } },
-                  activeTab === "favorites"
+                  {
+                    className: "mkt-empty-container",
+                    style: { gridColumn: "1 / -1", padding: "60px 20px", textAlign: "center", color: "var(--ch-text-secondary)" }
+                  },
+                  isLoadingInstalled && activeTab === "installed"
+                    ? h(
+                        "div",
+                        { style: { padding: "20px 0" } },
+                        h("div", { style: { fontSize: "28px", marginBottom: "12px" } }, "⏳"),
+                        h("div", { style: { fontSize: "14px", color: "var(--ch-text-primary)", fontWeight: "500" } }, "正在读取本地已安装技能列表...")
+                      )
+                    : searchKw.trim()
+                    ? h(
+                        "div",
+                        { style: { padding: "20px 0" } },
+                        h("div", { style: { fontSize: "28px", marginBottom: "12px" } }, "🔍"),
+                        h("div", { style: { fontSize: "14px", color: "var(--ch-text-primary)", marginBottom: "8px", fontWeight: "500" } }, "未找到与 “" + searchKw.trim() + "” 相关的技能"),
+                        h("button", {
+                          style: { marginTop: "4px", padding: "6px 16px", background: "rgba(0, 122, 255, 0.12)", color: "var(--ch-accent-blue)", border: "1px solid rgba(0, 122, 255, 0.3)", borderRadius: "8px", cursor: "pointer", fontSize: "12px", fontWeight: "600" },
+                          onClick: () => setSearchKw("")
+                        }, "清空搜索关键词")
+                      )
+                    : activeTab === "favorites"
                     ? "暂无收藏技能。点击任意卡片右上角的 ★ 即可添加收藏！"
                     : activeTab === "updates"
                     ? "🎉 恭喜！当前所有已安装技能均为最新版本，无需更新。"
                     : activeTab === "installed"
-                    ? "当前尚未安装任何技能，前往「发现」一键安装"
+                    ? h(
+                        "div",
+                        { style: { padding: "20px 0" } },
+                        h("div", { style: { fontSize: "28px", marginBottom: "12px" } }, "📦"),
+                        h("div", { style: { fontSize: "14px", color: "var(--ch-text-primary)", marginBottom: "8px", fontWeight: "500" } }, "当前尚未安装任何技能"),
+                        h("button", {
+                          style: { marginTop: "4px", padding: "8px 18px", background: "var(--ch-accent-blue)", color: "#fff", border: "none", borderRadius: "8px", cursor: "pointer", fontSize: "13px", fontWeight: "600" },
+                          onClick: () => { setActiveTab("discover"); setSearchKw(""); }
+                        }, "前往「发现」一键安装")
+                      )
                     : "未匹配到相关技能，可尝试输入更简短的关键词"
                 )
               : displaySkills.map((sk) => {
+                  if (!sk || !sk.id) return null;
                   var isInstalled = Boolean(installedSkills[sk.id]);
-                  var instInfo = installedSkills[sk.id];
-                  var isDisabled = instInfo ? instInfo.disabled : false;
-                  var hasBackup = instInfo ? instInfo.hasBackup : false;
-                  var updateInfo = updatesMap[sk.id];
-                  var isIgnored = ignoredUpdates.includes(sk.id);
+                  var instInfo = installedSkills[sk.id] || null;
+                  var isDisabled = Boolean(instInfo && instInfo.disabled);
+                  var hasBackup = Boolean(instInfo && instInfo.hasBackup);
+                  var updateInfo = updatesMap[sk.id] || null;
+                  var isIgnored = Boolean(ignoredUpdates && ignoredUpdates.includes(sk.id));
                   var hasUpdate = isInstalled && Boolean(updateInfo) && !isIgnored;
-                  var userAlias = instInfo && instInfo.alias;
-                  var displayName = userAlias || sk.name;
+                  var userAlias = instInfo && instInfo.alias ? String(instInfo.alias) : "";
+                  var displayName = userAlias || String(sk.name || sk.id);
                   var isUpgrading = upgradingIds.includes(sk.id);
                   var isLoading = loadingSkillId === sk.id;
                   var error = cardErrors[sk.id];
-                  var currentVer = (instInfo && instInfo.version) || (updateInfo && updateInfo.currentVersion) || "1.0.0";
+                  var currentVer = (instInfo && instInfo.version) || (updateInfo && updateInfo.currentVersion) || sk.version || "1.0.0";
                   var targetNewVer = updateInfo ? updateInfo.newVersion : "";
                   var isFav = favorites.includes(sk.id);
 
@@ -2060,7 +2274,7 @@ window.__ModuleLoader__.load({
                                     className: "mkt-dropdown-item",
                                     onClick: () => {
                                       setOpenMenuId(null);
-                                      window.open("https://github.com/" + sk.repo, "_blank");
+                                      window.open("https://github.com/" + (sk.repo || ""), "_blank");
                                     }
                                   },
                                   "↗ 在 GitHub 查看"
@@ -2090,12 +2304,12 @@ window.__ModuleLoader__.load({
                         h(
                           "div",
                           { className: "mkt-card-meta-line" },
-                          h("span", { className: "mkt-card-stars" }, sk.stars),
-                          h("span", { className: "mkt-card-slash" }, sk.slash)
+                          h("span", { className: "mkt-card-stars" }, safeStr(sk.stars || "1.2k")),
+                          h("span", { className: "mkt-card-slash" }, safeStr(sk.slash || "/" + sk.id))
                         ),
 
                         // 第三行：卡片精炼两句话中文介绍
-                        h("div", { className: "mkt-card-desc", title: sk.summary }, sk.summary),
+                        h("div", { className: "mkt-card-desc", title: sk.summary }, safeStr(sk.summary)),
 
                         // 错误报错栏
                         error &&
@@ -2177,7 +2391,19 @@ window.__ModuleLoader__.load({
 
         // 各种弹窗
         previewSkill && h(PromptPreviewModal, { skill: previewSkill, onClose: () => setPreviewSkill(null) }),
-        showImportModal && h(CustomImportModal, { isOpen: true, onClose: () => setShowImportModal(false), onSuccess: (sk) => { fetchInstalled(); fetchUpdates(); } }),
+        showImportModal &&
+          h(CustomImportModal, {
+            isOpen: true,
+            onClose: () => setShowImportModal(false),
+            onSuccess: async (sk) => {
+              await fetchInstalled();
+              fetchUpdates();
+              setActiveTab("installed");
+              setSearchKw("");
+              setStatusNotice("🎉 成功导入并激活技能：" + (sk.name || sk.id) + "！已自动加入「已安装」技能卡片。");
+              setTimeout(() => setStatusNotice(null), 5000);
+            }
+          }),
         deleteTargetSkill && h(ConfirmDeleteModal, { skill: deleteTargetSkill, onClose: () => setDeleteTargetSkill(null), onConfirm: handleDeleteConfirm }),
         aliasTargetSkill && h(AliasEditModal, { target: aliasTargetSkill, onClose: () => setAliasTargetSkill(null), onSave: handleSaveAlias }),
         showPluginUpdateModal && h(PluginUpdateModal, { isOpen: true, onClose: () => setShowPluginUpdateModal(false) })
@@ -2205,13 +2431,15 @@ window.__ModuleLoader__.load({
                 .filter((s) => !s.disabled)
                 .map((inst) => {
                   var meta = SKILLS_CATALOG.find((x) => x.id === inst.id) || {};
+                  var desc = inst.description || meta.summary || "";
+                  if (desc) desc = desc.replace(/^["'\s]+|["'\s]+$/g, "");
                   return {
                     id: inst.id,
                     name: inst.alias || meta.name || inst.id,
                     slash: meta.slash || "/" + inst.id,
-                    repo: meta.repo || "",
-                    stars: meta.stars || "",
-                    summary: meta.summary || ""
+                    repo: meta.repo || (inst.repo || ""),
+                    stars: meta.stars || (inst.stars || ""),
+                    summary: desc
                   };
                 });
               setInstalledList(merged);
@@ -2227,12 +2455,12 @@ window.__ModuleLoader__.load({
       // 实时检索
       var filtered = useMemo(() => {
         if (!searchKw.trim()) return installedList;
-        var q = searchKw.trim().toLowerCase();
+        var q = safeStr(searchKw).trim().toLowerCase();
         return installedList.filter(
           (item) =>
-            item.name.toLowerCase().includes(q) ||
-            item.slash.toLowerCase().includes(q) ||
-            item.id.toLowerCase().includes(q)
+            safeStr(item.name).toLowerCase().includes(q) ||
+            safeStr(item.slash).toLowerCase().includes(q) ||
+            safeStr(item.id).toLowerCase().includes(q)
         );
       }, [installedList, searchKw]);
 
@@ -2384,6 +2612,7 @@ window.__ModuleLoader__.load({
         )
       );
     }
+
 
     // ── 输入框触发按钮 (纯图标形式，对齐参考) ──────────────────────────────────
     function MultiSkillPickerTrigger(props) {
@@ -2562,7 +2791,9 @@ window.__ModuleLoader__.load({
     root_dir = os.path.dirname(os.path.abspath(__file__))
     destinations = [
         os.path.join(root_dir, "client.js"),
-        os.path.join(root_dir, "src", "client.js")
+        os.path.join(root_dir, "src", "client.js"),
+        r"C:\Users\MWQ\.dsh\plugins\dsh-clawhub-multiskill\client.js",
+        r"C:\Users\MWQ\.dsh\plugins\dsh-clawhub-multiskill\src\client.js"
     ]
 
     for d in destinations:
