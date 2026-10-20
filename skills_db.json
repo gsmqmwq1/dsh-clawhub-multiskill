@@ -5,7 +5,7 @@
     "slash": "/langchain-core",
     "repo": "langchain-ai/langchain",
     "stars": "★ 98.4k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "基于 Runnable 协议编排多阶段提示词、向量数据库召回、外部工具调用与多 Agent 拓扑交互",
     "tags": [
       "langchain",
@@ -24,7 +24,7 @@
     "slash": "/deepseek-r1-reasoning",
     "repo": "deepseek-ai/DeepSeek-R1",
     "stars": "★ 86.5k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "充分释放 R1 思维链长程反思与纠错能力，专攻复杂数学推导、算法分析与高阶因果论证",
     "tags": [
       "deepseek",
@@ -44,7 +44,7 @@
     "slash": "/openai-cookbook",
     "repo": "openai/openai-cookbook",
     "stars": "★ 62.3k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "权威生产级配方：混合向量搜索切片、微调评估基准、流式输出容错与高并发速率控制",
     "tags": [
       "cookbook",
@@ -63,7 +63,7 @@
     "slash": "/gpt-engineer",
     "repo": "gpt-engineer-org/gpt-engineer",
     "stars": "★ 54.1k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "从一句话自然语言需求出发，自动规划技术选型、构建完整项目架构并编写全部源代码",
     "tags": [
       "全自动编程",
@@ -81,7 +81,7 @@
     "slash": "/dify-workflow-master",
     "repo": "langgenius/dify",
     "stars": "★ 64.2k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "基于可视化节点式画布编排知识库混合检索、条件分支路由、代码执行沙箱与多模型对话",
     "tags": [
       "dify",
@@ -99,7 +99,7 @@
     "slash": "/metagpt-software-company",
     "repo": "geekan/MetaGPT",
     "stars": "★ 46.5k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "模拟产品经理、架构师、工程师与测试团队分工协作，自动化输出标准 SOP 与全套交付物",
     "tags": [
       "metagpt",
@@ -118,7 +118,7 @@
     "slash": "/fastmcp-protocol",
     "repo": "jlowin/fastmcp",
     "stars": "★ 16.3k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "基于 Anthropic MCP 协议快速将本地脚本、系统命令与业务 API 封装为标准模型工具服务",
     "tags": [
       "mcp",
@@ -136,7 +136,7 @@
     "slash": "/semantic-kernel",
     "repo": "microsoft/semantic-kernel",
     "stars": "★ 23.5k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "将原生代码函数与提示词技能无缝融合，提供企业级可观测性、记忆连接器与计划器集成",
     "tags": [
       "semantic-kernel",
@@ -154,7 +154,7 @@
     "slash": "/instructor-structured-data",
     "repo": "jxnl/instructor",
     "stars": "★ 19.8k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "利用 Pydantic 严格约束大模型 100% 输出符合类型定义的合法 JSON 数据，支持自动自检重试",
     "tags": [
       "pydantic",
@@ -172,7 +172,7 @@
     "slash": "/swe-bench-agent",
     "repo": "princeton-nlp/SWE-bench",
     "stars": "★ 14.5k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "模拟顶级程序员自主检索项目源码、定位 Bug 根因、编写单元测试并提交修复 Patch",
     "tags": [
       "自动修bug",
@@ -190,7 +190,7 @@
     "slash": "/browser-use-web-agent",
     "repo": "browser-use/browser-use",
     "stars": "★ 29.3k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "多模态视觉模型理解网页 DOM 与按钮，自主完成复杂跨页面表单填写、订票与自动化爬虫",
     "tags": [
       "网页操作",
@@ -208,7 +208,7 @@
     "slash": "/llamaindex-rag-core",
     "repo": "run-llama/llama_index",
     "stars": "★ 39.2k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "针对私有非结构化文档构建多级分块索引、子问题分解、混合重排与上下文增强检索",
     "tags": [
       "llamaindex",
@@ -226,7 +226,7 @@
     "slash": "/crewai-multi-agent",
     "repo": "crewAIInc/crewAI",
     "stars": "★ 24.8k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "定义具有不同技能、记忆与背景的自主智能体团队，分工协作完成复杂综合研究与交付任务",
     "tags": [
       "crewai",
@@ -244,7 +244,7 @@
     "slash": "/autogen-multi-agent",
     "repo": "microsoft/autogen",
     "stars": "★ 37.1k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "支持自定义智能体对话模式、人机协同参与机制与代码执行环境的多轮自主演化框架",
     "tags": [
       "autogen",
@@ -262,7 +262,7 @@
     "slash": "/comfyui-node-workflow",
     "repo": "comfyanonymous/ComfyUI",
     "stars": "★ 61.2k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "精准控制 Stable Diffusion / FLUX 出图管线：ControlNet、IP-Adapter 与节点级微调编排",
     "tags": [
       "comfyui",
@@ -280,7 +280,7 @@
     "slash": "/chatchat-knowledge",
     "repo": "chatchat-space/Langchain-Chatchat",
     "stars": "★ 33.7k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "支持 PDF/Word/Markdown 等企业文档切片分块、向量与倒排混合检索及精准重排回答",
     "tags": [
       "知识库",
@@ -298,7 +298,7 @@
     "slash": "/mem0-personalized-memory",
     "repo": "mem0ai/mem0",
     "stars": "★ 26.4k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "为大模型赋予跨会话长期记忆能力，自动提取用户偏好、事实知识并实现自适应动态召回",
     "tags": [
       "mem0",
@@ -316,7 +316,7 @@
     "slash": "/graphrag-knowledge-graph",
     "repo": "microsoft/graphrag",
     "stars": "★ 21.3k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "基于知识图谱与社区摘要的大规模文本洞察，突破传统语义切片无法回答宏观综合问题的局限",
     "tags": [
       "graphrag",
@@ -334,7 +334,7 @@
     "slash": "/dspy-prompt-programming",
     "repo": "stanfordnlp/dspy",
     "stars": "★ 20.1k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "斯坦福出品：将脆弱的手工调 Prompt 变革为严密的模块化编程，自动通过优化器搜索最佳指令",
     "tags": [
       "dspy",
@@ -352,7 +352,7 @@
     "slash": "/prompt-engineering-guide",
     "repo": "dair-ai/Prompt-Engineering-Guide",
     "stars": "★ 49.5k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "从基础提示到 CoT 思维链、ReAct 框架与方向性刺激提示的权威工业级教学全集",
     "tags": [
       "prompt",
@@ -371,7 +371,7 @@
     "slash": "/awesome-chatgpt-prompts",
     "repo": "f/awesome-chatgpt-prompts",
     "stars": "★ 112.5k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "涵盖各行业核心应用场景的全球顶级角色设定、专家视角切换与高效任务执行提示词库",
     "tags": [
       "提示词库",
@@ -389,7 +389,7 @@
     "slash": "/self-improving-agent",
     "repo": "agent-core/self-improving-memory",
     "stars": "★ 38.8k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "从错误与纠正中自动提取经验规则，持续优化模型认知、指令遵循与长期记忆沉淀",
     "tags": [
       "自进化",
@@ -408,7 +408,7 @@
     "slash": "/skill-orchestrator",
     "repo": "workflow-orchestration/orchestrator",
     "stars": "★ 35.9k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "宏观复杂任务自动拆解为多阶段流水线，串联并协同调度多个 Skill 共同完成",
     "tags": [
       "多技能",
@@ -428,7 +428,7 @@
     "slash": "/dev-expert",
     "repo": "52yuer/dev-expert-skill",
     "stars": "★ 17.5k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "P8 级全栈编程与大型系统设计：API 契约、多文件联动、Bug 排查与重构规范",
     "tags": [
       "编程",
@@ -449,7 +449,7 @@
     "slash": "/code-review93",
     "repo": "engineering-discipline/code-review",
     "stars": "★ 15.1k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "生产级代码质量与安全门禁审查清单，排查反模式、异味及并发死锁隐患",
     "tags": [
       "代码审查",
@@ -470,7 +470,7 @@
     "slash": "/ponytail",
     "repo": "design-principles/ponytail",
     "stars": "★ 13.8k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "YAGNI 准则落地实践：推崇极简可用、最短实现路径与反过度抽象重构",
     "tags": [
       "极简",
@@ -489,7 +489,7 @@
     "slash": "/fastapi-deepseek-backend",
     "repo": "tiangolo/fastapi",
     "stars": "★ 78.4k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "规范封装 DeepSeek 流式输出（SSE）、异步并发控制、Token 预算限流与 RESTful 路由",
     "tags": [
       "fastapi",
@@ -508,7 +508,7 @@
     "slash": "/flask-microservice-api",
     "repo": "pallets/flask",
     "stars": "★ 69.1k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "蓝图模块化拆分、轻量 RESTful API 设计、跨域 CORS 配置与无状态 JWT 鉴权",
     "tags": [
       "flask",
@@ -526,7 +526,7 @@
     "slash": "/django-enterprise-system",
     "repo": "django/django",
     "stars": "★ 79.5k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "包含 ORM 数据建模、用户认证与 RBAC 鉴权中间件、REST 接口与后台管理全套架构",
     "tags": [
       "django",
@@ -544,7 +544,7 @@
     "slash": "/sqlalchemy-orm-architect",
     "repo": "sqlalchemy/sqlalchemy",
     "stars": "★ 9.5k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "基于 Type Annotations 声明式映射、Session 连接池管理与复杂多表级联查询优化",
     "tags": [
       "sqlalchemy",
@@ -562,7 +562,7 @@
     "slash": "/pydantic-validation-pro",
     "repo": "pydantic/pydantic",
     "stars": "★ 21.4k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "Rust 核心强类型数据解析、自定义验证器（Validators）编写与 Schema 自动导出",
     "tags": [
       "pydantic",
@@ -580,7 +580,7 @@
     "slash": "/alembic-db-migrations",
     "repo": "sqlalchemy/alembic",
     "stars": "★ 2.1k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "数据库 DDL 版本分支管理、变更自动检测脚本生成与线上无损回滚策略",
     "tags": [
       "alembic",
@@ -598,7 +598,7 @@
     "slash": "/local-project-refactor",
     "repo": "refactoring/clean-architecture",
     "stars": "★ 26.3k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "消除复杂代码坏味道、模块解耦、领域驱动设计（DDD）分层重塑与 SOLID 原则落地",
     "tags": [
       "重构",
@@ -617,7 +617,7 @@
     "slash": "/legacy-code-modernizer",
     "repo": "modernizer/migration-assistant",
     "stars": "★ 14.1k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "Python 2->3、Vue 2->3、CommonJS->ESM 与高版本依赖平滑升级自动化方案",
     "tags": [
       "代码升级",
@@ -635,7 +635,7 @@
     "slash": "/sql-optimizer",
     "repo": "db-optimizer/sql-tuning-agent",
     "stars": "★ 26.8k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "EXPLAIN 执行计划全字段深度分析、深分页优化、最左前缀索引失效与慢 SQL 重写",
     "tags": [
       "sql调优",
@@ -653,7 +653,7 @@
     "slash": "/git-commit-helper",
     "repo": "git-tools/conventional-commits",
     "stars": "★ 14.9k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "自动解析 Git 工作区 Diff 差异，提炼核心改动，生成规范 Conventional Commits 文案",
     "tags": [
       "git",
@@ -671,7 +671,7 @@
     "slash": "/pytest-test-suite",
     "repo": "pytest-dev/pytest",
     "stars": "★ 12.3k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "扫描业务代码自动生成带 Mock 打桩的高覆盖率测试用例、参数化测试与夹具（Fixtures）",
     "tags": [
       "单元测试",
@@ -689,7 +689,7 @@
     "slash": "/docker-k8s-devops",
     "repo": "devops-agent/docker-k8s-best",
     "stars": "★ 25.4k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "多阶段 Dockerfile 精简瘦身、K8s Pod 资源清单、探针配置与 CI/CD 自动化流水线",
     "tags": [
       "docker",
@@ -708,7 +708,7 @@
     "slash": "/ruff-linter-formatter",
     "repo": "astral-sh/ruff",
     "stars": "★ 35.2k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "毫秒级静态检查与自动格式化修复，全面替代 Flake8/Black/isort 等传统工具链",
     "tags": [
       "ruff",
@@ -726,7 +726,7 @@
     "slash": "/poetry-dependency-manager",
     "repo": "python-poetry/poetry",
     "stars": "★ 31.0k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "确定性依赖锁定（poetry.lock）、多环境隔离与一键发布标准化 Python 轮子包",
     "tags": [
       "poetry",
@@ -744,7 +744,7 @@
     "slash": "/playwright-automation",
     "repo": "microsoft/playwright-python",
     "stars": "★ 14.8k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "多页面无感录制、影子 DOM 精准定位、网络请求拦截与反反爬自动化交互测试",
     "tags": [
       "playwright",
@@ -762,7 +762,7 @@
     "slash": "/rich-terminal-tui",
     "repo": "Textualize/rich",
     "stars": "★ 49.6k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "在命令行控制台中渲染彩色富文本、多栏数据表格、进度条与语法高亮代码块",
     "tags": [
       "rich",
@@ -780,7 +780,7 @@
     "slash": "/textual-tui-app",
     "repo": "Textualize/textual",
     "stars": "★ 26.3k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "基于 CSS 样式规范开发具有侧边栏、模态框、按钮与事件监听的现代化终端图形程序",
     "tags": [
       "textual",
@@ -798,7 +798,7 @@
     "slash": "/typer-cli-builder",
     "repo": "tiangolo/typer",
     "stars": "★ 16.2k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "利用标准类型注解自动生成帮助文档、参数解析校验与自动补全的专业命令行工具",
     "tags": [
       "typer",
@@ -816,7 +816,7 @@
     "slash": "/redis-distributed-lock",
     "repo": "redis/redis-py",
     "stars": "★ 13.5k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "多节点并发安全 RedLock、防缓存击穿/雪崩设计、Pub/Sub 实时通知与原子计数器",
     "tags": [
       "redis",
@@ -834,7 +834,7 @@
     "slash": "/duckdb-olap-query",
     "repo": "duckdb/duckdb",
     "stars": "★ 26.7k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "无需配置独立数据库服务器，直接在本地对百兆 Parquet/CSV 执行毫秒级复杂 SQL 分析",
     "tags": [
       "duckdb",
@@ -852,7 +852,7 @@
     "slash": "/polars-fast-dataframe",
     "repo": "pola-rs/polars",
     "stars": "★ 32.1k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "Rust 打造的多核并行 DataFrame 库，通过惰性计算与内存对齐实现数倍于 Pandas 的性能",
     "tags": [
       "polars",
@@ -870,7 +870,7 @@
     "slash": "/security-audit-agent",
     "repo": "security/owasp-audit-agent",
     "stars": "★ 18.2k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "SQL 注入/XSS 隐患扫描、密钥密码硬编码排查与第三方开源依赖供应链安全体检",
     "tags": [
       "安全审计",
@@ -888,7 +888,7 @@
     "slash": "/regex-master",
     "repo": "regex-tools/regex-master-agent",
     "stars": "★ 11.8k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "构造复杂字符正则、零宽断言解析、生成覆盖边界测试用例并检测抗 ReDoS 拒绝服务漏洞",
     "tags": [
       "正则表达式",
@@ -906,7 +906,7 @@
     "slash": "/academic-figure-skill",
     "repo": "Nature-Figures/standards",
     "stars": "★ 26.2k",
-    "category": "🔬 科研学术与数学建模",
+    "category": "🔬 科研学术",
     "summary": "符合 Nature/Cell/Science 顶刊标准的科学图表复合排版、子图对齐与矢量 PDF 输出",
     "tags": [
       "画图",
@@ -927,7 +927,7 @@
     "slash": "/scientific-visualization",
     "repo": "color-palette/vis-palette",
     "stars": "★ 13.9k",
-    "category": "🔬 科研学术与数学建模",
+    "category": "🔬 科研学术",
     "summary": "出版级色彩对比度核验、色盲友好度色阶（Viridis/Cividis）与多面板布局设计",
     "tags": [
       "配色",
@@ -946,7 +946,7 @@
     "slash": "/patent-disclosure-writer",
     "repo": "patent-agent/chinese-patent",
     "stars": "★ 8.4k",
-    "category": "🔬 科研学术与数学建模",
+    "category": "🔬 科研学术",
     "summary": "中文专利交底书标准化撰写、技术创新点挖掘、权利要求书布局与申报材料整理",
     "tags": [
       "专利",
@@ -965,7 +965,7 @@
     "slash": "/sci-novelty-miner",
     "repo": "open-sci/novelty-miner",
     "stars": "★ 14.2k",
-    "category": "🔬 科研学术与数学建模",
+    "category": "🔬 科研学术",
     "summary": "从近期顶刊 SOTA 论文中深度挖掘现有技术局限性，启发架构式与机制性核心创新点",
     "tags": [
       "创新点",
@@ -984,7 +984,7 @@
     "slash": "/literature-matrix-pro",
     "repo": "scholarly/lit-matrix-agent",
     "stars": "★ 18.5k",
-    "category": "🔬 科研学术与数学建模",
+    "category": "🔬 科研学术",
     "summary": "快速提取数十篇文献的方法、数据集与关键指标，输出排版严密的横向对比三线表",
     "tags": [
       "文献对比",
@@ -1002,7 +1002,7 @@
     "slash": "/systematic-review-writer",
     "repo": "academic-tools/systematic-review",
     "stars": "★ 11.3k",
-    "category": "🔬 科研学术与数学建模",
+    "category": "🔬 科研学术",
     "summary": "遵循国际 PRISMA 规范，完成文献检索式、纳入排除流程、偏倚风险评估与成稿",
     "tags": [
       "系统综述",
@@ -1020,7 +1020,7 @@
     "slash": "/paper-code-reproducer",
     "repo": "papers-with-code/repro-helper",
     "stars": "★ 29.4k",
-    "category": "🔬 科研学术与数学建模",
+    "category": "🔬 科研学术",
     "summary": "排查 GitHub 论文代码环境依赖冲突、CUDA/PyTorch 版本对齐与基准权重下载运行",
     "tags": [
       "代码复现",
@@ -1038,7 +1038,7 @@
     "slash": "/paper-to-repro-plan",
     "repo": "reproducibility/pseudo-code",
     "stars": "★ 9.8k",
-    "category": "🔬 科研学术与数学建模",
+    "category": "🔬 科研学术",
     "summary": "将论文 Method 抽象数学推导公式逆向拆解为规范可运行的模块架构与数据流伪代码",
     "tags": [
       "伪代码",
@@ -1056,7 +1056,7 @@
     "slash": "/sci-paper-polisher",
     "repo": "academic-writing/sci-polisher",
     "stars": "★ 32.1k",
-    "category": "🔬 科研学术与数学建模",
+    "category": "🔬 科研学术",
     "summary": "消除 AI 机械腔调、重塑学术因果逻辑链条、主被动语态严谨度替换与地道措辞",
     "tags": [
       "论文润色",
@@ -1075,7 +1075,7 @@
     "slash": "/sci-abstract-title-craft",
     "repo": "open-sci/abstract-optimizer",
     "stars": "★ 16.5k",
-    "category": "🔬 科研学术与数学建模",
+    "category": "🔬 科研学术",
     "summary": "打造吸引期刊编辑与审稿人的背景-痛点-创新-指标黄金四段式 Abstract 与抓眼标题",
     "tags": [
       "摘要",
@@ -1093,7 +1093,7 @@
     "slash": "/sci-rebuttal-pro",
     "repo": "academic-review/rebuttal-pro",
     "stars": "★ 15.9k",
-    "category": "🔬 科研学术与数学建模",
+    "category": "🔬 科研学术",
     "summary": "逐条解构审稿人挑剔意见，撰写理据充分、态度谦逊的高过审率 Response Letter",
     "tags": [
       "rebuttal",
@@ -1111,7 +1111,7 @@
     "slash": "/latex-typesetter",
     "repo": "latex-community/typesetter-agent",
     "stars": "★ 19.6k",
-    "category": "🔬 科研学术与数学建模",
+    "category": "🔬 科研学术",
     "summary": "解决 IEEE/ACM 模板两栏超宽大表排版、复杂长公式拆行截断与 BibTeX 宏包报错",
     "tags": [
       "latex",
@@ -1129,7 +1129,7 @@
     "slash": "/math-modeling-master",
     "repo": "mathorcup/mathematical-modeling",
     "stars": "★ 25.6k",
-    "category": "🔬 科研学术与数学建模",
+    "category": "🔬 科研学术",
     "summary": "赛题物理/经济机理拆解、规划优化、微分方程建立、Matlab/Python 求解与论文成稿",
     "tags": [
       "数学建模",
@@ -1148,7 +1148,7 @@
     "slash": "/statistical-hypo-testing",
     "repo": "stat-lab/hypothesis-testing",
     "stars": "★ 12.9k",
-    "category": "🔬 科研学术与数学建模",
+    "category": "🔬 科研学术",
     "summary": "自动适配 ANOVA、单双尾 t 检验、卡方分析，计算 p 值与效应量并输出标准化三线表",
     "tags": [
       "假设检验",
@@ -1167,7 +1167,7 @@
     "slash": "/origin-style-plot",
     "repo": "lab-plot/origin-style-python",
     "stars": "★ 11.5k",
-    "category": "🔬 科研学术与数学建模",
+    "category": "🔬 科研学术",
     "summary": "无需 Origin 软件，纯 Python 绘制高质感双 Y 轴折线图、平滑拟合曲线与误差棒",
     "tags": [
       "origin",
@@ -1185,7 +1185,7 @@
     "slash": "/elsevier-standard-charts",
     "repo": "elsevier-standards/artwork-guide",
     "stars": "★ 9.7k",
-    "category": "🔬 科研学术与数学建模",
+    "category": "🔬 科研学术",
     "summary": "严格对齐 85mm 单栏/175mm 双栏宽度、Arial 6-8pt 字体无形变缩放出版规范",
     "tags": [
       "elsevier",
@@ -1203,7 +1203,7 @@
     "slash": "/bio-pathway-diagram",
     "repo": "biomed/pathway-illustration",
     "stars": "★ 10.1k",
-    "category": "🔬 科研学术与数学建模",
+    "category": "🔬 科研学术",
     "summary": "绘制分子生物学作用机制、细胞受体信号级联传导、药物靶点作用示意图",
     "tags": [
       "通路图",
@@ -1221,7 +1221,7 @@
     "slash": "/heatmap-corr-master",
     "repo": "bioinformatics/omics-plots",
     "stars": "★ 14.4k",
-    "category": "🔬 科研学术与数学建模",
+    "category": "🔬 科研学术",
     "summary": "差异表达基因火山图、高维相关性矩阵热图、主成分分析（PCA）置信椭圆图生成",
     "tags": [
       "火山图",
@@ -1239,7 +1239,7 @@
     "slash": "/thesis-proposal",
     "repo": "grad-school/thesis-proposal-agent",
     "stars": "★ 10.5k",
-    "category": "🔬 科研学术与数学建模",
+    "category": "🔬 科研学术",
     "summary": "开题报告研究背景现状论述、关键技术路线图架构设计与可行性方案论证",
     "tags": [
       "开题报告",
@@ -1257,7 +1257,7 @@
     "slash": "/cvxpy-convex-optimizer",
     "repo": "cvxpy/cvxpy",
     "stars": "★ 6.2k",
-    "category": "🔬 科研学术与数学建模",
+    "category": "🔬 科研学术",
     "summary": "基于符合 DCP 规范的凸优化问题建模，调用 ECOS/OSQP 求解高维最优化资源配置",
     "tags": [
       "凸优化",
@@ -1275,7 +1275,7 @@
     "slash": "/deap-genetic-algorithm",
     "repo": "deap/deap",
     "stars": "★ 5.6k",
-    "category": "🔬 科研学术与数学建模",
+    "category": "🔬 科研学术",
     "summary": "NSGA-II 算法求解高维非线性 Pareto 最优前沿，解决工程多目标权衡求解难题",
     "tags": [
       "遗传算法",
@@ -1293,7 +1293,7 @@
     "slash": "/lifelines-survival-analysis",
     "repo": "CamDavidsonPilon/lifelines",
     "stars": "★ 3.6k",
-    "category": "🔬 科研学术与数学建模",
+    "category": "🔬 科研学术",
     "summary": "绘制 Kaplan-Meier 生存率曲线、Log-rank 显著性检验与 Cox 比例风险回归建模",
     "tags": [
       "生存分析",
@@ -1311,7 +1311,7 @@
     "slash": "/pymol-molecular-view",
     "repo": "schrodinger/pymol-open-source",
     "stars": "★ 3.1k",
-    "category": "🔬 科研学术与数学建模",
+    "category": "🔬 科研学术",
     "summary": "纯脚本批量输出出版级蛋白质三维表面静电势、氢键作用力与小分子对接晶体图",
     "tags": [
       "pymol",
@@ -1329,7 +1329,7 @@
     "slash": "/rdkit-chemistry-toolkit",
     "repo": "rdkit/rdkit",
     "stars": "★ 3.7k",
-    "category": "🔬 科研学术与数学建模",
+    "category": "🔬 科研学术",
     "summary": "SMILES 结构转换、Morgan 分子指纹相似度聚类与 Lipinski 五规则药物类药性筛查",
     "tags": [
       "rdkit",
@@ -1347,7 +1347,7 @@
     "slash": "/shadcn-ui-designer",
     "repo": "shadcn-ui/ui",
     "stars": "★ 75.2k",
-    "category": "🎨 UI设计与网页可视化前端",
+    "category": "🎨 界面设计",
     "summary": "遵循 Radix + Tailwind 规范，输出极具现代感、无障碍可访问的深浅色组件代码",
     "tags": [
       "ui设计",
@@ -1366,7 +1366,7 @@
     "slash": "/web-dashboard-architect",
     "repo": "ant-design/ant-design-pro",
     "stars": "★ 36.1k",
-    "category": "🎨 UI设计与网页可视化前端",
+    "category": "🎨 界面设计",
     "summary": "业务看板栅格布局、核心 KPI 指标动线、多图联动与复杂表单筛选器前端架构",
     "tags": [
       "前端大屏",
@@ -1384,7 +1384,7 @@
     "slash": "/tailwind-artisan",
     "repo": "tailwindlabs/tailwindcss",
     "stars": "★ 82.5k",
-    "category": "🎨 UI设计与网页可视化前端",
+    "category": "🎨 界面设计",
     "summary": "编写弥散光渐变、毛玻璃质感、微动效与移动/桌面多端自适应响应式断点",
     "tags": [
       "tailwind",
@@ -1402,7 +1402,7 @@
     "slash": "/echarts-visualization-expert",
     "repo": "apache/echarts",
     "stars": "★ 58.5k",
-    "category": "🎨 UI设计与网页可视化前端",
+    "category": "🎨 界面设计",
     "summary": "输出可直接运行的 Apache ECharts 柱线混排、地图下钻、桑基图与多层联动看板代码",
     "tags": [
       "echarts",
@@ -1420,7 +1420,7 @@
     "slash": "/threejs-webgl-vis",
     "repo": "mrdoob/three.js",
     "stars": "★ 102.4k",
-    "category": "🎨 UI设计与网页可视化前端",
+    "category": "🎨 界面设计",
     "summary": "基于 Three.js 构建轻量级三维地形、3D 立体地球、数字孪生工业设备展示场景",
     "tags": [
       "threejs",
@@ -1438,7 +1438,7 @@
     "slash": "/svg-icon-illustrator",
     "repo": "lucide-icons/lucide",
     "stars": "★ 17.5k",
-    "category": "🎨 UI设计与网页可视化前端",
+    "category": "🎨 界面设计",
     "summary": "生成手工级精简 SVG 矢量代码、遵循统一 24x24 视口网格与平滑贝塞尔曲线",
     "tags": [
       "svg",
@@ -1456,7 +1456,7 @@
     "slash": "/landing-page-hero",
     "repo": "landing-page/saas-templates",
     "stars": "★ 15.3k",
-    "category": "🎨 UI设计与网页可视化前端",
+    "category": "🎨 界面设计",
     "summary": "Stripe/Linear 风格 SaaS 官网首屏排版：吸睛标题排版、动效悬浮卡片与 CTA 动线",
     "tags": [
       "官网设计",
@@ -1473,7 +1473,7 @@
     "slash": "/color-palette-master",
     "repo": "hughsk/colormaps",
     "stars": "★ 8.9k",
-    "category": "🎨 UI设计与网页可视化前端",
+    "category": "🎨 界面设计",
     "summary": "WCAG AAA 级对比度核验、互补色与邻近色提取、自动生成 Dark/Light 双模式色板",
     "tags": [
       "配色方案",
@@ -1491,7 +1491,7 @@
     "slash": "/wireframe-prototyper",
     "repo": "ux-patterns/wireframe-agent",
     "stars": "★ 12.1k",
-    "category": "🎨 UI设计与网页可视化前端",
+    "category": "🎨 界面设计",
     "summary": "从口述需求快速输出高保真 ASCII/Markdown 线框图与交互状态机分支流转图",
     "tags": [
       "线框图",
@@ -1509,7 +1509,7 @@
     "slash": "/animation-motion-css",
     "repo": "animate-css/animate.css",
     "stars": "★ 26.5k",
-    "category": "🎨 UI设计与网页可视化前端",
+    "category": "🎨 界面设计",
     "summary": "弹性阻尼（Spring 动效）、骨架屏加载过渡与列表交错（Stagger）微动效编写",
     "tags": [
       "css动画",
@@ -1527,7 +1527,7 @@
     "slash": "/ant-design-spec",
     "repo": "ant-design/ant-design",
     "stars": "★ 92.3k",
-    "category": "🎨 UI设计与网页可视化前端",
+    "category": "🎨 界面设计",
     "summary": "严谨对齐蚂蚁金服企业级设计语言，输出符合 B 端高效操作心理模型的界面代码",
     "tags": [
       "ant design",
@@ -1545,7 +1545,7 @@
     "slash": "/vue3-composition-arch",
     "repo": "antfu/vitesse",
     "stars": "★ 19.5k",
-    "category": "🎨 UI设计与网页可视化前端",
+    "category": "🎨 界面设计",
     "summary": "利用 Composition API、Custom Hooks 与 Pinia 组织复杂大型交互界面的响应式数据流",
     "tags": [
       "vue3",
@@ -1563,7 +1563,7 @@
     "slash": "/nextjs-fullstack-web",
     "repo": "vercel/next.js",
     "stars": "★ 128.5k",
-    "category": "🎨 UI设计与网页可视化前端",
+    "category": "🎨 界面设计",
     "summary": "App Router 架构、React Server Components（RSC）服务端渲染与极速边缘缓存",
     "tags": [
       "next.js",
@@ -1581,7 +1581,7 @@
     "slash": "/excalidraw-diagram-pro",
     "repo": "excalidraw/excalidraw",
     "stars": "★ 83.2k",
-    "category": "🎨 UI设计与网页可视化前端",
+    "category": "🎨 界面设计",
     "summary": "生成手绘白板质感的系统架构图、数据流转图，让技术汇报告别刻板冰冷",
     "tags": [
       "excalidraw",
@@ -1599,7 +1599,7 @@
     "slash": "/mermaid-architecture-flow",
     "repo": "mermaid-js/mermaid",
     "stars": "★ 73.4k",
-    "category": "🎨 UI设计与网页可视化前端",
+    "category": "🎨 界面设计",
     "summary": "纯文本渲染规范的 UML 序列交互图、分布式微服务调用拓扑与高并发状态流转图",
     "tags": [
       "mermaid",
@@ -1617,7 +1617,7 @@
     "slash": "/d3-custom-visualization",
     "repo": "d3/d3",
     "stars": "★ 108.1k",
-    "category": "🎨 UI设计与网页可视化前端",
+    "category": "🎨 界面设计",
     "summary": "突破常规柱折饼限制，定制力导向关系网络、弦图、日光辐射图与层次聚类树",
     "tags": [
       "d3.js",
@@ -1635,7 +1635,7 @@
     "slash": "/chartjs-responsive-plots",
     "repo": "chartjs/Chart.js",
     "stars": "★ 64.2k",
-    "category": "🎨 UI设计与网页可视化前端",
+    "category": "🎨 界面设计",
     "summary": "纯轻量、零外部依赖的 HTML5 Canvas 自适应响应式图表快速嵌入与动画配置",
     "tags": [
       "chart.js",
@@ -1653,7 +1653,7 @@
     "slash": "/antv-x6-graph-editor",
     "repo": "antvis/X6",
     "stars": "★ 6.5k",
-    "category": "🎨 UI设计与网页可视化前端",
+    "category": "🎨 界面设计",
     "summary": "构建具有连线对齐吸附、自定义图形节点与撤销重做功能的流程设计器核心引擎",
     "tags": [
       "antv x6",
@@ -1671,7 +1671,7 @@
     "slash": "/data-cleaning-pipeline",
     "repo": "data-prep/cleaning-pipeline-agent",
     "stars": "★ 14.8k",
-    "category": "📊 数据清洗分析与图表呈现",
+    "category": "📊 数据分析",
     "summary": "智能识别杂乱日期、空格非法字符剔除、异常值检测插补与多表对齐标准化",
     "tags": [
       "数据清洗",
@@ -1689,7 +1689,7 @@
     "slash": "/pandas-data-analyst",
     "repo": "data-agent/pandas-eda-wizard",
     "stars": "★ 24.8k",
-    "category": "📊 数据清洗分析与图表呈现",
+    "category": "📊 数据分析",
     "summary": "快速扫描数据分布特征、共线性检测、数据透视与一键输出探索性分析报告",
     "tags": [
       "eda",
@@ -1707,7 +1707,7 @@
     "slash": "/plotly-dashboard-pro",
     "repo": "plotly/dash",
     "stars": "★ 21.2k",
-    "category": "📊 数据清洗分析与图表呈现",
+    "category": "📊 数据分析",
     "summary": "纯 Python 构建多重滑块筛选、悬浮 Tooltip 与图表联动的商业 BI 动态分析仪表盘",
     "tags": [
       "plotly",
@@ -1725,7 +1725,7 @@
     "slash": "/multidimensional-stats",
     "repo": "statsmodels/statsmodels",
     "stars": "★ 9.4k",
-    "category": "📊 数据清洗分析与图表呈现",
+    "category": "📊 数据分析",
     "summary": "因子分析、主成分分析（PCA）、方差齐性核验与回归系数显著性分析报告",
     "tags": [
       "多元统计",
@@ -1743,7 +1743,7 @@
     "slash": "/time-series-forecaster",
     "repo": "stats-modeling/time-series-pro",
     "stars": "★ 13.2k",
-    "category": "📊 数据清洗分析与图表呈现",
+    "category": "📊 数据分析",
     "summary": "ARIMA、Prophet、平稳性检验与多步预测置信区间评估，辅助经营趋势预测",
     "tags": [
       "时间序列",
@@ -1761,7 +1761,7 @@
     "slash": "/excel-power-bi-wizard",
     "repo": "bi-analytics/powerbi-dax-agent",
     "stars": "★ 11.6k",
-    "category": "📊 数据清洗分析与图表呈现",
+    "category": "📊 数据分析",
     "summary": "编写高效 DAX 度量值、构建星型数据模型与销售绩效动态可视化看板",
     "tags": [
       "power bi",
@@ -1779,7 +1779,7 @@
     "slash": "/xgboost-feature-importance",
     "repo": "dmlc/xgboost",
     "stars": "★ 26.3k",
-    "category": "📊 数据清洗分析与图表呈现",
+    "category": "📊 数据分析",
     "summary": "快速完成特征重要性增益计算、超参数微调评估与业务分类/回归决策树拟合",
     "tags": [
       "xgboost",
@@ -1797,7 +1797,7 @@
     "slash": "/shap-model-explainability",
     "repo": "shap/shap",
     "stars": "★ 24.5k",
-    "category": "📊 数据清洗分析与图表呈现",
+    "category": "📊 数据分析",
     "summary": "基于博弈论 Shapley 效应计算特征边际贡献，生成瀑布图、依赖图与全局蜂群图",
     "tags": [
       "shap",
@@ -1815,7 +1815,7 @@
     "slash": "/prophet-business-forecast",
     "repo": "facebook/prophet",
     "stars": "★ 18.2k",
-    "category": "📊 数据清洗分析与图表呈现",
+    "category": "📊 数据分析",
     "summary": "自适应拟合节假日跳变、周月季节性规律与业务增长饱和承载能力的未来预测",
     "tags": [
       "prophet",
@@ -1833,7 +1833,7 @@
     "slash": "/pyod-anomaly-detection",
     "repo": "yzhao062/pyod",
     "stars": "★ 8.7k",
-    "category": "📊 数据清洗分析与图表呈现",
+    "category": "📊 数据分析",
     "summary": "集成孤立森林（iForest）、COPOD 与高维离群点算法，自动挖掘可疑异常流水与交易",
     "tags": [
       "异常检测",
@@ -1851,7 +1851,7 @@
     "slash": "/scikit-learn-pipeline",
     "repo": "scikit-learn/scikit-learn",
     "stars": "★ 60.1k",
-    "category": "📊 数据清洗分析与图表呈现",
+    "category": "📊 数据分析",
     "summary": "编写防数据穿越的 Pipeline、ColumnTransformer 与标准化归一化组合转换器",
     "tags": [
       "sklearn",
@@ -1869,7 +1869,7 @@
     "slash": "/prd-document-architect",
     "repo": "product-management/prd-standard",
     "stars": "★ 14.2k",
-    "category": "📑 产品经理ERP与工业PID规约",
+    "category": "📑 产品需求",
     "summary": "撰写结构化用户故事、功能交互分支全景清单、异常分支处理与原型字段说明",
     "tags": [
       "prd",
@@ -1888,7 +1888,7 @@
     "slash": "/erp-scm-blueprint",
     "repo": "enterprise-erp/scm-blueprint",
     "stars": "★ 12.5k",
-    "category": "📑 产品经理ERP与工业PID规约",
+    "category": "📑 产品需求",
     "summary": "生产计划 MRP、采购入库、BOM 展开、仓储多级调拨与财务成本核算全流程梳理",
     "tags": [
       "erp",
@@ -1907,7 +1907,7 @@
     "slash": "/chemical-pid-diagram",
     "repo": "industrial-diagrams/pid-isa-standards",
     "stars": "★ 9.8k",
-    "category": "📑 产品经理ERP与工业PID规约",
+    "category": "📑 产品需求",
     "summary": "符合 ISA-5.1 标准的管道材质代号、阀门仪表位号规则（FIC/PT/TI）与联锁标注",
     "tags": [
       "pid",
@@ -1926,7 +1926,7 @@
     "slash": "/b2b-saas-billing-model",
     "repo": "saas-growth/billing-matrix",
     "stars": "★ 8.4k",
-    "category": "📑 产品经理ERP与工业PID规约",
+    "category": "📑 产品需求",
     "summary": "设计坐席/用量混合计费模型、多租户套餐权限配额（Quotas）与 MRR 测算",
     "tags": [
       "saas计费",
@@ -1944,7 +1944,7 @@
     "slash": "/mrd-competitor-matrix",
     "repo": "product-strategy/mrd-framework",
     "stars": "★ 11.1k",
-    "category": "📑 产品经理ERP与工业PID规约",
+    "category": "📑 产品需求",
     "summary": "TAM/SAM/SOM 市场规模估算、竞品核心功能雷达图与差异化竞争策略规划",
     "tags": [
       "mrd",
@@ -1962,7 +1962,7 @@
     "slash": "/user-journey-map-pro",
     "repo": "ux-design/user-journey-flow",
     "stars": "★ 10.3k",
-    "category": "📑 产品经理ERP与工业PID规约",
+    "category": "📑 产品需求",
     "summary": "绘制用户进入、激活、留存到转化的心理情绪曲线、痛点接触点与流失归因",
     "tags": [
       "用户旅程",
@@ -1980,7 +1980,7 @@
     "slash": "/api-product-spec",
     "repo": "api-governance/api-as-a-product",
     "stars": "★ 13.2k",
-    "category": "📑 产品经理ERP与工业PID规约",
+    "category": "📑 产品需求",
     "summary": "设计对外开放 API 开发者门户、OAuth2/HMAC 签名认证与调用配额限流商业化标准",
     "tags": [
       "api产品",
@@ -1998,7 +1998,7 @@
     "slash": "/mes-shopfloor-spec",
     "repo": "industrial-iot/mes-specifications",
     "stars": "★ 7.5k",
-    "category": "📑 产品经理ERP与工业PID规约",
+    "category": "📑 产品需求",
     "summary": "工单派工、设备 OEE 综合利用率采集、工序质量追溯与安灯（Andon）告警规范",
     "tags": [
       "mes",
@@ -2016,7 +2016,7 @@
     "slash": "/plc-ladder-logic-sop",
     "repo": "industrial-control/plc-sop-standard",
     "stars": "★ 6.8k",
-    "category": "📑 产品经理ERP与工业PID规约",
+    "category": "📑 产品需求",
     "summary": "撰写西门子/三菱 PLC 动作时序流程图、急停安全安全联锁矩阵与故障自诊断说明",
     "tags": [
       "plc",
@@ -2034,7 +2034,7 @@
     "slash": "/iso-quality-audit-doc",
     "repo": "compliance-docs/iso9001-toolkit",
     "stars": "★ 5.9k",
-    "category": "📑 产品经理ERP与工业PID规约",
+    "category": "📑 产品需求",
     "summary": "标准化 CAPA 纠正与预防措施、不合格品评审流转与内外部质量审核追踪表",
     "tags": [
       "iso9001",
@@ -2052,7 +2052,7 @@
     "slash": "/event-tracking-dictionary",
     "repo": "product-analytics/tracking-matrix",
     "stars": "★ 9.2k",
-    "category": "📑 产品经理ERP与工业PID规约",
+    "category": "📑 产品需求",
     "summary": "制定清晰的事件名、上报属性、公共参数与业务唯一指标统一口径计算说明书",
     "tags": [
       "埋点方案",
@@ -2070,7 +2070,7 @@
     "slash": "/xiaohongshu-copywriter",
     "repo": "social-media/xiaohongshu-viral-agent",
     "stars": "★ 21.5k",
-    "category": "📱 新媒体短视频与流量运营",
+    "category": "📱 新媒体运营",
     "summary": "掌握吸睛二极管标题、沉浸式第一人称语气、情绪价值注入与 SEO 搜索长尾关键词",
     "tags": [
       "小红书",
@@ -2089,7 +2089,7 @@
     "slash": "/douyin-script-hook",
     "repo": "short-video/douyin-script-hook",
     "stars": "★ 24.3k",
-    "category": "📱 新媒体短视频与流量运营",
+    "category": "📱 新媒体运营",
     "summary": "打造高完播与高赞视频：前 3 秒黄金矛盾设置、信息反差反转与点赞互动引导",
     "tags": [
       "抖音",
@@ -2108,7 +2108,7 @@
     "slash": "/wechat-deep-article",
     "repo": "media-growth/wechat-deep-article",
     "stars": "★ 18.6k",
-    "category": "📱 新媒体短视频与流量运营",
+    "category": "📱 新媒体运营",
     "summary": "构建观点鲜明的金字塔论述架构、故事化开头、深度行业洞察与高转发金句提炼",
     "tags": [
       "公众号",
@@ -2126,7 +2126,7 @@
     "slash": "/video-hook-retention",
     "repo": "video-marketing/hook-generator",
     "stars": "★ 12.8k",
-    "category": "📱 新媒体短视频与流量运营",
+    "category": "📱 新媒体运营",
     "summary": "在中长视频中植入信息缺口、伏笔回收机制与视觉钩子，大幅提升观众观看中位时长",
     "tags": [
       "视频留存",
@@ -2144,7 +2144,7 @@
     "slash": "/live-selling-pitch",
     "repo": "ecommerce/live-stream-sales-script",
     "stars": "★ 15.2k",
-    "category": "📱 新媒体短视频与流量运营",
+    "category": "📱 新媒体运营",
     "summary": "设计引流品憋单话术、痛点唤醒、限时限件促成成交与主播场控情绪节奏卡点",
     "tags": [
       "直播带货",
@@ -2162,7 +2162,7 @@
     "slash": "/bilibili-knowledge-script",
     "repo": "video-creators/bilibili-script-pro",
     "stars": "★ 16.4k",
-    "category": "📱 新媒体短视频与流量运营",
+    "category": "📱 新媒体运营",
     "summary": "结合专业文献构建高通俗度科普框架、幽默梗穿插与生动类比可视化解说词",
     "tags": [
       "b站",
@@ -2180,7 +2180,7 @@
     "slash": "/seo-growth-clustering",
     "repo": "growth-hacker/seo-keyword-clustering",
     "stars": "★ 17.1k",
-    "category": "📱 新媒体短视频与流量运营",
+    "category": "📱 新媒体运营",
     "summary": "挖掘百度/小红书搜索下拉词、建立意图聚类矩阵与矩阵式长尾流量铺设方案",
     "tags": [
       "seo",
@@ -2198,7 +2198,7 @@
     "slash": "/social-funnel-analytics",
     "repo": "marketing-ops/social-media-retention",
     "stars": "★ 13.5k",
-    "category": "📱 新媒体短视频与流量运营",
+    "category": "📱 新媒体运营",
     "summary": "拆解曝光-点击-互动-私域沉淀-付费全链路，诊断各阶段转化率瓶颈与优化建议",
     "tags": [
       "转化漏斗",
@@ -2216,7 +2216,7 @@
     "slash": "/creator-personal-ip",
     "repo": "creator-economy/ip-canvas",
     "stars": "★ 11.2k",
-    "category": "📱 新媒体短视频与流量运营",
+    "category": "📱 新媒体运营",
     "summary": "梳理个人独特优势技能、对标账号差异化人设、受众画像与多层级商业变现产品线",
     "tags": [
       "个人ip",
@@ -2234,7 +2234,7 @@
     "slash": "/ielts-writing-band9",
     "repo": "ielts-mastery/writing-task2-band9",
     "stars": "★ 28.5k",
-    "category": "🌍 英语考培外刊与经典名著",
+    "category": "🌍 英语考培",
     "summary": "严格按照 TR 扣题/CC 衔接/LR 词汇/GRA 语法四项评分标准，输出地道学术论证大作文",
     "tags": [
       "雅思",
@@ -2253,7 +2253,7 @@
     "slash": "/ielts-speaking-part123",
     "repo": "ielts-mastery/speaking-part1-2-3",
     "stars": "★ 22.1k",
-    "category": "🌍 英语考培外刊与经典名著",
+    "category": "🌍 英语考培",
     "summary": "摆脱中式翻译思维，掌握多角度拓展答题技巧（原因/影响/举例/让步）与地道口语习语",
     "tags": [
       "雅思口语",
@@ -2272,7 +2272,7 @@
     "slash": "/toefl-integrated-writing",
     "repo": "toefl-prep/integrated-writing-templates",
     "stars": "★ 19.3k",
-    "category": "🌍 英语考培外刊与经典名著",
+    "category": "🌍 英语考培",
     "summary": "精准提取听力讲座对阅读文章三个主要论点的逐一反驳细节，输出严密结构化成文",
     "tags": [
       "托福",
@@ -2290,7 +2290,7 @@
     "slash": "/toefl-speaking-academic",
     "repo": "toefl-prep/speaking-academic-structures",
     "stars": "★ 17.6k",
-    "category": "🌍 英语考培外刊与经典名著",
+    "category": "🌍 英语考培",
     "summary": "学术讲座速记符号系统、过渡连接词精准运用与 60 秒限时内紧凑转述高分模板",
     "tags": [
       "托福口语",
@@ -2308,7 +2308,7 @@
     "slash": "/cet46-complex-grammar",
     "repo": "english-exams/cet4-6-grammar-master",
     "stars": "★ 16.2k",
-    "category": "🌍 英语考培外刊与经典名著",
+    "category": "🌍 英语考培",
     "summary": "逆向拆解非谓语动词、倒装句与多层定语/从句嵌套，秒抓句子主干消除阅读障碍",
     "tags": [
       "四六级",
@@ -2327,7 +2327,7 @@
     "slash": "/cet46-translation-master",
     "repo": "english-exams/cet4-6-translation-pro",
     "stars": "★ 15.4k",
-    "category": "🌍 英语考培外刊与经典名著",
+    "category": "🌍 英语考培",
     "summary": "精准翻译传统非遗、历史名胜与当代成就热词，避免中式硬译并保证语法地道优雅",
     "tags": [
       "四六级翻译",
@@ -2345,7 +2345,7 @@
     "slash": "/kaoyan-english-reading",
     "repo": "postgrad-exam/kaoyan-english-reading",
     "stars": "★ 23.5k",
-    "category": "🌍 英语考培外刊与经典名著",
+    "category": "🌍 英语考培",
     "summary": "深剖考研英语一/二真题阅读长难句、作者主观态度题识别与偷换概念干扰项排除技巧",
     "tags": [
       "考研英语",
@@ -2363,7 +2363,7 @@
     "slash": "/economist-analytical-reading",
     "repo": "reading-club/economist-analyst",
     "stars": "★ 18.9k",
-    "category": "🌍 英语考培外刊与经典名著",
+    "category": "🌍 英语考培",
     "summary": "精读 The Economist 商业特稿，梳理高级隐喻修辞、英式幽默双关语与精妙搭配表达",
     "tags": [
       "经济学人",
@@ -2381,7 +2381,7 @@
     "slash": "/nyt-opinion-essay",
     "repo": "press-reading/new-york-times-essay",
     "stars": "★ 14.5k",
-    "category": "🌍 英语考培外刊与经典名著",
+    "category": "🌍 英语考培",
     "summary": "解构纽约时报 Opinion 专栏文章论据展开方式、反驳对立观点逻辑与高端句式归纳",
     "tags": [
       "纽约时报",
@@ -2399,7 +2399,7 @@
     "slash": "/series-vocab-immersion",
     "repo": "language-immersion/series-vocab-agent",
     "stars": "★ 19.8k",
-    "category": "🌍 英语考培外刊与经典名著",
+    "category": "🌍 英语考培",
     "summary": "从经典英美剧中提取地道口语动词短语、日常俚语与情感语气词，实现真实场景迁移应用",
     "tags": [
       "看剧学英语",
@@ -2417,7 +2417,7 @@
     "slash": "/classic-literature-study",
     "repo": "humanities/classic-literature-study",
     "stars": "★ 12.3k",
-    "category": "🌍 英语考培外刊与经典名著",
+    "category": "🌍 英语考培",
     "summary": "分析原著叙事视角、人物弧光心理描写、时代历史隐喻与文学经典名句精读",
     "tags": [
       "英文原著",
@@ -2435,7 +2435,7 @@
     "slash": "/official-document-writer",
     "repo": "gov-office/chinese-official-doc",
     "stars": "★ 26.9k",
-    "category": "🏢 职场日常与文档批量自动化",
+    "category": "🏢 职场办公",
     "summary": "规范通知/公函/请示/批复格式，拿捏公文措辞分寸，撰写汇报与重要会议讲话",
     "tags": [
       "公文",
@@ -2455,7 +2455,7 @@
     "slash": "/meeting-minutes",
     "repo": "workplace/meeting-minutes-pro",
     "stars": "★ 19.5k",
-    "category": "🏢 职场日常与文档批量自动化",
+    "category": "🏢 职场办公",
     "summary": "录音速记文本提炼讨论焦点、决议定案与 Action Items（明确责任人/交付时限）",
     "tags": [
       "会议纪要",
@@ -2473,7 +2473,7 @@
     "slash": "/weekly-report-pro",
     "repo": "workplace/weekly-report-pro",
     "stars": "★ 21.2k",
-    "category": "🏢 职场日常与文档批量自动化",
+    "category": "🏢 职场办公",
     "summary": "量化工作产出指标、凸显思考深度、巧妙汇报困难阻碍与复盘心得要点",
     "tags": [
       "周报",
@@ -2491,7 +2491,7 @@
     "slash": "/excel-batch-processor-vba",
     "repo": "office-automation/excel-vba-toolkit",
     "stars": "★ 17.8k",
-    "category": "🏢 职场日常与文档批量自动化",
+    "category": "🏢 职场办公",
     "summary": "一键批量合并数十个不同结构 Excel 表格、按指定条件拆分与透视表 VBA",
     "tags": [
       "excel批量",
@@ -2509,7 +2509,7 @@
     "slash": "/word-batch-formatter",
     "repo": "office-automation/word-batch-formatter",
     "stars": "★ 13.2k",
-    "category": "🏢 职场日常与文档批量自动化",
+    "category": "🏢 职场办公",
     "summary": "一键统一字体行距、自动更新多级编号与目录、自动化三线表样式批量替换",
     "tags": [
       "word排版",
@@ -2527,7 +2527,7 @@
     "slash": "/pdf-table-extractor",
     "repo": "document-ai/pdf-table-extractor",
     "stars": "★ 15.4k",
-    "category": "🏢 职场日常与文档批量自动化",
+    "category": "🏢 职场办公",
     "summary": "高精度识别提取 PDF 单双栏表格数据，自动转化为标准 Excel 格式输出",
     "tags": [
       "pdf提取",
@@ -2545,7 +2545,7 @@
     "slash": "/mindmap-generator",
     "repo": "visualization/mermaid-mindmap",
     "stars": "★ 22.2k",
-    "category": "🏢 职场日常与文档批量自动化",
+    "category": "🏢 职场办公",
     "summary": "从复杂长篇方案中提炼层级关系，输出可直接渲染的高质量脑图代码",
     "tags": [
       "思维导图",
@@ -2563,7 +2563,7 @@
     "slash": "/powerpoint-slide-architect",
     "repo": "presentation/slide-architect-pro",
     "stars": "★ 16.3k",
-    "category": "🏢 职场日常与文档批量自动化",
+    "category": "🏢 职场办公",
     "summary": "输出金字塔原理商业汇报 PPT 幻灯片大纲、版式视觉布局与演讲口播提示",
     "tags": [
       "ppt大纲",
@@ -2581,7 +2581,7 @@
     "slash": "/business-email-master",
     "repo": "workplace/business-email-master",
     "stars": "★ 14.6k",
-    "category": "🏢 职场日常与文档批量自动化",
+    "category": "🏢 职场办公",
     "summary": "掌握催办进度、委婉拒绝不合理需求、跨部门求助协作的得体分寸邮件模板",
     "tags": [
       "商务邮件",
@@ -2599,7 +2599,7 @@
     "slash": "/star-resume-optimizer",
     "repo": "career/resume-star-optimizer",
     "stars": "★ 25.3k",
-    "category": "🏢 职场日常与文档批量自动化",
+    "category": "🏢 职场办公",
     "summary": "基于情境-任务-行动-结果（STAR）深度挖掘过往产出，量化技术成果并匹配目标岗位",
     "tags": [
       "简历优化",
@@ -2617,7 +2617,7 @@
     "slash": "/pytest-mock-enterprise",
     "repo": "pytest-dev/pytest-mock",
     "stars": "★ 12.8k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "搭建清晰的 conftest.py 依赖注入体系，对外部数据库与网络调用实现零污染纯净 Mock",
     "tags": [
       "pytest",
@@ -2635,7 +2635,7 @@
     "slash": "/journal-aims-matcher",
     "repo": "greenelab/scihub-dl",
     "stars": "★ 8.9k",
-    "category": "🔬 科研学术与数学建模",
+    "category": "🔬 科研学术",
     "summary": "综合 Abstract 语义、JCR 分区、中科院预警名单与版面费审稿周期，推荐最具命中率期刊群",
     "tags": [
       "期刊推荐",
@@ -2653,7 +2653,7 @@
     "slash": "/tailwind-design-tokens",
     "repo": "adamwathan/tailwind-design-tokens",
     "stars": "★ 85.2k",
-    "category": "🎨 UI设计与网页可视化前端",
+    "category": "🎨 界面设计",
     "summary": "建立标准化语义色板、间距圆角层级与 Tailwind config 深度定制方案",
     "tags": [
       "tailwind",
@@ -2671,7 +2671,7 @@
     "slash": "/shadcn-custom-pattern",
     "repo": "tailwindlabs/headlessui",
     "stars": "★ 76.5k",
-    "category": "🎨 UI设计与网页可视化前端",
+    "category": "🎨 界面设计",
     "summary": "遵循 Radix Primitives 键盘可访问性，输出生产级对话框、抽屉、自动完成等组件代码",
     "tags": [
       "shadcn",
@@ -2689,7 +2689,7 @@
     "slash": "/framer-spring-animation",
     "repo": "framer/motion",
     "stars": "★ 27.8k",
-    "category": "🎨 UI设计与网页可视化前端",
+    "category": "🎨 界面设计",
     "summary": "配置高拟真物理阻尼、手势拖拽手感与页面 LayoutGroup 共享元素丝滑过渡",
     "tags": [
       "framer-motion",
@@ -2707,7 +2707,7 @@
     "slash": "/figma-code-handoff",
     "repo": "figma/plugin-samples",
     "stars": "★ 5.8k",
-    "category": "🎨 UI设计与网页可视化前端",
+    "category": "🎨 界面设计",
     "summary": "将 Auto-layout 自动布局精准映射为无冗余现代 CSS，告别固定像素绝对定位",
     "tags": [
       "figma还原",
@@ -2725,7 +2725,7 @@
     "slash": "/wcag-a11y-auditor",
     "repo": "dequelabs/axe-core",
     "stars": "★ 7.5k",
-    "category": "🎨 UI设计与网页可视化前端",
+    "category": "🎨 界面设计",
     "summary": "扫描焦点陷阱、ARIA 语义缺失与低对比度文字，给出可落地无障碍重构方案",
     "tags": [
       "无障碍",
@@ -2743,7 +2743,7 @@
     "slash": "/fluid-responsive-system",
     "repo": "necolas/normalize.css",
     "stars": "★ 52.8k",
-    "category": "🎨 UI设计与网页可视化前端",
+    "category": "🎨 界面设计",
     "summary": "利用现代 CSS clamp() 与 Container Queries 打造无需刷新、自适应全设备流式界面",
     "tags": [
       "响应式布局",
@@ -2761,7 +2761,7 @@
     "slash": "/pandas-pipeline-cleaner",
     "repo": "pandas-dev/pandas",
     "stars": "★ 44.5k",
-    "category": "📊 数据清洗分析与图表呈现",
+    "category": "📊 数据分析",
     "summary": "构建健壮可复用的链式清洗函数（pipe），自动化处理类型转换、空值插补与极值平滑",
     "tags": [
       "pandas清洗",
@@ -2779,7 +2779,7 @@
     "slash": "/sql-explain-tuner",
     "repo": "sqlmapproject/sqlmap",
     "stars": "★ 31.2k",
-    "category": "📊 数据清洗分析与图表呈现",
+    "category": "📊 数据分析",
     "summary": "解剖扫描行数、filesort 与临时表瓶颈，针对性给出加复合索引与改写子查询的调优方案",
     "tags": [
       "sql调优",
@@ -2797,7 +2797,7 @@
     "slash": "/cohort-retention-model",
     "repo": "scikit-survival/scikit-survival",
     "stars": "★ 10.4k",
-    "category": "📊 数据清洗分析与图表呈现",
+    "category": "📊 数据分析",
     "summary": "按注册/首次付费时间拆解次日/7日/30日留存矩阵热图，建立早中期 LTV 预测函数",
     "tags": [
       "同期群分析",
@@ -2815,7 +2815,7 @@
     "slash": "/ab-test-significance-lab",
     "repo": "scipy/scipy",
     "stars": "★ 13.9k",
-    "category": "📊 数据清洗分析与图表呈现",
+    "category": "📊 数据分析",
     "summary": "测算实验所需最小样本量与观测周期，输出置信区间、p值与防假阳性的决策建议",
     "tags": [
       "ab测试",
@@ -2833,7 +2833,7 @@
     "slash": "/funnel-conversion-diagnostic",
     "repo": "posthog/posthog",
     "stars": "★ 24.8k",
-    "category": "📊 数据清洗分析与图表呈现",
+    "category": "📊 数据分析",
     "summary": "细化注册-浏览-加购-结算关键路径转化率，利用下钻分析定位流失最大阻塞断点",
     "tags": [
       "转化漏斗",
@@ -2851,7 +2851,7 @@
     "slash": "/financial-dcf-valuation",
     "repo": "ranaroussi/yfinance",
     "stars": "★ 15.6k",
-    "category": "📊 数据清洗分析与图表呈现",
+    "category": "📊 数据分析",
     "summary": "基于资产负债、利润与现金流量表联动，设定 WACC 与永续增长率测算企业公允估值",
     "tags": [
       "dcf估值",
@@ -2869,7 +2869,7 @@
     "slash": "/rfm-customer-segmentation",
     "repo": "residentmario/missingno",
     "stars": "★ 58.9k",
-    "category": "📊 数据清洗分析与图表呈现",
+    "category": "📊 数据分析",
     "summary": "对最近消费时间、频次与金额进行分位数打分，划定核心价值、潜力与流失客群应对策略",
     "tags": [
       "rfm模型",
@@ -2887,7 +2887,7 @@
     "slash": "/etl-pipeline-architect",
     "repo": "dagster-io/dagster",
     "stars": "★ 12.1k",
-    "category": "📊 数据清洗分析与图表呈现",
+    "category": "📊 数据分析",
     "summary": "设计高容错、带断点续跑、异常数据分流告警的 Python 轻量批处理 ETL 流水线架构",
     "tags": [
       "etl架构",
@@ -2905,7 +2905,7 @@
     "slash": "/dax-powerbi-metrics",
     "repo": "microsoft/PowerBI-visuals-tools",
     "stars": "★ 8.2k",
-    "category": "📊 数据清洗分析与图表呈现",
+    "category": "📊 数据分析",
     "summary": "编写开箱即用的 DAX 高阶度量值，快速实现累计同比 (YoY)、环比 (MoM) 与动态切片",
     "tags": [
       "powerbi",
@@ -2923,7 +2923,7 @@
     "slash": "/prd-feature-spec",
     "repo": "product-ops/prd-best-practices",
     "stars": "★ 74.3k",
-    "category": "📑 产品经理ERP与工业PID规约",
+    "category": "📑 产品需求",
     "summary": "输出涵盖业务价值、前置依赖、UI 交互态、成功分支与全量异常分支的标准 PRD",
     "tags": [
       "prd文档",
@@ -2941,7 +2941,7 @@
     "slash": "/user-journey-touchpoint-map",
     "repo": "jgraph/drawio",
     "stars": "★ 41.5k",
-    "category": "📑 产品经理ERP与工业PID规约",
+    "category": "📑 产品需求",
     "summary": "端到端拆解用户行为、心理预期、系统交互触点与负面情绪断点，产出直观表格与流程图",
     "tags": [
       "用户旅程",
@@ -2959,7 +2959,7 @@
     "slash": "/openapi-rest-spec",
     "repo": "OAI/OpenAPI-Specification",
     "stars": "★ 32.1k",
-    "category": "📑 产品经理ERP与工业PID规约",
+    "category": "📑 产品需求",
     "summary": "严谨定义 RESTful 端点路径、Query/Body Schema、状态码映射与标准错误返回模型",
     "tags": [
       "openapi",
@@ -2977,7 +2977,7 @@
     "slash": "/scrum-user-story-estimator",
     "repo": "taigaio/taiga-front",
     "stars": "★ 6.7k",
-    "category": "📑 产品经理ERP与工业PID规约",
+    "category": "📑 产品需求",
     "summary": "规范“作为[角色]，我想要[功能]，以便于[价值]”与 INVEST 原则标准验收验收条件 (AC)",
     "tags": [
       "用户故事",
@@ -2995,7 +2995,7 @@
     "slash": "/b2b-rbac-permission-matrix",
     "repo": "casbin/casbin",
     "stars": "★ 18.2k",
-    "category": "📑 产品经理ERP与工业PID规约",
+    "category": "📑 产品需求",
     "summary": "设计角色-权限-资源-数据行级权限矩阵，满足企业级安全合规与组织架构映射",
     "tags": [
       "rbac权限",
@@ -3013,7 +3013,7 @@
     "slash": "/industrial-mes-production-flow",
     "repo": "smart-manufacturing/mes-production-dispatch",
     "stars": "★ 8.4k",
-    "category": "📑 产品经理ERP与工业PID规约",
+    "category": "📑 产品需求",
     "summary": "标准化生产订单拆解、工序报工、批次条码追踪与良品率质检数据流转规约",
     "tags": [
       "mes系统",
@@ -3031,7 +3031,7 @@
     "slash": "/event-tracking-analytics-schema",
     "repo": "snowplow/snowplow",
     "stars": "★ 7.2k",
-    "category": "📑 产品经理ERP与工业PID规约",
+    "category": "📑 产品需求",
     "summary": "规范页面曝光、元素点击、业务自定义事件名与上报公共属性（device/network/uid）规约",
     "tags": [
       "数据埋点",
@@ -3049,7 +3049,7 @@
     "slash": "/xhs-seo-tag-strategy",
     "repo": "growth-hacker/xiaohongshu-seo",
     "stars": "★ 12.8k",
-    "category": "📱 新媒体短视频与流量运营",
+    "category": "📱 新媒体运营",
     "summary": "精准匹配小红书搜索算法推荐逻辑，产出涵盖核心词、长尾词与高潜疑问词的笔记文本",
     "tags": [
       "小红书seo",
@@ -3067,7 +3067,7 @@
     "slash": "/douyin-3s-hook-retention",
     "repo": "short-video-lab/douyin-retention-hooks",
     "stars": "★ 15.6k",
-    "category": "📱 新媒体短视频与流量运营",
+    "category": "📱 新媒体运营",
     "summary": "针对短视频高完播率算法，设计强冲突悬念、利益点前置与黄金 3 秒开场白分镜",
     "tags": [
       "抖音前3秒",
@@ -3085,7 +3085,7 @@
     "slash": "/bilibili-knowledge-structure",
     "repo": "video-creators/bilibili-knowledge-script",
     "stars": "★ 11.2k",
-    "category": "📱 新媒体短视频与流量运营",
+    "category": "📱 新媒体运营",
     "summary": "打造逻辑层次分明、通俗易懂的长视频万字大纲、知识点层层递进与弹幕共鸣节点",
     "tags": [
       "B站大纲",
@@ -3103,7 +3103,7 @@
     "slash": "/amazon-listing-copywriter",
     "repo": "ecommerce-growth/amazon-listing-optimizer",
     "stars": "★ 9.8k",
-    "category": "📱 新媒体短视频与流量运营",
+    "category": "📱 新媒体运营",
     "summary": "深度结合海外本土化搜索意图，打造高转化主图痛点描述、五点特性与品牌 Story",
     "tags": [
       "亚马逊listing",
@@ -3121,7 +3121,7 @@
     "slash": "/tiktok-viral-trends",
     "repo": "davidteather/TikTok-Api",
     "stars": "★ 14.6k",
-    "category": "📱 新媒体短视频与流量运营",
+    "category": "📱 新媒体运营",
     "summary": "把握欧美东南亚短视频流行模版，撰写高自然播放量与强互动率的英文短剧/展示脚本",
     "tags": [
       "tiktok文案",
@@ -3139,7 +3139,7 @@
     "slash": "/live-commerce-closer",
     "repo": "live-stream-sales/pitch-closer-sop",
     "stars": "★ 10.4k",
-    "category": "📱 新媒体短视频与流量运营",
+    "category": "📱 新媒体运营",
     "summary": "制定直播间从痛点塑造、限时放量、信任背书到最后倒数促单的连环高转化话术规约",
     "tags": [
       "直播带货",
@@ -3157,7 +3157,7 @@
     "slash": "/pr-media-release",
     "repo": "corporate-pr/press-release-standard",
     "stars": "★ 8.9k",
-    "category": "📱 新媒体短视频与流量运营",
+    "category": "📱 新媒体运营",
     "summary": "遵循权威媒体发稿规范，撰写具备行业高度、新闻价值与公信力的客观公关报道稿",
     "tags": [
       "公关稿",
@@ -3175,7 +3175,7 @@
     "slash": "/private-traffic-growth",
     "repo": "growth-hacking/private-traffic-playbook",
     "stars": "★ 32.5k",
-    "category": "📱 新媒体短视频与流量运营",
+    "category": "📱 新媒体运营",
     "summary": "设计从新客进群欢迎、每日打卡沉淀到周期性秒杀转化的全套高留存社群运营闭环",
     "tags": [
       "私域运营",
@@ -3193,7 +3193,7 @@
     "slash": "/podcast-script-master",
     "repo": "podcast-pro/interview-master-framework",
     "stars": "★ 7.6k",
-    "category": "📱 新媒体短视频与流量运营",
+    "category": "📱 新媒体运营",
     "summary": "构建富有深度挖掘感与自然交谈氛围的播客问题脉络、追问支线与金句萃取方案",
     "tags": [
       "播客提纲",
@@ -3211,7 +3211,7 @@
     "slash": "/ielts-speaking-band7-plus",
     "repo": "kyrolabs/awesome-langchain",
     "stars": "★ 20.1k",
-    "category": "🌍 英语考培外刊与经典名著",
+    "category": "🌍 英语考培",
     "summary": "避免中式套路模版，训练自然地道的地道动词短语、连词衔接与高分思辨论述深度",
     "tags": [
       "雅思口语",
@@ -3229,7 +3229,7 @@
     "slash": "/gre-gmat-argument-logic",
     "repo": "critical-thinking/gre-gmat-logical-fallacies",
     "stars": "★ 14.8k",
-    "category": "🌍 英语考培外刊与经典名著",
+    "category": "🌍 英语考培",
     "summary": "精准锁定调查样本无代表性、因果倒置、错误类比等典型论证漏洞并组织有力攻击",
     "tags": [
       "gre写作",
@@ -3247,7 +3247,7 @@
     "slash": "/the-economist-style-reading",
     "repo": "reading-club/economist-bilingual-reading",
     "stars": "★ 16.5k",
-    "category": "🌍 英语考培外刊与经典名著",
+    "category": "🌍 英语考培",
     "summary": "传神翻译英美外刊中巧妙的双关语、历史典故与英式幽默，提炼政经精英词汇库",
     "tags": [
       "经济学人",
@@ -3265,7 +3265,7 @@
     "slash": "/business-english-negotiation",
     "repo": "business-communication/global-negotiation-english",
     "stars": "★ 13.9k",
-    "category": "🌍 英语考培外刊与经典名著",
+    "category": "🌍 英语考培",
     "summary": "精准拿捏询价还盘、设立违约底线与缓解僵局的地道外企英文实战表达",
     "tags": [
       "商务谈判",
@@ -3283,7 +3283,7 @@
     "slash": "/academic-native-polisher",
     "repo": "latex3/latex2e",
     "stars": "★ 8.5k",
-    "category": "🌍 英语考培外刊与经典名著",
+    "category": "🌍 英语考培",
     "summary": "消除长难句歧义与中式直译痕迹，优化主被动语态平衡，提升顶级期刊论文可读性",
     "tags": [
       "论文润色",
@@ -3301,7 +3301,7 @@
     "slash": "/toefl-writing-rubric",
     "repo": "toefl-mastery/academic-discussion-writing",
     "stars": "★ 12.4k",
-    "category": "🌍 英语考培外刊与经典名著",
+    "category": "🌍 英语考培",
     "summary": "围绕教授提问与两名学生发言快速确立清晰立场，在 10 分钟内展开充实学术论据",
     "tags": [
       "托福写作",
@@ -3319,7 +3319,7 @@
     "slash": "/cet6-reading-comprehension",
     "repo": "mahaveerg/vocabulary",
     "stars": "★ 8.6k",
-    "category": "🌍 英语考培外刊与经典名著",
+    "category": "🌍 英语考培",
     "summary": "掌握题干核心关键词回文精准定位与同义改写识别，高效排除张冠李戴干扰选项",
     "tags": [
       "英语六级",
@@ -3337,7 +3337,7 @@
     "slash": "/resume-ats-polisher",
     "repo": "resume/resume.github.io",
     "stars": "★ 18.5k",
-    "category": "🏢 职场日常与文档批量自动化",
+    "category": "🏢 职场办公",
     "summary": "针对大厂 ATS 机器初筛系统优化简历结构、技术关键词密度与无失真排版规约",
     "tags": [
       "ats简历",
@@ -3355,7 +3355,7 @@
     "slash": "/mckinsey-slide-consultant",
     "repo": "slidevjs/slidev",
     "stars": "★ 32.4k",
-    "category": "🏢 职场日常与文档批量自动化",
+    "category": "🏢 职场办公",
     "summary": "按“背景-冲突-疑问-解答 (SCQA)”模型构建高管赞同的结构化商业汇报大纲",
     "tags": [
       "麦肯锡ppt",
@@ -3373,7 +3373,7 @@
     "slash": "/daily-standup-summary",
     "repo": "guanguans/ai-commit",
     "stars": "★ 12.8k",
-    "category": "🏢 职场日常与文档批量自动化",
+    "category": "🏢 职场办公",
     "summary": "从粗糙碎片化的打卡与聊天记录中快速梳理出清晰的当日产出、阻塞卡点与次日计划",
     "tags": [
       "日报",
@@ -3391,7 +3391,7 @@
     "slash": "/excel-dynamic-formulas",
     "repo": "excel-wizards/dynamic-arrays-xlookup",
     "stars": "★ 17.5k",
-    "category": "🏢 职场日常与文档批量自动化",
+    "category": "🏢 职场办公",
     "summary": "针对复杂表格多条件匹配、动态跨表关联与多层嵌套计算，自动生成可直接粘贴的稳定公式",
     "tags": [
       "excel公式",
@@ -3409,7 +3409,7 @@
     "slash": "/contract-risk-auditor",
     "repo": "legal-tech/contract-risk-audit",
     "stars": "★ 18.2k",
-    "category": "🏢 职场日常与文档批量自动化",
+    "category": "🏢 职场办公",
     "summary": "逐条扫描付款节点、免责边界、知识产权归属与违约惩罚，输出红线风险预警与对等修改意见",
     "tags": [
       "合同审查",
@@ -3427,7 +3427,7 @@
     "slash": "/corporate-sop-manual",
     "repo": "enterprise-ops/standard-operating-procedures",
     "stars": "★ 38.2k",
-    "category": "🏢 职场日常与文档批量自动化",
+    "category": "🏢 职场办公",
     "summary": "将专家口述经验与零散操作规范化为防呆型、可考核、带图文检查清单的标准化交付 SOP",
     "tags": [
       "sop手册",
@@ -3445,7 +3445,7 @@
     "slash": "/performance-okr-coach",
     "repo": "workplace-growth/okr-framework",
     "stars": "★ 15.4k",
-    "category": "🏢 职场日常与文档批量自动化",
+    "category": "🏢 职场办公",
     "summary": "协助梳理高价值关键成果 (KR)，指导主管与员工开展有理有据、高情商的绩效复盘与评定",
     "tags": [
       "okr制定",
@@ -3463,7 +3463,7 @@
     "slash": "/speech-keynote-writer",
     "repo": "speech-writing/executive-keynotes",
     "stars": "★ 11.6k",
-    "category": "🏢 职场日常与文档批量自动化",
+    "category": "🏢 职场办公",
     "summary": "把握听众情绪心流，产出既有格局高度又具语言感染力的大会致辞、演讲讲义与即兴发言稿",
     "tags": [
       "演讲稿",
@@ -3481,7 +3481,7 @@
     "slash": "/onboarding-training-guide",
     "repo": "kamranahmedse/developer-roadmap",
     "stars": "★ 295.4k",
-    "category": "🏢 职场日常与文档批量自动化",
+    "category": "🏢 职场办公",
     "summary": "制定体系化 30-60-90 天新员工胜任力跃迁计划、环境配置手册与第一周关键答疑指引",
     "tags": [
       "入职手册",
@@ -3499,7 +3499,7 @@
     "slash": "/corporate-event-plan",
     "repo": "event-planning/corporate-gala-framework",
     "stars": "★ 9.4k",
-    "category": "🏢 职场日常与文档批量自动化",
+    "category": "🏢 职场办公",
     "summary": "提供完整的活动时间轴、嘉宾动线、物料筹备倒排表与应急突发预案规范",
     "tags": [
       "活动策划",
@@ -3517,7 +3517,7 @@
     "slash": "/workplace-difficult-dialogue",
     "repo": "harvard-business/negotiation-handbook",
     "stars": "★ 171.2k",
-    "category": "🏢 职场日常与文档批量自动化",
+    "category": "🏢 职场办公",
     "summary": "在不伤害团队关系的前提下，用职场得体措辞委婉拒绝加码需求或推动跨部门顽固卡点",
     "tags": [
       "高情商沟通",
@@ -3535,7 +3535,7 @@
     "slash": "/tender-bidding-document",
     "repo": "apache/incubator-answer",
     "stars": "★ 14.1k",
-    "category": "🏢 职场日常与文档批量自动化",
+    "category": "🏢 职场办公",
     "summary": "对标招标文件评分标准逐条编写响应偏离表、实施技术方案与资质陈述，防止废标",
     "tags": [
       "标书编写",
@@ -3553,7 +3553,7 @@
     "slash": "/financial-reimbursement-audit",
     "repo": "finance-audit/corporate-expense-reimbursement",
     "stars": "★ 8.2k",
-    "category": "🏢 职场日常与文档批量自动化",
+    "category": "🏢 职场办公",
     "summary": "按财务制度自查报销事由、发票备注栏、连号发票风险与差旅补贴限额，减少退单返工",
     "tags": [
       "报销审核",
@@ -3571,7 +3571,7 @@
     "slash": "/cross-team-handover-sop",
     "repo": "team-management/project-handover-protocols",
     "stars": "★ 12.1k",
-    "category": "🏢 职场日常与文档批量自动化",
+    "category": "🏢 职场办公",
     "summary": "梳理代码库权限、运维账密、未结事项与业务联系人清单，确保平稳无缝过渡",
     "tags": [
       "离职交接",
@@ -3589,7 +3589,7 @@
     "slash": "/internal-wiki-builder",
     "repo": "outline/outline",
     "stars": "★ 28.5k",
-    "category": "🏢 职场日常与文档批量自动化",
+    "category": "🏢 职场办公",
     "summary": "将产研和运维中的高频踩坑问题沉淀为结构清晰、检索即用的团队知识库与排错排查指南",
     "tags": [
       "知识库",
@@ -3607,7 +3607,7 @@
     "slash": "/series-vocab",
     "repo": "openclaw/series-vocab",
     "stars": "★ 18.6k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "从英美剧对白中精准过滤 B2-C1 地道动词短语与习语，输出音标释义并一键导出 Anki 闪卡",
     "tags": [
       "追剧学英语",
@@ -3625,7 +3625,7 @@
     "slash": "/rag-chunking-evaluator",
     "repo": "explodinggradients/ragas",
     "stars": "★ 18.9k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "针对长文档制定语义分块 (Semantic Chunking)、滑窗重叠与 Ragas 幻觉/忠实度打分规约",
     "tags": [
       "rag评测",
@@ -3643,7 +3643,7 @@
     "slash": "/prompt-optimizer-reverse",
     "repo": "promptfoo/promptfoo",
     "stars": "★ 5.8k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "将粗糙模糊的提问逆向解构为具备角色、上下文、输入规范与高质量少样本的黄金指令",
     "tags": [
       "提示词调优",
@@ -3661,7 +3661,7 @@
     "slash": "/system-design-blueprint",
     "repo": "donnemartin/system-design-primer",
     "stars": "★ 280.5k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "设计从 CDN、负载均衡、缓存穿透防护到分库分表的端到端高可用系统蓝图",
     "tags": [
       "系统设计",
@@ -3679,7 +3679,7 @@
     "slash": "/interview-algorithm-coach",
     "repo": "doocs/leetcode",
     "stars": "★ 125.4k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "拆解高频算法题核心破题突破口，从暴力解法逐步推导至最优时空复杂度并手写边界测试",
     "tags": [
       "算法面试",
@@ -3697,7 +3697,7 @@
     "slash": "/claude-code-minimalist",
     "repo": "anthropics/anthropic-cookbook",
     "stars": "★ 31.2k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "倡导小而美、无过度设计、单一职责与严格类型提示的现代极简编码习惯",
     "tags": [
       "极简编码",
@@ -3715,7 +3715,7 @@
     "slash": "/translator-native-touch",
     "repo": "deepl/deepl-python",
     "stars": "★ 19.8k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "破除机器翻译硬译套话，遵循目标语言行文逻辑与行业术语表，交付出版级双语文稿",
     "tags": [
       "母语翻译",
@@ -3733,7 +3733,7 @@
     "slash": "/pr-agent-reviewer",
     "repo": "Codium-ai/pr-agent",
     "stars": "★ 15.6k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "自动提炼 PR 核心变更摘要、潜在性能退化与回滚风险，给出建设性重构意见",
     "tags": [
       "pr审查",
@@ -3751,7 +3751,7 @@
     "slash": "/api-schema-contract",
     "repo": "stoplightio/prism",
     "stars": "★ 28.4k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "前后端联调前确立无歧义的 JSON Schema 契约，自动生成符合业务边界的真实 Mock 数据",
     "tags": [
       "api契约",
@@ -3769,7 +3769,7 @@
     "slash": "/docker-lean-container",
     "repo": "hexops/dockerfile-linter",
     "stars": "★ 14.2k",
-    "category": "🌟 破万星巅峰与最新趋势",
+    "category": "🌟 热门标杆",
     "summary": "运用多阶段构建剥离编译依赖、最小化镜像层数并消除 Root 特权漏洞，体积缩减 80%+",
     "tags": [
       "dockerfile",
@@ -3787,7 +3787,7 @@
     "slash": "/linux-shell-debugger",
     "repo": "koalaman/shellcheck",
     "stars": "★ 34.5k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "诊断 Bash 脚本中的语法隐患、空变量展开与管道错误码失效，产出工业级健壮运维脚本",
     "tags": [
       "shell脚本",
@@ -3805,7 +3805,7 @@
     "slash": "/markdown-academic-table",
     "repo": "firasdib/Regex101",
     "stars": "★ 12.8k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "规范顶刊标准三线表（Top/Mid/Bottom Rule），处理复杂多级表头与长数据对齐换行",
     "tags": [
       "三线表",
@@ -3823,7 +3823,7 @@
     "slash": "/sql-index-architect",
     "repo": "anse-app/anse",
     "stars": "★ 24.1k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "根据高频 WHERE、ORDER BY 与 JOIN 条件设计最优复合索引，避免索引失效与回表",
     "tags": [
       "复合索引",
@@ -3841,7 +3841,7 @@
     "slash": "/web-vitals-auditor",
     "repo": "GoogleChrome/lighthouse",
     "stars": "★ 29.8k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "诊断 LCP 最大内容绘制、INP 交互延迟与 CLS 累积布局偏移，提供轻量重构代码",
     "tags": [
       "性能优化",
@@ -3859,7 +3859,7 @@
     "slash": "/pydantic-v2-architect",
     "repo": "samuelcolvin/pydantic-core",
     "stars": "★ 21.5k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "采用 Rust 核心底座的高阶 Field 约束、自定义根类型与高频模型反序列化优化",
     "tags": [
       "pydantic v2",
@@ -3877,7 +3877,7 @@
     "slash": "/graphql-federation-design",
     "repo": "graphql/graphql-spec",
     "stars": "★ 17.4k",
-    "category": "💻 编程系统与Python快速构建",
+    "category": "💻 编程开发",
     "summary": "通过 DataLoader 实现跨微服务关联查询合并与请求级缓存，彻底解决 N+1 性能黑洞",
     "tags": [
       "graphql",
@@ -3888,5 +3888,25 @@
     ],
     "installed": false,
     "added_at": "2026-08-01"
+  },
+  {
+    "id": "anti-defensive-writing",
+    "name": "论文反防御性写作与去谦虚润色",
+    "slash": "/anti-defensive-writing",
+    "repo": "Kiterlin/anti-defensive-writing",
+    "stars": "★ 1.2k",
+    "category": "🔬 科研学术",
+    "summary": "消除学术论文与提案中不必要的免责声明、过度谦虚与防御性冗余，使论点直接自信、逻辑坚定严密",
+    "tags": [
+      "论文润色",
+      "反防御性",
+      "sci写作",
+      "去ai味",
+      "去油腻",
+      "学术写作",
+      "论点精炼"
+    ],
+    "installed": false,
+    "added_at": "2026-10-21"
   }
 ]

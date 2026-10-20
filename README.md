@@ -11,7 +11,7 @@
 
 <p align="center">
   <a href="https://github.com/gsmqmwq1/dsh-clawhub-multiskill/releases"><img src="https://img.shields.io/badge/版本-v1.1.0-blue.svg?style=flat-square" alt="版本 v1.1.0" /></a>
-  <img src="https://img.shields.io/badge/精选技能-214款实战技能-brightgreen.svg?style=flat-square" alt="214款精选技能" />
+  <img src="https://img.shields.io/badge/精选技能-215款实战技能-brightgreen.svg?style=flat-square" alt="215款精选技能" />
   <img src="https://img.shields.io/badge/费用-永久完全免费-orange.svg?style=flat-square" alt="完全免费" />
   <img src="https://img.shields.io/badge/开源协议-MIT-purple.svg?style=flat-square" alt="MIT" />
 </p>
@@ -47,11 +47,11 @@
 
 ## 🎁 都有哪些实用技能？（覆盖 9 大日常场景）
 
-我们帮大家把关剔除了所有重复、无用的充数技能，严格精选出 **214 个真正能解决工作学习痛点的高质量技能**：
+我们帮大家把关剔除了所有重复、无用的充数技能，严格精选出 **215 个真正能解决工作学习痛点的高质量技能**：
 
 | 场景分类 | 技能数量 | 适合谁用？能帮你解决什么？ | 代表技能举例 |
 | :--- | :---: | :--- | :--- |
-| 🎓 **SCI 科研学术** | **25 个** | 研究生、科研人员、大学生 | **CNS 顶刊科研图排版配色**、SCI 审稿反驳信（Rebuttal）、学术去 AI 味降重润色、微分方程数学建模 |
+| 🎓 **SCI 科研学术** | **26 个** | 研究生、科研人员、大学生 | **论文反防御性写作与去谦虚润色 (anti-defensive-writing)**、**CNS 顶刊科研图排版配色**、SCI 审稿反驳信（Rebuttal）、学术去 AI 味降重润色 |
 | 💼 **职场与日常办公** | **25 个** | 白领、职场新人、HR、行政 | **STAR 求职简历重塑**、麦肯锡咨询级 PPT 大纲、量化高情商周报/日报、复杂 Excel 嵌套函数公式 |
 | 💻 **编程开发与系统** | **32 个** | 程序员、全栈开发者、架构师 | **FastAPI 极速架构**、代码安全与漏洞审查、SQL 慢查询一键拯救、Pytest 测试自动化 |
 | 🎨 **UI 与前端设计** | **24 个** | 前端开发、UI/UX 设计师 | **Tailwind CSS 页面速搭**、Shadcn/UI 现代化组件、ECharts 炫酷交互图表、Three.js 3D 渲染 |

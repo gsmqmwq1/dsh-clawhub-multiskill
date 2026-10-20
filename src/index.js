@@ -150,22 +150,47 @@ export function apply(ctx) {
       handler: async (req, res) => {
         try {
           const body = await readBody(req);
-          const { id, name, description, content } = body;
-          if (!id || typeof id !== 'string') {
+          const target = body.skill || body;
+          const rawId = (target.id || target.cleanId || body.id || '').trim();
+          if (!rawId) {
             return sendJson(res, 400, { ok: false, error: '缺少技能 ID' });
           }
-          const cleanId = id.trim().replace(/[^\w-]/g, '');
+          const cleanId = rawId.replace(/[^\w-]/g, '');
           const skillsDir = getDshSkillsDir();
           const targetDir = path.join(skillsDir, cleanId);
           if (!fs.existsSync(targetDir)) {
             fs.mkdirSync(targetDir, { recursive: true });
           }
           const targetFile = path.join(targetDir, 'SKILL.md');
-          
-          let finalContent = content;
-          if (!finalContent) {
-            finalContent = `---\nname: ${cleanId}\ndescription: ${description || name || cleanId}\nversion: "1.0.0"\ntoken-budget: 800\n---\n\n# ${name || cleanId}\n\n${description || ''}\n`;
+
+          let finalContent = target.content || target.promptTemplate || body.content || '';
+
+          // 若未直接传入正文且有 repo，尝试从 GitHub 或 CDN 动态拉取真实的 SKILL.md
+          const repo = target.repo || body.repo;
+          if (!finalContent && repo && repo.includes('/')) {
+            const candidateUrls = [
+              `https://raw.githubusercontent.com/${repo}/main/SKILL.md`,
+              `https://cdn.jsdelivr.net/gh/${repo}@main/SKILL.md`,
+              `https://raw.githubusercontent.com/${repo}/master/SKILL.md`,
+              `https://cdn.jsdelivr.net/gh/${repo}@master/SKILL.md`
+            ];
+            for (const u of candidateUrls) {
+              try {
+                const r = await fetch(u, { headers: { 'User-Agent': 'DeepSeek-Harness' }, signal: AbortSignal.timeout(3000) });
+                if (r.ok) {
+                  finalContent = await r.text();
+                  break;
+                }
+              } catch (e) {}
+            }
           }
+
+          if (!finalContent) {
+            const skillName = target.name || cleanId;
+            const skillDesc = target.description || target.summary || cleanId;
+            finalContent = `---\nname: ${cleanId}\ndescription: ${skillDesc}\nversion: "1.0.0"\ntoken-budget: 800\n---\n\n# ${skillName}\n\n${skillDesc}\n`;
+          }
+
           fs.writeFileSync(targetFile, finalContent, 'utf8');
           sendJson(res, 200, { ok: true, id: cleanId, path: targetFile });
         } catch (err) {
@@ -181,7 +206,9 @@ export function apply(ctx) {
       handler: async (req, res) => {
         try {
           const body = await readBody(req);
-          const { id, disabled } = body;
+          const target = body.skill || body;
+          const id = (target.id || body.id || '').trim();
+          const disabled = body.disabled !== undefined ? body.disabled : target.disabled;
           if (!id) return sendJson(res, 400, { ok: false, error: '缺少技能 ID' });
           const skillsDir = getDshSkillsDir();
           const targetFile = path.join(skillsDir, id, 'SKILL.md');
@@ -189,7 +216,7 @@ export function apply(ctx) {
             return sendJson(res, 404, { ok: false, error: '未找到该技能文件' });
           }
           let content = fs.readFileSync(targetFile, 'utf8');
-          
+
           if (disabled) {
             if (/disable-model-invocation:/i.test(content)) {
               content = content.replace(/disable-model-invocation:\s*(false|no|0|off)/gi, 'disable-model-invocation: true');
@@ -216,7 +243,8 @@ export function apply(ctx) {
       handler: async (req, res) => {
         try {
           const body = await readBody(req);
-          const { id } = body;
+          const target = body.skill || body;
+          const id = (target.id || body.id || '').trim();
           if (!id) return sendJson(res, 400, { ok: false, error: '缺少技能 ID' });
           const skillsDir = getDshSkillsDir();
           const targetDir = path.join(skillsDir, id);
@@ -230,49 +258,113 @@ export function apply(ctx) {
       }
     },
 
-    // 5. 从 GitHub 仓库链接自动拉取导入
+    // 5. 从 GitHub 仓库链接自动拉取导入 (支持 owner/repo、完整 URL、RAW 链接及 CDN 多源容灾)
     {
       kind: 'exact',
       path: '/api/clawhub/import-github',
       handler: async (req, res) => {
         try {
           const body = await readBody(req);
-          const { url } = body;
-          if (!url || typeof url !== 'string') {
-            return sendJson(res, 400, { ok: false, error: '请提供有效的 GitHub 或 RAW 链接' });
+          const rawInput = (body.url || body.repo || body.target || '').trim();
+          if (!rawInput) {
+            return sendJson(res, 400, { ok: false, error: '请提供有效的 GitHub 仓库名或链接（如 Kiterlin/anti-defensive-writing）' });
           }
-          let rawUrl = url.trim();
-          if (rawUrl.includes('github.com') && !rawUrl.includes('raw.githubusercontent.com')) {
-            rawUrl = rawUrl.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+
+          let repoPath = rawInput
+            .replace(/^https?:\/\/github\.com\//i, '')
+            .replace(/\.git$/i, '')
+            .replace(/^\/+|\/+$/g, '');
+
+          // 构建候选拉取 URL 列表（支持 GitHub Raw 与 jsDelivr 高速 CDN 容灾互备）
+          let candidateUrls = [];
+          if (rawInput.includes('raw.githubusercontent.com') || rawInput.includes('cdn.jsdelivr.net')) {
+            candidateUrls.push(rawInput);
+          } else if (repoPath.includes('/blob/')) {
+            const parts = repoPath.split('/blob/');
+            const repo = parts[0];
+            const fileSub = parts[1];
+            candidateUrls.push(`https://raw.githubusercontent.com/${repo}/${fileSub}`);
+            candidateUrls.push(`https://cdn.jsdelivr.net/gh/${repo}@${fileSub}`);
+          } else {
+            const cleanRepo = repoPath.split('/').slice(0, 2).join('/');
+            candidateUrls.push(`https://raw.githubusercontent.com/${cleanRepo}/main/SKILL.md`);
+            candidateUrls.push(`https://cdn.jsdelivr.net/gh/${cleanRepo}@main/SKILL.md`);
+            candidateUrls.push(`https://raw.githubusercontent.com/${cleanRepo}/master/SKILL.md`);
+            candidateUrls.push(`https://cdn.jsdelivr.net/gh/${cleanRepo}@master/SKILL.md`);
+            candidateUrls.push(`https://raw.githubusercontent.com/${cleanRepo}/main/skill/SKILL.md`);
+            candidateUrls.push(`https://raw.githubusercontent.com/${cleanRepo}/master/skill/SKILL.md`);
+            candidateUrls.push(`https://raw.githubusercontent.com/${cleanRepo}/main/README.md`);
+            candidateUrls.push(`https://cdn.jsdelivr.net/gh/${cleanRepo}@main/README.md`);
           }
-          if (!rawUrl.endsWith('.md')) {
-            rawUrl = rawUrl.replace(/\/$/, '') + '/main/SKILL.md';
+
+          let fetchedText = null;
+          let successUrl = '';
+          let lastErrMsg = '';
+
+          for (const rawUrl of candidateUrls) {
+            try {
+              const fetchRes = await fetch(rawUrl, {
+                headers: { 'User-Agent': 'DeepSeek-Harness' },
+                signal: AbortSignal.timeout(6000)
+              });
+              if (fetchRes.ok) {
+                fetchedText = await fetchRes.text();
+                successUrl = rawUrl;
+                break;
+              }
+            } catch (err) {
+              lastErrMsg = err.message;
+            }
           }
-          
-          const fetchRes = await fetch(rawUrl, {
-            headers: { 'User-Agent': 'DeepSeek-Harness' },
-            signal: AbortSignal.timeout(8000)
-          });
-          if (!fetchRes.ok) {
-            throw new Error(`HTTP ${fetchRes.status} ${fetchRes.statusText}`);
+
+          if (!fetchedText || !fetchedText.trim()) {
+            return sendJson(res, 404, {
+              ok: false,
+              error: `未能在该仓库找到 SKILL.md 或 README.md，请检查网络或确认仓库地址正确公开。(${lastErrMsg || '404'}`
+            });
           }
-          const text = await fetchRes.text();
-          let skillId = path.basename(path.dirname(rawUrl)).toLowerCase().replace(/[^\w-]/g, '');
-          const nameMatch = /^name:\s*([^\r\n]+)/m.exec(text);
+
+          let skillId = (repoPath.split('/')[1] || repoPath.split('/')[0] || 'imported-skill').toLowerCase().replace(/[^\w-]/g, '');
+          const nameMatch = /^name:\s*([^\r\n]+)/m.exec(fetchedText);
+          const descMatch = /^description:\s*([^\r\n]+)/m.exec(fetchedText);
+          const verMatch = /^version:\s*["']?([^"'\r\n]+)/m.exec(fetchedText);
+
           if (nameMatch && nameMatch[1].trim()) {
             skillId = nameMatch[1].trim().toLowerCase().replace(/[^\w-]/g, '');
           }
           if (!skillId || skillId === 'main' || skillId === 'master') {
-            skillId = 'imported-skill-' + Date.now().toString(36);
+            skillId = 'imported-' + Date.now().toString(36);
           }
-          
+
+          const skillName = nameMatch ? nameMatch[1].trim() : (repoPath.split('/')[1] || skillId);
+          const skillDesc = descMatch ? descMatch[1].trim() : (fetchedText.slice(0, 150).replace(/[#*\r\n]/g, ' ').trim());
+          const skillVer = verMatch ? verMatch[1].trim() : '1.0.0';
+
           const skillsDir = getDshSkillsDir();
           const targetDir = path.join(skillsDir, skillId);
           if (!fs.existsSync(targetDir)) {
             fs.mkdirSync(targetDir, { recursive: true });
           }
-          fs.writeFileSync(path.join(targetDir, 'SKILL.md'), text, 'utf8');
-          sendJson(res, 200, { ok: true, id: skillId, name: nameMatch ? nameMatch[1].trim() : skillId });
+          const targetFile = path.join(targetDir, 'SKILL.md');
+          fs.writeFileSync(targetFile, fetchedText, 'utf8');
+
+          const skillObj = {
+            id: skillId,
+            name: skillName,
+            description: skillDesc,
+            version: skillVer,
+            disabled: false,
+            path: targetFile,
+            content: fetchedText
+          };
+
+          sendJson(res, 200, {
+            ok: true,
+            id: skillId,
+            name: skillName,
+            skill: skillObj,
+            sourceUrl: successUrl
+          });
         } catch (err) {
           sendJson(res, 500, { ok: false, error: '拉取 GitHub 资源失败: ' + err.message + '，请检查链接或网络代理' });
         }
@@ -346,7 +438,10 @@ export function apply(ctx) {
       handler: async (req, res) => {
         try {
           const body = await readBody(req);
-          const { id, content, newVersion } = body;
+          const target = body.skill || body;
+          const id = (target.id || body.id || '').trim();
+          const content = target.content || body.content;
+          const newVersion = target.newVersion || body.newVersion;
           if (!id) return sendJson(res, 400, { ok: false, error: '缺少技能 ID' });
           const skillsDir = getDshSkillsDir();
           const targetDir = path.join(skillsDir, id);
@@ -428,7 +523,8 @@ export function apply(ctx) {
       handler: async (req, res) => {
         try {
           const body = await readBody(req);
-          const { id } = body;
+          const target = body.skill || body;
+          const id = (target.id || body.id || '').trim();
           if (!id) return sendJson(res, 400, { ok: false, error: '缺少技能 ID' });
           const skillsDir = getDshSkillsDir();
           const targetDir = path.join(skillsDir, id);
@@ -454,7 +550,9 @@ export function apply(ctx) {
         if (req.method === 'POST') {
           try {
             const body = await readBody(req);
-            const { id, alias } = body;
+            const target = body.skill || body;
+            const id = (target.id || body.id || '').trim();
+            const alias = body.alias !== undefined ? body.alias : target.alias;
             if (!id) return sendJson(res, 400, { ok: false, error: '缺少技能 ID' });
             const aliases = readAliasesConfig();
             if (typeof alias === 'string' && alias.trim()) {

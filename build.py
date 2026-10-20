@@ -1076,9 +1076,14 @@ window.__ModuleLoader__.load({
       var [errorMsg, setErrorMsg] = useState(null);
 
       var handleImport = async () => {
-        var trimmed = repoInput.trim().replace(/^https?:\/\/github\.com\//, "").replace(/\.git$/, "");
-        if (!trimmed || !trimmed.includes("/")) {
-          setErrorMsg("请输入合法的 GitHub 仓库路径 (如 owner/repo)");
+        var rawVal = repoInput.trim();
+        if (!rawVal) {
+          setErrorMsg("请输入 GitHub 仓库地址或 owner/repo (例如 Kiterlin/anti-defensive-writing)");
+          return;
+        }
+        var trimmed = rawVal.replace(/^https?:\/\/github\.com\//, "").replace(/\.git$/, "");
+        if (!trimmed.includes("/") && !rawVal.includes("http")) {
+          setErrorMsg("请输入合法的 GitHub 仓库路径 (例如 Kiterlin/anti-defensive-writing)");
           return;
         }
         setLoading(true);
@@ -1087,14 +1092,14 @@ window.__ModuleLoader__.load({
           var res = await fetch("/api/clawhub/import-github", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ repo: trimmed })
+            body: JSON.stringify({ url: rawVal, repo: trimmed })
           });
           var data = await res.json();
           if (data.ok) {
-            props.onSuccess(data.skill);
+            props.onSuccess(data.skill || { id: data.id, name: data.name });
             props.onClose();
           } else {
-            setErrorMsg(data.error || "导入失败，请检查仓库是否存在");
+            setErrorMsg(data.error || "导入失败，请检查仓库是否存在或网络状态");
           }
         } catch (e) {
           setErrorMsg("网络请求异常: " + (e.message || String(e)));
@@ -1396,22 +1401,22 @@ window.__ModuleLoader__.load({
 
       var scrollRef = useRef(null);
 
-      // 分类清单
+      // 分类清单 (采用极简短胶囊标签)
       var categories = [
         "全部",
-        "💻 编程系统与Python快速构建",
-        "🔬 科研学术与数学建模",
-        "🌟 破万星巅峰与最新趋势",
-        "🎨 UI设计与网页可视化前端",
-        "📊 数据清洗分析与图表呈现",
-        "📑 产品经理ERP与工业PID规约",
-        "📱 新媒体短视频与流量运营",
-        "🌍 英语考培外刊与经典名著",
-        "🏢 职场日常与文档批量自动化"
+        "🌟 热门标杆",
+        "💻 编程开发",
+        "🔬 科研学术",
+        "🎨 界面设计",
+        "🏢 职场办公",
+        "📊 数据分析",
+        "📑 产品需求",
+        "📱 新媒体运营",
+        "🌍 英语考培"
       ];
 
       var totalSkillsCount = SKILLS_CATALOG.length;
-      var megaSkillsCount = useMemo(() => SKILLS_CATALOG.filter((s) => s.category.includes("破万星")).length, []);
+      var megaSkillsCount = useMemo(() => SKILLS_CATALOG.filter((s) => s.category.includes("热门") || s.category.includes("破万星")).length, []);
 
       // 映射更新字典
       var updatesMap = useMemo(() => {
@@ -1486,11 +1491,18 @@ window.__ModuleLoader__.load({
           var res = await fetch("/api/clawhub/install", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ skill: skill })
+            body: JSON.stringify({
+              id: skill.id,
+              name: skill.name,
+              description: skill.summary || skill.description || "",
+              content: skill.promptTemplate || "",
+              repo: skill.repo || "",
+              skill: skill
+            })
           });
           var data = await res.json();
           if (data.ok) {
-            setStatusNotice("技能「" + skill.name + "」已成功安装并加入对话面板！");
+            setStatusNotice("技能「" + skill.name + "」已成功安装！");
             setTimeout(() => setStatusNotice(null), 3000);
             await fetchInstalled();
           } else {
@@ -1615,7 +1627,7 @@ window.__ModuleLoader__.load({
             list = list.filter((s) => s.category.includes(selectedCategory.replace(/^[^\s]+\s+/, "")));
           }
         } else if (activeTab === "mega") {
-          list = SKILLS_CATALOG.filter((s) => s.category.includes("破万星"));
+          list = SKILLS_CATALOG.filter((s) => s.category.includes("热门") || s.category.includes("破万星"));
         } else if (activeTab === "installed") {
           list = SKILLS_CATALOG.filter((s) => Boolean(installedSkills[s.id]));
           if (installedSubFilter === "active") {
@@ -1694,9 +1706,10 @@ window.__ModuleLoader__.load({
                 "button",
                 {
                   className: "mkt-action-btn",
-                  onClick: () => window.open("https://github.com/gsmqmwq1/dsh-clawhub-multiskill", "_blank")
+                  onClick: () => window.open("https://clawhub.com", "_blank"),
+                  title: "访问 ClawHub 官方全球技能生态与镜像"
                 },
-                "🌐 社区"
+                "🌐 ClawHub 社区"
               )
             )
           )
