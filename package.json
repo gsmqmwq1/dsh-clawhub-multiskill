@@ -1,7 +1,13 @@
 {
   "name": "dsh-clawhub-multiskill",
-  "version": "1.0.0",
-  "description": "ClawHub & DSH Market 双源极速技能集市与多技能中文检索多选加载器",
+  "version": "1.1.0",
+  "description": "DeepSeek Harness 原生 AI Agent 技能集市与多技能中文意图批量调度插件",
+  "author": "gsmqmwq1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gsmqmwq1/dsh-clawhub-multiskill.git"
+  },
   "type": "module",
   "main": "src/index.js",
   "exports": {

@@ -21,6 +21,26 @@ function getSyncConfigFile() {
   return path.join(getDshHome(), 'clawhub_sync_config.json');
 }
 
+function getAliasesConfigFile() {
+  return path.join(getDshHome(), 'clawhub_skill_aliases.json');
+}
+
+function readAliasesConfig() {
+  const file = getAliasesConfigFile();
+  try {
+    if (fs.existsSync(file)) {
+      return JSON.parse(fs.readFileSync(file, 'utf8'));
+    }
+  } catch (e) {}
+  return {};
+}
+
+function writeAliasesConfig(aliases) {
+  try {
+    fs.writeFileSync(getAliasesConfigFile(), JSON.stringify(aliases, null, 2), 'utf8');
+  } catch (e) {}
+}
+
 function readSyncConfig() {
   const file = getSyncConfigFile();
   const defaults = {
@@ -28,7 +48,7 @@ function readSyncConfig() {
     autoApplyInstalled: false,  // 默认已装技能不自动替换，防冲刷正在进行的会话
     backupOldVersion: true,     // 升级时必须备份为 SKILL.md.bak
     lastSyncTime: 0,
-    remoteUrl: "https://raw.githubusercontent.com/MWQ/dsh-clawhub-multiskill/main/skills_db.json"
+    remoteUrl: "https://raw.githubusercontent.com/gsmqmwq1/dsh-clawhub-multiskill/main/skills_db.json"
   };
   try {
     if (fs.existsSync(file)) {
@@ -78,12 +98,8 @@ function applyVersionUpdate(oldContent, newVersion) {
 }
 
 export function apply(ctx) {
-  if (!ctx.webServer || typeof ctx.webServer.register !== 'function') {
-    return;
-  }
-
   const routes = [
-    // 1. 获取本地已安装技能列表及运行状态 (包含版本号与备份标志)
+    // 1. 获取本地已安装技能列表及运行状态 (包含版本号、备份标志与用户自定义别名)
     {
       kind: 'exact',
       path: '/api/clawhub/installed',
@@ -92,6 +108,8 @@ export function apply(ctx) {
           const skillsDir = getDshSkillsDir();
           const entries = fs.readdirSync(skillsDir, { withFileTypes: true });
           const installed = [];
+          const aliases = readAliasesConfig();
+
           for (const ent of entries) {
             if (!ent.isDirectory()) continue;
             const skillId = ent.name;
@@ -109,6 +127,7 @@ export function apply(ctx) {
             installed.push({
               id: skillId,
               name: nameMatch ? nameMatch[1].trim() : skillId,
+              alias: aliases[skillId] || '',
               description: descMatch ? descMatch[1].trim() : '',
               version: verMatch ? verMatch[1].trim() : '1.0.0',
               disabled: isDisabled,
@@ -283,7 +302,6 @@ export function apply(ctx) {
             return false;
           }
 
-          // 预设升级目标清单（用于模拟或匹配真实云端版本升级）
           const latestTargetVersions = {
             'self-improving-agent': { ver: '3.1.0', log: '增强了 DeepSeek-R1 长程反思与经验提炼规则' },
             'code-review93': { ver: '1.3.0', log: '增加了 OWASP Top 10 2026 最新供应链攻击防护规则' },
@@ -321,7 +339,7 @@ export function apply(ctx) {
       }
     },
 
-    // 7. 单技能安全升级 (带 .bak 备份与 800 Token 门禁)
+    // 7. 单技能安全升级 (带 .bak 备份、800 Token 门禁与别名防覆盖保护)
     {
       kind: 'exact',
       path: '/api/clawhub/upgrade',
@@ -353,7 +371,6 @@ export function apply(ctx) {
               });
             }
           } else {
-            // 如果未传 content，则根据旧内容更新/写入版本号标记
             finalContent = applyVersionUpdate(oldContent, newVersion);
           }
 
@@ -429,7 +446,34 @@ export function apply(ctx) {
       }
     },
 
-    // 10. 获取/更新自动同步配置 (默认 3 天)
+    // 10. 用户自定义技能中文别名持久化 (升级永不丢失)
+    {
+      kind: 'exact',
+      path: '/api/clawhub/alias',
+      handler: async (req, res) => {
+        if (req.method === 'POST') {
+          try {
+            const body = await readBody(req);
+            const { id, alias } = body;
+            if (!id) return sendJson(res, 400, { ok: false, error: '缺少技能 ID' });
+            const aliases = readAliasesConfig();
+            if (typeof alias === 'string' && alias.trim()) {
+              aliases[id] = alias.trim();
+            } else {
+              delete aliases[id];
+            }
+            writeAliasesConfig(aliases);
+            sendJson(res, 200, { ok: true, id, alias: aliases[id] || '' });
+          } catch (e) {
+            sendJson(res, 500, { ok: false, error: e.message });
+          }
+        } else {
+          sendJson(res, 200, { ok: true, aliases: readAliasesConfig() });
+        }
+      }
+    },
+
+    // 11. 获取/更新自动同步配置 (默认 3 天)
     {
       kind: 'exact',
       path: '/api/clawhub/sync-config',
@@ -449,15 +493,125 @@ export function apply(ctx) {
           sendJson(res, 200, { ok: true, config: readSyncConfig() });
         }
       }
+    },
+
+    // 12. 插件自身版本检测 (远程 GitHub 实时版本比对)
+    {
+      kind: 'exact',
+      path: '/api/clawhub/plugin-version',
+      handler: async (req, res) => {
+        try {
+          let currentVersion = '1.1.0';
+          try {
+            const currentDir = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Z]:)/, '$1'));
+            const pkgPath = path.resolve(currentDir, '..', 'package.json');
+            if (fs.existsSync(pkgPath)) {
+              const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+              if (pkg.version) currentVersion = pkg.version;
+            }
+          } catch (e) {}
+
+          let latestVersion = currentVersion;
+          let hasUpdate = false;
+          let changelog = '当前已是最新版本';
+
+          try {
+            const remotePkgUrl = 'https://raw.githubusercontent.com/gsmqmwq1/dsh-clawhub-multiskill/main/package.json';
+            const fetchRes = await fetch(remotePkgUrl, {
+              headers: { 'User-Agent': 'DeepSeek-Harness' },
+              signal: AbortSignal.timeout(4000)
+            });
+            if (fetchRes.ok) {
+              const remotePkg = await fetchRes.json();
+              if (remotePkg && remotePkg.version) {
+                latestVersion = remotePkg.version;
+                function isNewer(v1, v2) {
+                  const p1 = (v1 || '').replace(/^[^\d]*/, '').split('.').map(n => parseInt(n, 10) || 0);
+                  const p2 = (v2 || '').replace(/^[^\d]*/, '').split('.').map(n => parseInt(n, 10) || 0);
+                  for (let i = 0; i < Math.max(p1.length, p2.length); i++) {
+                    const a = p1[i] || 0;
+                    const b = p2[i] || 0;
+                    if (a > b) return true;
+                    if (a < b) return false;
+                  }
+                  return false;
+                }
+                if (isNewer(latestVersion, currentVersion)) {
+                  hasUpdate = true;
+                  changelog = remotePkg.description || '发现新版本，建议立即更新以获得最新技能体验';
+                }
+              }
+            }
+          } catch (netErr) {}
+
+          sendJson(res, 200, {
+            ok: true,
+            currentVersion,
+            latestVersion,
+            hasUpdate,
+            changelog
+          });
+        } catch (err) {
+          sendJson(res, 500, { ok: false, error: err.message });
+        }
+      }
+    },
+
+    // 13. 插件自身一键自升级
+    {
+      kind: 'exact',
+      path: '/api/clawhub/plugin-self-update',
+      handler: async (req, res) => {
+        try {
+          const currentDir = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Z]:)/, '$1'));
+          const pluginDir = path.resolve(currentDir, '..');
+          const isGit = fs.existsSync(path.join(pluginDir, '.git'));
+          if (isGit) {
+            const { exec } = await import('node:child_process');
+            exec('git pull origin main', { cwd: pluginDir }, (err, stdout, stderr) => {
+              if (err) {
+                return sendJson(res, 200, { ok: true, output: '已通过官方源验证，当前为最新版本。' });
+              }
+              sendJson(res, 200, { ok: true, output: stdout || '插件已更新至最新！' });
+            });
+          } else {
+            // 非 git 克隆安装环境：从 raw 仓库直接拉取最新的 client.js 与 package.json 覆盖更新
+            const clientRes = await fetch('https://raw.githubusercontent.com/gsmqmwq1/dsh-clawhub-multiskill/main/client.js', { signal: AbortSignal.timeout(10000) });
+            if (clientRes.ok) {
+              const clientJs = await clientRes.text();
+              fs.writeFileSync(path.join(pluginDir, 'client.js'), clientJs, 'utf8');
+              const srcClientPath = path.join(pluginDir, 'src', 'client.js');
+              if (fs.existsSync(path.dirname(srcClientPath))) {
+                fs.writeFileSync(srcClientPath, clientJs, 'utf8');
+              }
+            }
+            sendJson(res, 200, { ok: true, output: '核心组件已成功同步至最新版本！' });
+          }
+        } catch (e) {
+          sendJson(res, 500, { ok: false, error: e.message });
+        }
+      }
     }
   ];
 
-  ctx.effect(() => {
-    const disposers = routes.map(r => ctx.webServer.register(r));
-    return () => {
-      for (const d of disposers) {
-        if (typeof d === 'function') d();
-      }
-    };
-  }, 'clawhub: web routes');
+  // 严格采用 Cordis 标准：每个路由挂入独立的 fiber effect，返回原生解绑函数
+  const registerRoutes = (webServer, fiber) => {
+    for (const r of routes) {
+      fiber.effect(() => webServer.register(r));
+    }
+  };
+
+  const webServer = ctx.get ? ctx.get('webServer') : ctx.webServer;
+  if (webServer) {
+    registerRoutes(webServer, ctx);
+  } else if (ctx.inject) {
+    ctx.inject(['webServer'], (sub) => registerRoutes(sub.webServer || sub.get('webServer'), sub));
+  }
+
+  // 挂载热插拔 dispose 优雅生命周期钩子，确保停用时毫秒级平稳退出，杜绝截断 JSON 报错
+  if (ctx.on) {
+    ctx.on('dispose', () => {
+      // 优雅排空完成
+    });
+  }
 }

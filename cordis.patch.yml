@@ -1,6 +1,4 @@
-# dsh-clawhub-multiskill cordis patch
+# dsh-clawhub-multiskill bundle patch layer
 - insert:
     - id: dsh-clawhub-multiskill
-      name: "dsh-clawhub-multiskill"
-      config:
-        marketUrl: "https://clawhub.com"
+      name: 'dsh-clawhub-multiskill'

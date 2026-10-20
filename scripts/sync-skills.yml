@@ -57,8 +57,8 @@ jobs:
 
       - name: Build Bundles
         run: |
-          if [ -f "build_client_bundle.py" ]; then
-            python build_client_bundle.py
+          if [ -f "build.py" ]; then
+            python build.py
           fi
 
       - name: Commit & Create Pull Request on Changes
