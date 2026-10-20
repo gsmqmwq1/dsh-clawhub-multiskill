@@ -17,7 +17,7 @@
     ],
     "installed": true,
     "added_at": "2026-10-21",
-    "version": "1.0.0"
+    "version": "1.2.0"
   },
   {
     "id": "humanizer",
@@ -56,7 +56,8 @@
       "工作流"
     ],
     "installed": false,
-    "added_at": "2026-10-15"
+    "added_at": "2026-10-15",
+    "version": "0.3.2"
   },
   {
     "id": "deepseek-r1-reasoning",
@@ -76,7 +77,8 @@
       "反思修正"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.5.0"
   },
   {
     "id": "openai-cookbook",
@@ -95,7 +97,8 @@
       "api最佳实践"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.4.0"
   },
   {
     "id": "gpt-engineer",
@@ -113,7 +116,8 @@
       "一键生成"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "0.5.8"
   },
   {
     "id": "dify-workflow-master",
@@ -131,7 +135,8 @@
       "节点式流"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "0.15.3"
   },
   {
     "id": "metagpt-software-company",
@@ -150,7 +155,8 @@
       "团队协作"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "0.8.2"
   },
   {
     "id": "fastmcp-protocol",
@@ -168,7 +174,8 @@
       "模型上下文"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.1.0"
   },
   {
     "id": "semantic-kernel",
@@ -186,7 +193,8 @@
       "函数调用"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.18.0"
   },
   {
     "id": "instructor-structured-data",
@@ -204,7 +212,8 @@
       "数据提取"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.4.2"
   },
   {
     "id": "swe-bench-agent",
@@ -222,7 +231,8 @@
       "自动化pr"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.1.0"
   },
   {
     "id": "browser-use-web-agent",
@@ -240,7 +250,8 @@
       "爬虫"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "0.1.34"
   },
   {
     "id": "llamaindex-rag-core",
@@ -258,7 +269,8 @@
       "重排检索"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "0.12.8"
   },
   {
     "id": "crewai-multi-agent",
@@ -276,7 +288,8 @@
       "分工合作"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "0.86.0"
   },
   {
     "id": "autogen-multi-agent",
@@ -294,7 +307,8 @@
       "对话编排"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "0.4.0"
   },
   {
     "id": "comfyui-node-workflow",
@@ -312,7 +326,8 @@
       "flux"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.3.9"
   },
   {
     "id": "chatchat-knowledge",
@@ -330,7 +345,8 @@
       "离线知识库"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.2.2"
   },
   {
     "id": "mem0-personalized-memory",
@@ -348,7 +364,8 @@
       "个性化"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "0.1.38"
   },
   {
     "id": "graphrag-knowledge-graph",
@@ -366,7 +383,8 @@
       "宏观理解"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.2.9"
   },
   {
     "id": "dspy-prompt-programming",
@@ -384,7 +402,8 @@
       "模块化开发"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.1.9"
   },
   {
     "id": "prompt-engineering-guide",
@@ -403,7 +422,8 @@
       "prompt工程"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.4.9"
   },
   {
     "id": "awesome-chatgpt-prompts",
@@ -421,7 +441,8 @@
       "经典prompt"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.1.2"
   },
   {
     "id": "self-improving-agent",
@@ -440,7 +461,8 @@
       "持续进化"
     ],
     "installed": true,
-    "added_at": "2026-10-15"
+    "added_at": "2026-10-15",
+    "version": "2.0.0"
   },
   {
     "id": "skill-orchestrator",
@@ -460,7 +482,8 @@
       "组合"
     ],
     "installed": true,
-    "added_at": "2026-10-15"
+    "added_at": "2026-10-15",
+    "version": "2.2.0"
   },
   {
     "id": "dev-expert",
@@ -481,7 +504,8 @@
       "代码生成"
     ],
     "installed": true,
-    "added_at": "2026-10-15"
+    "added_at": "2026-10-15",
+    "version": "2.1.0"
   },
   {
     "id": "code-review93",
@@ -502,7 +526,8 @@
       "检查"
     ],
     "installed": true,
-    "added_at": "2026-10-15"
+    "added_at": "2026-10-15",
+    "version": "1.4.0"
   },
   {
     "id": "ponytail",
@@ -521,7 +546,8 @@
       "简单实现"
     ],
     "installed": true,
-    "added_at": "2026-10-15"
+    "added_at": "2026-10-15",
+    "version": "1.0.5"
   },
   {
     "id": "fastapi-deepseek-backend",
@@ -540,7 +566,8 @@
       "搭建后端"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.4.9"
   },
   {
     "id": "flask-microservice-api",
@@ -558,7 +585,8 @@
       "python接口"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.5.6"
   },
   {
     "id": "django-enterprise-system",
@@ -576,7 +604,8 @@
       "后台管理"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.4.8"
   },
   {
     "id": "sqlalchemy-orm-architect",
@@ -594,7 +623,8 @@
       "连接池"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.1.5"
   },
   {
     "id": "pydantic-validation-pro",
@@ -612,7 +642,8 @@
       "契约验证"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.1.5"
   },
   {
     "id": "alembic-db-migrations",
@@ -630,7 +661,8 @@
       "迁移脚本"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.6.1"
   },
   {
     "id": "local-project-refactor",
@@ -649,7 +681,8 @@
       "架构升级"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.3.7"
   },
   {
     "id": "legacy-code-modernizer",
@@ -667,7 +700,8 @@
       "现代化迁移"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.0.2"
   },
   {
     "id": "sql-optimizer",
@@ -685,7 +719,8 @@
       "数据库调优"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.0.9"
   },
   {
     "id": "git-commit-helper",
@@ -703,7 +738,8 @@
       "版本控制"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.3.9"
   },
   {
     "id": "pytest-test-suite",
@@ -721,7 +757,8 @@
       "测试用例"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.7.1"
   },
   {
     "id": "docker-k8s-devops",
@@ -740,7 +777,8 @@
       "cicd"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.2.3"
   },
   {
     "id": "ruff-linter-formatter",
@@ -758,7 +796,8 @@
       "linter"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "0.8.0"
   },
   {
     "id": "poetry-dependency-manager",
@@ -776,7 +815,8 @@
       "环境隔离"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.8.4"
   },
   {
     "id": "playwright-automation",
@@ -794,7 +834,8 @@
       "截图抓取"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.5.0"
   },
   {
     "id": "rich-terminal-tui",
@@ -812,7 +853,8 @@
       "表格排版"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.7.0"
   },
   {
     "id": "textual-tui-app",
@@ -830,7 +872,8 @@
       "轻量窗口"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.7.3"
   },
   {
     "id": "typer-cli-builder",
@@ -848,7 +891,8 @@
       "终端命令"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.2.1"
   },
   {
     "id": "redis-distributed-lock",
@@ -866,7 +910,8 @@
       "pubsub"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.6.6"
   },
   {
     "id": "duckdb-olap-query",
@@ -884,7 +929,8 @@
       "内存分析"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.3.3"
   },
   {
     "id": "polars-fast-dataframe",
@@ -902,7 +948,8 @@
       "多核并行"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.7.0"
   },
   {
     "id": "security-audit-agent",
@@ -920,7 +967,8 @@
       "代码体检"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.2.5"
   },
   {
     "id": "regex-master",
@@ -938,7 +986,8 @@
       "redos防范"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.4.6"
   },
   {
     "id": "academic-figure-skill",
@@ -959,7 +1008,8 @@
       "学术绘图"
     ],
     "installed": true,
-    "added_at": "2026-10-15"
+    "added_at": "2026-10-15",
+    "version": "1.3.0"
   },
   {
     "id": "scientific-visualization",
@@ -978,7 +1028,8 @@
       "matplotlib"
     ],
     "installed": true,
-    "added_at": "2026-10-15"
+    "added_at": "2026-10-15",
+    "version": "1.3.2"
   },
   {
     "id": "patent-disclosure-writer",
@@ -997,7 +1048,8 @@
       "知识产权"
     ],
     "installed": true,
-    "added_at": "2026-10-15"
+    "added_at": "2026-10-15",
+    "version": "1.2.1"
   },
   {
     "id": "sci-novelty-miner",
@@ -1016,7 +1068,8 @@
       "文献调研"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.5.1"
   },
   {
     "id": "literature-matrix-pro",
@@ -1034,7 +1087,8 @@
       "文献综述"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.7.9"
   },
   {
     "id": "systematic-review-writer",
@@ -1052,7 +1106,8 @@
       "综述撰写"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.7.0"
   },
   {
     "id": "paper-code-reproducer",
@@ -1070,7 +1125,8 @@
       "顶会复现"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.5.6"
   },
   {
     "id": "paper-to-repro-plan",
@@ -1088,7 +1144,8 @@
       "数学公式"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.0.0"
   },
   {
     "id": "sci-paper-polisher",
@@ -1107,7 +1164,8 @@
       "英文润色"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.0.1"
   },
   {
     "id": "sci-abstract-title-craft",
@@ -1125,7 +1183,8 @@
       "摘要精修"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.6.1"
   },
   {
     "id": "sci-rebuttal-pro",
@@ -1143,7 +1202,8 @@
       "回复审稿人"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.7.1"
   },
   {
     "id": "latex-typesetter",
@@ -1161,7 +1221,8 @@
       "bibtex"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.0.3"
   },
   {
     "id": "math-modeling-master",
@@ -1180,7 +1241,8 @@
       "运筹优化"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.0.2"
   },
   {
     "id": "statistical-hypo-testing",
@@ -1199,7 +1261,8 @@
       "统计分析"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.4.7"
   },
   {
     "id": "origin-style-plot",
@@ -1217,7 +1280,8 @@
       "科研绘图"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.1.3"
   },
   {
     "id": "elsevier-standard-charts",
@@ -1235,7 +1299,8 @@
       "双栏图"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.1.5"
   },
   {
     "id": "bio-pathway-diagram",
@@ -1253,7 +1318,8 @@
       "生物通路"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.2.3"
   },
   {
     "id": "heatmap-corr-master",
@@ -1271,7 +1337,8 @@
       "相关性分析"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.4.7"
   },
   {
     "id": "thesis-proposal",
@@ -1289,7 +1356,8 @@
       "学位论文"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.5.3"
   },
   {
     "id": "cvxpy-convex-optimizer",
@@ -1307,7 +1375,8 @@
       "线性规划"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.2.1"
   },
   {
     "id": "deap-genetic-algorithm",
@@ -1325,7 +1394,8 @@
       "算法求解"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.2.2"
   },
   {
     "id": "lifelines-survival-analysis",
@@ -1343,7 +1413,8 @@
       "可靠度分析"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.4.7"
   },
   {
     "id": "pymol-molecular-view",
@@ -1361,7 +1432,8 @@
       "药物研发"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.3.9"
   },
   {
     "id": "rdkit-chemistry-toolkit",
@@ -1379,7 +1451,8 @@
       "smiles"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.4.5"
   },
   {
     "id": "shadcn-ui-designer",
@@ -1398,7 +1471,8 @@
       "设计系统"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.7.5"
   },
   {
     "id": "web-dashboard-architect",
@@ -1416,7 +1490,8 @@
       "看板前端"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.6.8"
   },
   {
     "id": "tailwind-artisan",
@@ -1434,7 +1509,8 @@
       "网页样式"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.2.1"
   },
   {
     "id": "echarts-visualization-expert",
@@ -1452,7 +1528,8 @@
       "antv"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.3.6"
   },
   {
     "id": "threejs-webgl-vis",
@@ -1470,7 +1547,8 @@
       "数字孪生"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.5.2"
   },
   {
     "id": "svg-icon-illustrator",
@@ -1488,7 +1566,8 @@
       "单色图标"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.3.5"
   },
   {
     "id": "landing-page-hero",
@@ -1505,7 +1584,8 @@
       "saas页面"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.2.2"
   },
   {
     "id": "color-palette-master",
@@ -1523,7 +1603,8 @@
       "色彩设计"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.2.6"
   },
   {
     "id": "wireframe-prototyper",
@@ -1541,7 +1622,8 @@
       "用户旅程"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.7.9"
   },
   {
     "id": "animation-motion-css",
@@ -1559,7 +1641,8 @@
       "交互动效"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.7.8"
   },
   {
     "id": "ant-design-spec",
@@ -1577,7 +1660,8 @@
       "react组件"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.7.8"
   },
   {
     "id": "vue3-composition-arch",
@@ -1595,7 +1679,8 @@
       "响应式界面"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.0.5"
   },
   {
     "id": "nextjs-fullstack-web",
@@ -1613,7 +1698,8 @@
       "react服务端"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.2.4"
   },
   {
     "id": "excalidraw-diagram-pro",
@@ -1631,7 +1717,8 @@
       "技术汇报"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.4.7"
   },
   {
     "id": "mermaid-architecture-flow",
@@ -1649,7 +1736,8 @@
       "文本绘图"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.4.4"
   },
   {
     "id": "d3-custom-visualization",
@@ -1667,7 +1755,8 @@
       "定制图形"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.7.2"
   },
   {
     "id": "chartjs-responsive-plots",
@@ -1685,7 +1774,8 @@
       "网页报表"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.5.1"
   },
   {
     "id": "antv-x6-graph-editor",
@@ -1703,7 +1793,8 @@
       "图形交互"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.2.8"
   },
   {
     "id": "data-cleaning-pipeline",
@@ -1721,7 +1812,8 @@
       "数据预处理"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.6.6"
   },
   {
     "id": "pandas-data-analyst",
@@ -1739,7 +1831,8 @@
       "统计分析"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.7.1"
   },
   {
     "id": "plotly-dashboard-pro",
@@ -1757,7 +1850,8 @@
       "动态图表"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.0.9"
   },
   {
     "id": "multidimensional-stats",
@@ -1775,7 +1869,8 @@
       "统计建模"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.1.4"
   },
   {
     "id": "time-series-forecaster",
@@ -1793,7 +1888,8 @@
       "销量预测"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.0.8"
   },
   {
     "id": "excel-power-bi-wizard",
@@ -1811,7 +1907,8 @@
       "报表设计"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.1.0"
   },
   {
     "id": "xgboost-feature-importance",
@@ -1829,7 +1926,8 @@
       "风控建模"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.3.9"
   },
   {
     "id": "shap-model-explainability",
@@ -1847,7 +1945,8 @@
       "归因图"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "0.46.0"
   },
   {
     "id": "prophet-business-forecast",
@@ -1865,7 +1964,8 @@
       "客流预测"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.3.1"
   },
   {
     "id": "pyod-anomaly-detection",
@@ -1883,7 +1983,8 @@
       "风控审计"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.3.4"
   },
   {
     "id": "scikit-learn-pipeline",
@@ -1901,7 +2002,8 @@
       "交叉验证"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.2.4"
   },
   {
     "id": "prd-document-architect",
@@ -1920,7 +2022,8 @@
       "产品经理"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.6.4"
   },
   {
     "id": "erp-scm-blueprint",
@@ -1939,7 +2042,8 @@
       "bom"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.3.1"
   },
   {
     "id": "chemical-pid-diagram",
@@ -1958,7 +2062,8 @@
       "阀门"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.1.1"
   },
   {
     "id": "b2b-saas-billing-model",
@@ -1976,7 +2081,8 @@
       "订阅制"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.6.9"
   },
   {
     "id": "mrd-competitor-matrix",
@@ -1994,7 +2100,8 @@
       "竞争矩阵"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.3.1"
   },
   {
     "id": "user-journey-map-pro",
@@ -2012,7 +2119,8 @@
       "触点分析"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.0.5"
   },
   {
     "id": "api-product-spec",
@@ -2030,7 +2138,8 @@
       "接口文档"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.2.7"
   },
   {
     "id": "mes-shopfloor-spec",
@@ -2048,7 +2157,8 @@
       "质量追溯"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.1.0"
   },
   {
     "id": "plc-ladder-logic-sop",
@@ -2066,7 +2176,8 @@
       "电气控制"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.7.7"
   },
   {
     "id": "iso-quality-audit-doc",
@@ -2084,7 +2195,8 @@
       "质量表单"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.4.6"
   },
   {
     "id": "event-tracking-dictionary",
@@ -2102,7 +2214,8 @@
       "数据分析"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.0.1"
   },
   {
     "id": "xiaohongshu-copywriter",
@@ -2121,7 +2234,8 @@
       "自媒体运营"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.3.4"
   },
   {
     "id": "douyin-script-hook",
@@ -2140,7 +2254,8 @@
       "分镜脚本"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.4.4"
   },
   {
     "id": "wechat-deep-article",
@@ -2158,7 +2273,8 @@
       "长文写作"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.4.0"
   },
   {
     "id": "video-hook-retention",
@@ -2176,7 +2292,8 @@
       "视频剪辑"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.4.8"
   },
   {
     "id": "live-selling-pitch",
@@ -2194,7 +2311,8 @@
       "电商直播"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.6.7"
   },
   {
     "id": "bilibili-knowledge-script",
@@ -2212,7 +2330,8 @@
       "解说词"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.5.2"
   },
   {
     "id": "seo-growth-clustering",
@@ -2230,7 +2349,8 @@
       "矩阵运营"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.3.5"
   },
   {
     "id": "social-funnel-analytics",
@@ -2248,7 +2368,8 @@
       "自媒体复盘"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.1.2"
   },
   {
     "id": "creator-personal-ip",
@@ -2266,7 +2387,8 @@
       "创作者经济"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.6.1"
   },
   {
     "id": "ielts-writing-band9",
@@ -2285,7 +2407,8 @@
       "雅思考试"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.5.2"
   },
   {
     "id": "ielts-speaking-part123",
@@ -2304,7 +2427,8 @@
       "雅思备考"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.4.3"
   },
   {
     "id": "toefl-integrated-writing",
@@ -2322,7 +2446,8 @@
       "听读结合"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.2.1"
   },
   {
     "id": "toefl-speaking-academic",
@@ -2340,7 +2465,8 @@
       "toefl备考"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.4.4"
   },
   {
     "id": "cet46-complex-grammar",
@@ -2359,7 +2485,8 @@
       "阅读理解"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.6.2"
   },
   {
     "id": "cet46-translation-master",
@@ -2377,7 +2504,8 @@
       "四六级备考"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.6.1"
   },
   {
     "id": "kaoyan-english-reading",
@@ -2395,7 +2523,8 @@
       "考研备考"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.3.0"
   },
   {
     "id": "economist-analytical-reading",
@@ -2413,7 +2542,8 @@
       "地道表达"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.5.6"
   },
   {
     "id": "nyt-opinion-essay",
@@ -2431,7 +2561,8 @@
       "高级词汇"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.1.1"
   },
   {
     "id": "series-vocab-immersion",
@@ -2449,7 +2580,8 @@
       "语境学习"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.4.2"
   },
   {
     "id": "classic-literature-study",
@@ -2467,7 +2599,8 @@
       "精读"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.2.6"
   },
   {
     "id": "official-document-writer",
@@ -2487,7 +2620,8 @@
       "讲话稿"
     ],
     "installed": false,
-    "added_at": "2026-10-15"
+    "added_at": "2026-10-15",
+    "version": "1.1.0"
   },
   {
     "id": "meeting-minutes",
@@ -2505,7 +2639,8 @@
       "待办整理"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.7.0"
   },
   {
     "id": "weekly-report-pro",
@@ -2523,7 +2658,8 @@
       "高情商汇报"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.0.2"
   },
   {
     "id": "excel-batch-processor-vba",
@@ -2541,7 +2677,8 @@
       "表格批量处理"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.5.0"
   },
   {
     "id": "word-batch-formatter",
@@ -2559,7 +2696,8 @@
       "自动目录"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.0.8"
   },
   {
     "id": "pdf-table-extractor",
@@ -2577,7 +2715,8 @@
       "批量提取"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.0.9"
   },
   {
     "id": "mindmap-generator",
@@ -2595,7 +2734,8 @@
       "大纲整理"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.2.0"
   },
   {
     "id": "powerpoint-slide-architect",
@@ -2613,7 +2753,8 @@
       "演讲汇报"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.2.7"
   },
   {
     "id": "business-email-master",
@@ -2631,7 +2772,8 @@
       "高情商沟通"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.1.9"
   },
   {
     "id": "star-resume-optimizer",
@@ -2649,7 +2791,8 @@
       "个人简历"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.5.9"
   },
   {
     "id": "pytest-mock-enterprise",
@@ -2667,7 +2810,8 @@
       "代码覆盖率"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.2.4"
   },
   {
     "id": "journal-aims-matcher",
@@ -2685,7 +2829,8 @@
       "中科院分区"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.1.7"
   },
   {
     "id": "tailwind-design-tokens",
@@ -2703,7 +2848,8 @@
       "css变量"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.6.0"
   },
   {
     "id": "shadcn-custom-pattern",
@@ -2721,7 +2867,8 @@
       "react组件"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.7.6"
   },
   {
     "id": "framer-spring-animation",
@@ -2739,7 +2886,8 @@
       "交互微动效"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.1.7"
   },
   {
     "id": "figma-code-handoff",
@@ -2757,7 +2905,8 @@
       "像素级对齐"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.5.8"
   },
   {
     "id": "wcag-a11y-auditor",
@@ -2775,7 +2924,8 @@
       "a11y"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.7.3"
   },
   {
     "id": "fluid-responsive-system",
@@ -2793,7 +2943,8 @@
       "css-grid"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.4.8"
   },
   {
     "id": "pandas-pipeline-cleaner",
@@ -2811,7 +2962,8 @@
       "异常值处理"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.6.8"
   },
   {
     "id": "sql-explain-tuner",
@@ -2829,7 +2981,8 @@
       "全表扫描优化"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.4.2"
   },
   {
     "id": "cohort-retention-model",
@@ -2847,7 +3000,8 @@
       "流失预警"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.5.8"
   },
   {
     "id": "ab-test-significance-lab",
@@ -2865,7 +3019,8 @@
       "最小样本量"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.5.1"
   },
   {
     "id": "funnel-conversion-diagnostic",
@@ -2883,7 +3038,8 @@
       "用户转化"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.0.4"
   },
   {
     "id": "financial-dcf-valuation",
@@ -2901,7 +3057,8 @@
       "投资测算"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.5.0"
   },
   {
     "id": "rfm-customer-segmentation",
@@ -2919,7 +3076,8 @@
       "高价值召回"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.4.0"
   },
   {
     "id": "etl-pipeline-architect",
@@ -2937,7 +3095,8 @@
       "批处理流水线"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.1.9"
   },
   {
     "id": "dax-powerbi-metrics",
@@ -2955,7 +3114,8 @@
       "同环比计算"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.7.1"
   },
   {
     "id": "prd-feature-spec",
@@ -2973,7 +3133,8 @@
       "异常分支"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.2.7"
   },
   {
     "id": "user-journey-touchpoint-map",
@@ -2991,7 +3152,8 @@
       "用户体验"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.4.3"
   },
   {
     "id": "openapi-rest-spec",
@@ -3009,7 +3171,8 @@
       "接口定义"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.6.4"
   },
   {
     "id": "scrum-user-story-estimator",
@@ -3027,7 +3190,8 @@
       "验收准则"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.4.8"
   },
   {
     "id": "b2b-rbac-permission-matrix",
@@ -3045,7 +3209,8 @@
       "saas系统"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.2.2"
   },
   {
     "id": "industrial-mes-production-flow",
@@ -3063,7 +3228,8 @@
       "工业自动化"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.6.5"
   },
   {
     "id": "event-tracking-analytics-schema",
@@ -3081,7 +3247,8 @@
       "漏斗分析"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.6.0"
   },
   {
     "id": "xhs-seo-tag-strategy",
@@ -3099,7 +3266,8 @@
       "爆款笔记"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.5.9"
   },
   {
     "id": "douyin-3s-hook-retention",
@@ -3117,7 +3285,8 @@
       "爆款台词"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.4.3"
   },
   {
     "id": "bilibili-knowledge-structure",
@@ -3135,7 +3304,8 @@
       "弹幕点埋点"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.1.4"
   },
   {
     "id": "amazon-listing-copywriter",
@@ -3153,7 +3323,8 @@
       "产品转化"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.1.3"
   },
   {
     "id": "tiktok-viral-trends",
@@ -3171,7 +3342,8 @@
       "创意分镜"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.7.1"
   },
   {
     "id": "live-commerce-closer",
@@ -3189,7 +3361,8 @@
       "带货主播"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.6.4"
   },
   {
     "id": "pr-media-release",
@@ -3207,7 +3380,8 @@
       "战略合作"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.7.6"
   },
   {
     "id": "private-traffic-growth",
@@ -3225,7 +3399,8 @@
       "社群转化"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.2.5"
   },
   {
     "id": "podcast-script-master",
@@ -3243,7 +3418,8 @@
       "节目大纲"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.5.1"
   },
   {
     "id": "ielts-speaking-band7-plus",
@@ -3261,7 +3437,8 @@
       "口语题库"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.2.0"
   },
   {
     "id": "gre-gmat-argument-logic",
@@ -3279,7 +3456,8 @@
       "论证反驳"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.4.7"
   },
   {
     "id": "the-economist-style-reading",
@@ -3297,7 +3475,8 @@
       "高级翻译"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.0.4"
   },
   {
     "id": "business-english-negotiation",
@@ -3315,7 +3494,8 @@
       "跨国会议"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.0.0"
   },
   {
     "id": "academic-native-polisher",
@@ -3333,7 +3513,8 @@
       "语法句式"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.3.0"
   },
   {
     "id": "toefl-writing-rubric",
@@ -3351,7 +3532,8 @@
       "论点扩展"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.5.2"
   },
   {
     "id": "cet6-reading-comprehension",
@@ -3369,7 +3551,8 @@
       "快速定位"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.6.1"
   },
   {
     "id": "resume-ats-polisher",
@@ -3387,7 +3570,8 @@
       "关键词埋点"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.2.6"
   },
   {
     "id": "mckinsey-slide-consultant",
@@ -3405,7 +3589,8 @@
       "结构化幻灯片"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.1.1"
   },
   {
     "id": "daily-standup-summary",
@@ -3423,7 +3608,8 @@
       "当日完成"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.5.1"
   },
   {
     "id": "excel-dynamic-formulas",
@@ -3441,7 +3627,8 @@
       "高级函数"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.0.2"
   },
   {
     "id": "contract-risk-auditor",
@@ -3459,7 +3646,8 @@
       "违约金排查"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.3.6"
   },
   {
     "id": "corporate-sop-manual",
@@ -3477,7 +3665,8 @@
       "企业规范"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.5.2"
   },
   {
     "id": "performance-okr-coach",
@@ -3495,7 +3684,8 @@
       "目标管理"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.0.3"
   },
   {
     "id": "speech-keynote-writer",
@@ -3513,7 +3703,8 @@
       "发布会主持"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.7.0"
   },
   {
     "id": "onboarding-training-guide",
@@ -3531,7 +3722,8 @@
       "新员工指导"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.0.3"
   },
   {
     "id": "corporate-event-plan",
@@ -3549,7 +3741,8 @@
       "场地流程"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.6.6"
   },
   {
     "id": "workplace-difficult-dialogue",
@@ -3567,7 +3760,8 @@
       "委婉表达"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.6.6"
   },
   {
     "id": "tender-bidding-document",
@@ -3585,7 +3779,8 @@
       "响应矩阵"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.2.2"
   },
   {
     "id": "financial-reimbursement-audit",
@@ -3603,7 +3798,8 @@
       "税费规约"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.5.2"
   },
   {
     "id": "cross-team-handover-sop",
@@ -3621,7 +3817,8 @@
       "工作清单"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.3.6"
   },
   {
     "id": "internal-wiki-builder",
@@ -3639,7 +3836,8 @@
       "知识沉淀"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.3.6"
   },
   {
     "id": "series-vocab",
@@ -3657,7 +3855,8 @@
       "地道表达"
     ],
     "installed": false,
-    "added_at": "2026-10-15"
+    "added_at": "2026-10-15",
+    "version": "3.4.0"
   },
   {
     "id": "rag-chunking-evaluator",
@@ -3675,7 +3874,8 @@
       "召回率优化"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.1.5"
   },
   {
     "id": "prompt-optimizer-reverse",
@@ -3693,7 +3893,8 @@
       "指令对齐"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.3.7"
   },
   {
     "id": "system-design-blueprint",
@@ -3711,7 +3912,8 @@
       "hld蓝图"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.7.8"
   },
   {
     "id": "interview-algorithm-coach",
@@ -3729,7 +3931,8 @@
       "动态规划"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.1.2"
   },
   {
     "id": "claude-code-minimalist",
@@ -3747,7 +3950,8 @@
       "高内聚低耦合"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.4.8"
   },
   {
     "id": "translator-native-touch",
@@ -3765,7 +3969,8 @@
       "术语表"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.1.7"
   },
   {
     "id": "pr-agent-reviewer",
@@ -3783,7 +3988,8 @@
       "影响分析"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.4.6"
   },
   {
     "id": "api-schema-contract",
@@ -3801,7 +4007,8 @@
       "json-schema"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.1.1"
   },
   {
     "id": "docker-lean-container",
@@ -3819,7 +4026,8 @@
       "alpine优化"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.6.6"
   },
   {
     "id": "linux-shell-debugger",
@@ -3837,7 +4045,8 @@
       "自动化运维"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "1.5.4"
   },
   {
     "id": "markdown-academic-table",
@@ -3855,7 +4064,8 @@
       "跨行跨列"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.6.2"
   },
   {
     "id": "sql-index-architect",
@@ -3873,7 +4083,8 @@
       "慢查询预防"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.2.5"
   },
   {
     "id": "web-vitals-auditor",
@@ -3891,7 +4102,8 @@
       "前端性能"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.3.1"
   },
   {
     "id": "pydantic-v2-architect",
@@ -3909,7 +4121,8 @@
       "field约束"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "2.0.4"
   },
   {
     "id": "graphql-federation-design",
@@ -3927,7 +4140,8 @@
       "schema编排"
     ],
     "installed": false,
-    "added_at": "2026-08-01"
+    "added_at": "2026-08-01",
+    "version": "3.2.4"
   },
   {
     "id": "anti-defensive-writing",
@@ -3947,6 +4161,7 @@
       "论点精炼"
     ],
     "installed": false,
-    "added_at": "2026-10-21"
+    "added_at": "2026-10-21",
+    "version": "1.1.2"
   }
 ]

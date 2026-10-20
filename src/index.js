@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 
-export const name = 'dsh-clawhub-multiskill';
+export const name = 'dsh-skills-market';
 export const inject = ['webServer'];
 
 function getDshHome() {
@@ -48,7 +48,7 @@ function readSyncConfig() {
     autoApplyInstalled: false,  // 默认已装技能不自动替换，防冲刷正在进行的会话
     backupOldVersion: true,     // 升级时必须备份为 SKILL.md.bak
     lastSyncTime: 0,
-    remoteUrl: "https://raw.githubusercontent.com/gsmqmwq1/dsh-clawhub-multiskill/main/skills_db.json"
+    remoteUrl: "https://raw.githubusercontent.com/gsmqmwq1/dsh-skills-market/main/skills_db.json"
   };
   try {
     if (fs.existsSync(file)) {
@@ -719,7 +719,7 @@ export function apply(ctx) {
           let changelog = '当前已是最新版本';
 
           try {
-            const remotePkgUrl = 'https://raw.githubusercontent.com/gsmqmwq1/dsh-clawhub-multiskill/main/package.json';
+            const remotePkgUrl = 'https://raw.githubusercontent.com/gsmqmwq1/dsh-skills-market/main/package.json';
             const fetchRes = await fetch(remotePkgUrl, {
               headers: { 'User-Agent': 'DeepSeek-Harness' },
               signal: AbortSignal.timeout(4000)
@@ -779,7 +779,7 @@ export function apply(ctx) {
             });
           } else {
             // 非 git 克隆安装环境：从 raw 仓库直接拉取最新的 client.js 与 package.json 覆盖更新
-            const clientRes = await fetch('https://raw.githubusercontent.com/gsmqmwq1/dsh-clawhub-multiskill/main/client.js', { signal: AbortSignal.timeout(10000) });
+            const clientRes = await fetch('https://raw.githubusercontent.com/gsmqmwq1/dsh-skills-market/main/client.js', { signal: AbortSignal.timeout(10000) });
             if (clientRes.ok) {
               const clientJs = await clientRes.text();
               fs.writeFileSync(path.join(pluginDir, 'client.js'), clientJs, 'utf8');

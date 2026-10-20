@@ -2,7 +2,7 @@
 """
 scripts/sync_skills.py
 ClawHub & Agent Skills Ecosystem 72-Hour Auto-Sync & 800-Token Budget Auditor.
-- Checks upstream GitHub repositories for updated SKILL.md.
+- Checks upstream GitHub repositories for latest releases, tags, and SKILL.md.
 - Enforces strict 800-token budget (<4.5KB).
 - Validates YAML frontmatter, SOP steps, and repository uniqueness.
 - Updates skills_db.json and prepares bundles for CI/CD.
@@ -80,8 +80,8 @@ def audit_skills(db_path: str) -> bool:
         print(f"[SUCCESS] Audit PASSED: All {len(skills)} skills strictly compliant with standards!\n")
         return True
 
-def sync_upstream_skills(db_path: str, max_fetch=10) -> int:
-    """Fetch potential updates from upstream GitHub repositories."""
+def sync_upstream_skills(db_path: str, max_fetch=30) -> int:
+    """Fetch potential updates from upstream GitHub repositories (Releases, Tags, and SKILL.md)."""
     print("\n" + "=" * 55)
     print("[SYNC] Checking Upstream Repositories (72h Auto-Sync)")
     print("=" * 55)
@@ -92,6 +92,11 @@ def sync_upstream_skills(db_path: str, max_fetch=10) -> int:
     with open(db_path, "r", encoding="utf-8") as f:
         skills = json.load(f)
 
+    headers = {"User-Agent": "DeepSeek-Harness-Agent-Sync"}
+    token = os.environ.get("GITHUB_TOKEN")
+    if token:
+        headers["Authorization"] = f"token {token}"
+
     updated_count = 0
     # Scan skills that have upstream repos
     for s in skills[:max_fetch]:
@@ -100,19 +105,38 @@ def sync_upstream_skills(db_path: str, max_fetch=10) -> int:
         if not repo or "/" not in repo:
             continue
 
+        old_ver = s.get("version", "1.0.0")
+
+        # 1. Try fetching latest GitHub release or tags
+        try:
+            api_url = f"https://api.github.com/repos/{repo}/releases/latest"
+            req = urllib.request.Request(api_url, headers=headers)
+            with urllib.request.urlopen(req, timeout=3) as resp:
+                if resp.status == 200:
+                    data = json.loads(resp.read().decode('utf-8'))
+                    tag = data.get("tag_name", "").strip()
+                    if tag:
+                        clean_tag = tag.lstrip("vV")
+                        if clean_tag and clean_tag != old_ver:
+                            print(f"  [UPDATE] Upstream GitHub release for [{sid}]: {old_ver} -> {clean_tag}")
+                            s["version"] = clean_tag
+                            updated_count += 1
+                            continue
+        except Exception:
+            pass
+
+        # 2. Try fetching SKILL.md from repo
         raw_url = f"https://raw.githubusercontent.com/{repo}/main/SKILL.md"
         try:
             req = urllib.request.Request(raw_url, headers={"User-Agent": "DeepSeek-Harness-Agent-Sync"})
-            with urllib.request.urlopen(req, timeout=4) as resp:
+            with urllib.request.urlopen(req, timeout=3) as resp:
                 if resp.status == 200:
                     content = resp.read().decode('utf-8', errors='ignore')
                     fm = parse_frontmatter(content)
                     if fm.get("name") and len(content.encode('utf-8')) <= MAX_BYTE_SIZE:
-                        # Upstream has valid SKILL.md
-                        new_ver = fm.get("version", "1.1.0")
-                        old_ver = s.get("version", "1.0.0")
-                        if new_ver != old_ver:
-                            print(f"  [UPDATE] Found upstream update for [{sid}]: {old_ver} -> {new_ver}")
+                        new_ver = fm.get("version", "").lstrip("vV")
+                        if new_ver and new_ver != old_ver:
+                            print(f"  [UPDATE] Found upstream SKILL.md update for [{sid}]: {old_ver} -> {new_ver}")
                             s["version"] = new_ver
                             s["promptTemplate"] = content
                             s["tokenBudget"] = min(TOKEN_LIMIT, count_approx_tokens(content))

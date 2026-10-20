@@ -1,4 +1,4 @@
-# 🛍️ DeepSeek 技能超市 (dsh-clawhub-multiskill)
+# 🛍️ DeepSeek 技能超市 (dsh-skills-market)
 
 <p align="center">
   <img src="docs/images/logo.svg" width="96" height="96" alt="DeepSeek 技能超市 Logo" />
@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/gsmqmwq1/dsh-clawhub-multiskill/releases"><img src="https://img.shields.io/badge/版本-v1.1.0-blue.svg?style=flat-square" alt="版本 v1.1.0" /></a>
+  <a href="https://github.com/gsmqmwq1/dsh-skills-market/releases"><img src="https://img.shields.io/badge/版本-v1.1.0.1-blue.svg?style=flat-square" alt="版本 v1.1.0.1" /></a>
   <img src="https://img.shields.io/badge/精选技能-217款实战技能-brightgreen.svg?style=flat-square" alt="217款精选技能" />
   <img src="https://img.shields.io/badge/费用-永久完全免费-orange.svg?style=flat-square" alt="完全免费" />
   <img src="https://img.shields.io/badge/开源协议-MIT-purple.svg?style=flat-square" alt="MIT" />
@@ -70,7 +70,7 @@
 1. 在电脑键盘上按下快捷键 **`Win + X`**，在弹出的菜单里选择 **「终端」** 或 **「Windows PowerShell」**。
 2. 复制并粘贴下面这行命令，敲一下 **回车（Enter）**：
    ```powershell
-   Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/gsmqmwq1/dsh-clawhub-multiskill/main/install.ps1'))
+   Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/gsmqmwq1/dsh-skills-market/main/install.ps1'))
    ```
    *(或者把项目下载到本地后，在文件夹里右键点击 `install.ps1` 选择「使用 PowerShell 运行」)*
 3. 重启你的 **DeepSeek Harness** 客户端。大功告成！
@@ -82,14 +82,14 @@
 1. **下载插件到电脑**：
    打开终端运行：
    ```powershell
-   git clone https://github.com/gsmqmwq1/dsh-clawhub-multiskill.git "$HOME\.dsh\plugins\dsh-clawhub-multiskill"
+   git clone https://github.com/gsmqmwq1/dsh-skills-market.git "$HOME\.dsh\plugins\dsh-skills-market"
    ```
 2. **给 DeepSeek 连上这个插件**：
    ```powershell
-   New-Item -ItemType Junction -Path "$HOME\.dsh\profiles\desktop\node_modules\dsh-clawhub-multiskill" -Target "$HOME\.dsh\plugins\dsh-clawhub-multiskill"
+   New-Item -ItemType Junction -Path "$HOME\.dsh\profiles\desktop\node_modules\dsh-skills-market" -Target "$HOME\.dsh\plugins\dsh-skills-market"
    ```
 3. **登记插件**：
-   打开记事本编辑 `$HOME\.dsh\profiles\desktop\package.json`，在 `dependencies` 和 `dsh.profile.bundles` 下面各加上一行 `"dsh-clawhub-multiskill": "*"`。
+   打开记事本编辑 `$HOME\.dsh\profiles\desktop\package.json`，在 `dependencies` 和 `dsh.profile.bundles` 下面各加上一行 `"dsh-skills-market": "*"`。
 4. **重启 DeepSeek**，即可在左侧看到「技能集市」！
 
 ---
@@ -101,7 +101,7 @@
 - **极速命令行更新（推荐）**：
   打开 PowerShell 终端，粘贴运行：
   ```powershell
-  cd "$HOME\.dsh\plugins\dsh-clawhub-multiskill"; git pull
+  cd "$HOME\.dsh\plugins\dsh-skills-market"; git pull
   ```
   运行完后在 DeepSeek 窗口中按下 **`Ctrl + R`** 刷新界面，即可立即享用最新功能！
 
@@ -125,6 +125,24 @@ A：
 
 **Q：我想自己加我喜欢的技能或者网上的 Prompt，可以吗？**  
 A：当然可以！右上角专门准备了 **「+ 导入技能」** 按钮，你可以直接把网上的 GitHub 链接或 Markdown 文本粘贴进去，一秒变成你自己的专属技能！
+
+---
+
+## 📝 版本更新日志 (Changelog)
+
+### [v1.1.0.1] - 2026-10-21
+- 🏷️ **项目官方更名规范化**：插件全面更名为 `dsh-skills-market`，命名更贴合“技能集市”核心定位，保留旧名称 Junction 双向兼容，平滑迁移零阻碍。
+- 🔗 **导入体验与 URL 强兼容优化**：GitHub 导入弹窗明确提示输入完整仓库 URL（如 `https://github.com/op7418/humanizer-zh`），彻底剔除容易产生误解的简写示例，强化格式校验与解析。
+- 📦 **全量技能真实生态版本化与 72h 巡检升级**：彻底告别全部显示 `v1.0.0` 的千篇一律状态；为 217 款精选技能赋予真实上游版本，升级 GitHub Action 72h 巡检脚本，支持通过 GitHub Releases/Tags API 自动拉取最新版本。
+- 🛡️ **彻底清除输入框幽灵缓存 (Ghost Cache Elimination)**：移除后台旧草稿跨会话滞留缓存，清空对话框或重开新会话后，绝不再意外回带上次对话勾选过的旧技能；输入框内容完全以当前实时界面为准。
+- 🎯 **严格勾选对钩确认交互 (Strict Checkbox Confirmation)**：点击列表项仅切换对勾选择状态，彻底杜绝单点列表误触直接插入的偶发问题；必须明确打勾并通过底部「添加到对话 (N)」按钮提交。
+- 🚫 **未选状态安全置灰保护**：列表未选中任何技能时，「添加到对话」按钮自动置灰禁用，防止空选或误提交。
+- ⌨️ **回车键交互对齐**：列表未选中时按回车仅切换高亮项对勾，已勾选时按回车一键插入。
+
+### [v1.1.0] - 2026-10-21
+- 🌐 **直接导入 GitHub 技能自动智能中文翻译**：自动为直接导入的 GitHub 技能（如 `humanizer-zh`）生成易懂的中文标题及一句话中文摘要。
+- 🔗 **GitHub 查看直达原仓库**：卡片右上方三点菜单「在 GitHub 查看」精准跳转原项目网页，彻底告别 404。
+- ➕ **多技能增量追加不覆盖**：支持多次或批量往输入框添加技能，智能保留已有提示词并去重追加。
 
 ---
 

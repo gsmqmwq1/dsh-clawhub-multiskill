@@ -707,8 +707,14 @@ window.__ModuleLoader__.load({
 .ch-pk-btn-confirm {
   padding: 6px 16px; border-radius: 7px; font-size: 12.5px; font-weight: 500;
   background: #007aff; color: #ffffff; border: none; cursor: pointer;
+  transition: all 0.15s ease;
 }
-.ch-pk-btn-confirm:hover { background: #0062cc; }
+.ch-pk-btn-confirm:hover:not(:disabled) { background: #0062cc; }
+.ch-pk-btn-confirm:disabled {
+  background: rgba(0, 122, 255, 0.35);
+  color: rgba(255, 255, 255, 0.6);
+  cursor: not-allowed;
+}
 
 @keyframes chFadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes chSlideUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
@@ -1092,12 +1098,12 @@ window.__ModuleLoader__.load({
       var handleImport = async () => {
         var rawVal = repoInput.trim();
         if (!rawVal) {
-          setErrorMsg("请输入 GitHub 仓库地址或 owner/repo (例如 Kiterlin/anti-defensive-writing)");
+          setErrorMsg("请输入完整的 GitHub 技能仓库 URL (例如: https://github.com/op7418/humanizer-zh)");
           return;
         }
         var trimmed = rawVal.replace(/^https?:\/\/github\.com\//, "").replace(/\.git$/, "");
         if (!trimmed.includes("/") && !rawVal.includes("http")) {
-          setErrorMsg("请输入合法的 GitHub 仓库路径 (例如 Kiterlin/anti-defensive-writing)");
+          setErrorMsg("请输入完整的 GitHub 仓库链接 (例如: https://github.com/op7418/humanizer-zh)");
           return;
         }
         setLoading(true);
@@ -1144,7 +1150,7 @@ window.__ModuleLoader__.load({
             "div",
             { className: "mkt-modal-body" },
             h("div", { style: { marginBottom: "8px", color: "var(--ch-text-secondary)" } },
-              "输入 GitHub 仓库名 (例如: langchain-ai/langchain 或完整 URL):"
+              "输入完整的 GitHub 技能仓库 URL (例如: https://github.com/op7418/humanizer-zh):"
             ),
             h("input", {
               type: "text",
@@ -1153,7 +1159,7 @@ window.__ModuleLoader__.load({
                 borderRadius: "8px", border: "1px solid var(--ch-card-border)",
                 background: "var(--ch-pill-bg)", color: "var(--ch-text-primary)", outline: "none"
               },
-              placeholder: "owner/repo",
+              placeholder: "https://github.com/owner/repo",
               value: repoInput,
               onChange: (e) => setRepoInput(e.target.value)
             }),
@@ -2585,36 +2591,27 @@ window.__ModuleLoader__.load({
       };
 
       var executeInsert = (ids) => {
+        if (!ids || ids.length === 0) return;
         var targets = installedList.filter((x) => ids.includes(x.id));
         if (targets.length === 0) return;
         var slashesToAdd = targets.map((t) => t.slash);
 
-        // 1. 获取当前输入框中的现有内容 (不覆盖已有内容)
+        // 1. 获取当前输入框中的现有内容 (不保留任何历史缓存，严格以当前激活输入框为准)
         var existingText = "";
+        var activeTa = null;
         var actions = props.inputActions || window.__dsh_inputActions;
 
-        if (props.input && typeof props.input.draft === "string" && props.input.draft.trim().length > 0) {
-          existingText = props.input.draft;
-        } else if (actions && typeof actions.getDraft === "function") {
-          try { existingText = actions.getDraft() || ""; } catch(e) {}
-        }
-
-        if (!existingText) {
-          var textareas = document.querySelectorAll("textarea");
-          for (var i = 0; i < textareas.length; i++) {
-            var ta = textareas[i];
-            if (ta.offsetParent !== null && !ta.closest(".ch-pk-popover-portal") && !ta.closest(".mkt-panel")) {
-              existingText = ta.value || "";
-              break;
-            }
+        var textareas = document.querySelectorAll("textarea");
+        for (var i = 0; i < textareas.length; i++) {
+          var ta = textareas[i];
+          if (ta.offsetParent !== null && !ta.closest(".ch-pk-popover-portal") && !ta.closest(".mkt-panel")) {
+            activeTa = ta;
+            existingText = ta.value || "";
+            break;
           }
         }
 
-        if (!existingText && window.__dsh_current_draft) {
-          existingText = window.__dsh_current_draft;
-        }
-
-        // 2. 智能合并：避免重复添加已有指令，保留已有文本与其它技能
+        // 2. 智能合并：保留输入框中用户当前手打的文字和其他指令，但绝不从历史缓存中唤醒旧技能
         var currentTrimmed = (existingText || "").trim();
         var tokens = currentTrimmed ? currentTrimmed.split(/\s+/) : [];
 
@@ -2625,35 +2622,28 @@ window.__ModuleLoader__.load({
         }
 
         var nextDraft = tokens.join(" ") + " ";
-        window.__dsh_current_draft = nextDraft;
 
         // 3. 写入输入框 (通过 actions.setDraft 与 DOM 原型双保险)
-        var inserted = false;
         if (actions && typeof actions.setDraft === "function") {
           try {
             actions.setDraft(nextDraft);
             if (typeof actions.focus === "function") actions.focus();
-            inserted = true;
           } catch (ae) {}
         }
 
-        var textareas = document.querySelectorAll("textarea");
-        for (var i = 0; i < textareas.length; i++) {
-          var ta = textareas[i];
-          if (ta.offsetParent !== null && !ta.closest(".ch-pk-popover-portal") && !ta.closest(".mkt-panel")) {
-            ta.focus();
+        if (activeTa) {
+          try {
+            activeTa.focus();
             var nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value").set;
             if (nativeSetter) {
-              nativeSetter.call(ta, nextDraft);
+              nativeSetter.call(activeTa, nextDraft);
             } else {
-              ta.value = nextDraft;
+              activeTa.value = nextDraft;
             }
-            ta.dispatchEvent(new Event("input", { bubbles: true }));
-            ta.dispatchEvent(new Event("change", { bubbles: true }));
-            ta.selectionStart = ta.selectionEnd = nextDraft.length;
-            inserted = true;
-            break;
-          }
+            activeTa.dispatchEvent(new Event("input", { bubbles: true }));
+            activeTa.dispatchEvent(new Event("change", { bubbles: true }));
+            activeTa.selectionStart = activeTa.selectionEnd = nextDraft.length;
+          } catch (te) {}
         }
 
         try {
@@ -2661,6 +2651,7 @@ window.__ModuleLoader__.load({
           window.dispatchEvent(ev);
         } catch (ee) {}
 
+        setSelected([]);
         props.onClose();
       };
 
@@ -2676,10 +2667,11 @@ window.__ModuleLoader__.load({
           if (selected.length > 0) {
             executeInsert(selected);
           } else if (filtered[activeIdx]) {
-            executeInsert([filtered[activeIdx].id]);
+            toggleSelect(filtered[activeIdx].id);
           }
         } else if (e.key === "Escape") {
           e.preventDefault();
+          setSelected([]);
           props.onClose();
         }
       };
@@ -2733,11 +2725,7 @@ window.__ModuleLoader__.load({
                     key: item.id,
                     className: "ch-pk-item" + (isChecked ? " checked" : "") + (isHighlighted ? " highlighted" : ""),
                     onClick: () => {
-                      if (selected.length > 0) {
-                        toggleSelect(item.id);
-                      } else {
-                        executeInsert([item.id]);
-                      }
+                      toggleSelect(item.id);
                     },
                     onMouseEnter: () => setActiveIdx(index)
                   },
@@ -2773,8 +2761,8 @@ window.__ModuleLoader__.load({
             {
               className: "ch-pk-btn-cancel",
               onClick: () => {
-                if (selected.length > 0) setSelected([]);
-                else props.onClose();
+                setSelected([]);
+                props.onClose();
               }
             },
             "取消"
@@ -2783,9 +2771,9 @@ window.__ModuleLoader__.load({
             "button",
             {
               className: "ch-pk-btn-confirm",
+              disabled: selected.length === 0,
               onClick: () => {
                 if (selected.length > 0) executeInsert(selected);
-                else if (filtered[activeIdx]) executeInsert([filtered[activeIdx].id]);
               }
             },
             selected.length > 0 ? "添加到对话 (" + selected.length + ")" : "添加到对话"
@@ -2808,17 +2796,6 @@ window.__ModuleLoader__.load({
         if (e) e.stopPropagation();
         if (props.inputActions) {
           window.__dsh_inputActions = props.inputActions;
-        }
-        if (props.input && typeof props.input.draft === "string") {
-          window.__dsh_current_draft = props.input.draft;
-        }
-        var textareas = document.querySelectorAll("textarea");
-        for (var i = 0; i < textareas.length; i++) {
-          var ta = textareas[i];
-          if (ta.offsetParent !== null && !ta.closest(".ch-pk-popover-portal") && !ta.closest(".mkt-panel")) {
-            window.__dsh_current_draft = ta.value || "";
-            break;
-          }
         }
         if (!isOpen && btnRef.current) {
           var rect = btnRef.current.getBoundingClientRect();
@@ -2971,11 +2948,11 @@ window.__ModuleLoader__.load({
       }
     }
 
-    exports.name = "dsh-clawhub-multiskill";
+    exports.name = "dsh-skills-market";
     exports.apply = apply;
     exports.inject = ["slots", "layout"];
     exports.default = {
-      name: "dsh-clawhub-multiskill",
+      name: "dsh-skills-market",
       apply: apply,
       inject: ["slots", "layout"]
     };
@@ -2991,6 +2968,8 @@ window.__ModuleLoader__.load({
     destinations = [
         os.path.join(root_dir, "client.js"),
         os.path.join(root_dir, "src", "client.js"),
+        r"C:\Users\MWQ\.dsh\plugins\dsh-skills-market\client.js",
+        r"C:\Users\MWQ\.dsh\plugins\dsh-skills-market\src\client.js",
         r"C:\Users\MWQ\.dsh\plugins\dsh-clawhub-multiskill\client.js",
         r"C:\Users\MWQ\.dsh\plugins\dsh-clawhub-multiskill\src\client.js"
     ]
