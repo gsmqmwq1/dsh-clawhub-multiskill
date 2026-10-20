@@ -1,5 +1,25 @@
 [
   {
+    "id": "humanizer-zh",
+    "name": "中文AI机感消除与纯正文本润色 (Humanizer-zh)",
+    "slash": "/humanizer-zh",
+    "repo": "op7418/humanizer-zh",
+    "stars": "★ 1.2k",
+    "category": "🏢 职场办公",
+    "summary": "编辑中文文章、评论和文档中的空话、重复及模板化表达，让文字更自然，同时保留事实、确定程度和作者声音",
+    "tags": [
+      "中文润色",
+      "去ai感",
+      "写作优化",
+      "去模板化",
+      "公文编辑",
+      "自然表达"
+    ],
+    "installed": true,
+    "added_at": "2026-10-21",
+    "version": "1.0.0"
+  },
+  {
     "id": "humanizer",
     "name": "AI机感消除与纯正文本润色 (Humanizer)",
     "slash": "/humanizer",

@@ -99,6 +99,15 @@ function applyVersionUpdate(oldContent, newVersion) {
 
 
 const FAMOUS_SKILLS_MAP = {
+  "humanizer-zh": {
+    name: "中文AI机感消除与纯正文本润色 (Humanizer-zh)",
+    summary: "编辑中文文章、评论和文档中的空话、重复及模板化表达，让文字更自然，同时保留事实、确定程度和作者声音",
+    repo: "op7418/humanizer-zh",
+    url: "https://github.com/op7418/humanizer-zh",
+    stars: "★ 1.2k",
+    category: "🏢 职场办公",
+    version: "1.0.0"
+  },
   "humanizer": {
     name: "AI机感消除与纯正文本润色 (Humanizer)",
     summary: "消除大模型文本中机械重复、过度修饰与套话结构，还原自然纯正、毫无AI感的专业人类写作笔触",
@@ -210,6 +219,7 @@ export function apply(ctx) {
               version: finalVer,
               repo: finalRepo,
               stars: finalStars,
+              url: meta.url || famous.url || (finalRepo ? ('https://github.com/' + finalRepo) : ''),
               disabled: isDisabled,
               hasBackup: bakExists,
               path: skillFile,

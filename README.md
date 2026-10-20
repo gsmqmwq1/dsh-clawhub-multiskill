@@ -5,13 +5,13 @@
 </p>
 
 <p align="center">
-  <strong>像给手机装 App 一样，一键给你的 DeepSeek 赋予 214 种专家本领！</strong><br>
+  <strong>像给手机装 App 一样，一键给你的 DeepSeek 赋予 217 种专家本领！</strong><br>
   无需再费劲琢磨怎么写复杂的 AI 提示词。写论文、做 PPT、改简历、写代码、排版小红书……点一下，AI 秒变行家里手！
 </p>
 
 <p align="center">
   <a href="https://github.com/gsmqmwq1/dsh-clawhub-multiskill/releases"><img src="https://img.shields.io/badge/版本-v1.1.0-blue.svg?style=flat-square" alt="版本 v1.1.0" /></a>
-  <img src="https://img.shields.io/badge/精选技能-215款实战技能-brightgreen.svg?style=flat-square" alt="215款精选技能" />
+  <img src="https://img.shields.io/badge/精选技能-217款实战技能-brightgreen.svg?style=flat-square" alt="217款精选技能" />
   <img src="https://img.shields.io/badge/费用-永久完全免费-orange.svg?style=flat-square" alt="完全免费" />
   <img src="https://img.shields.io/badge/开源协议-MIT-purple.svg?style=flat-square" alt="MIT" />
 </p>
@@ -32,7 +32,7 @@
 ## 📸 真实长啥样？（看图 10 秒看懂）
 
 ### 1. 技能超市：像逛商场一样挑技能
-界面清爽无杂质，214 个真实实用的技能按分类摆放，看中哪款点右下角 **「安装」** 就能马上用：
+界面清爽无杂质，217 个真实实用的技能按分类摆放，看中哪款点右下角 **「安装」** 就能马上用：
 ![技能超市全景](docs/images/market_overview.png)
 
 ### 2. 我的技能：已安装的随心管理
@@ -40,14 +40,14 @@
 ![已安装技能管理](docs/images/installed_management.png)
 
 ### 3. 聊天框直接调用：最爽的高频玩法！
-在平时聊天打字框旁边点一下，搜你想办的事（比如“周报”、“画图”、“审代码”），勾选一下就自动帮你叫出对应的 AI 专家：
+在平时聊天打字框旁边点一下，搜你想办的事（比如“周报”、“画图”、“审代码”），勾选一下就自动帮你叫出对应的 AI 专家；支持一次勾选多个或分批追加技能，绝不覆盖已有文本：
 ![输入框直接调用](docs/images/composer_popover.png)
 
 ---
 
 ## 🎁 都有哪些实用技能？（覆盖 9 大日常场景）
 
-我们帮大家把关剔除了所有重复、无用的充数技能，严格精选出 **215 个真正能解决工作学习痛点的高质量技能**：
+我们帮大家把关剔除了所有重复、无用的充数技能，严格精选出 **217 个真正能解决工作学习痛点的高质量技能**：
 
 | 场景分类 | 技能数量 | 适合谁用？能帮你解决什么？ | 代表技能举例 |
 | :--- | :---: | :--- | :--- |
@@ -91,6 +91,22 @@
 3. **登记插件**：
    打开记事本编辑 `$HOME\.dsh\profiles\desktop\package.json`，在 `dependencies` 和 `dsh.profile.bundles` 下面各加上一行 `"dsh-clawhub-multiskill": "*"`。
 4. **重启 DeepSeek**，即可在左侧看到「技能集市」！
+
+---
+
+## 🔄 如果已经安装，如何更新本插件？
+
+当本插件发布新功能时，更新非常简单，你的自定义别名、已安装技能完全保留：
+
+- **极速命令行更新（推荐）**：
+  打开 PowerShell 终端，粘贴运行：
+  ```powershell
+  cd "$HOME\.dsh\plugins\dsh-clawhub-multiskill"; git pull
+  ```
+  运行完后在 DeepSeek 窗口中按下 **`Ctrl + R`** 刷新界面，即可立即享用最新功能！
+
+- **或者重新跑一次一键安装**：
+  直接重新执行上面的「全自动一键安装」命令，脚本会自动智能平滑更新。
 
 ---
 

@@ -1110,7 +1110,13 @@ window.__ModuleLoader__.load({
           });
           var data = await res.json();
           if (data.ok) {
-            props.onSuccess(data.skill || { id: data.id, name: data.name });
+            try {
+              var savedMap = JSON.parse(localStorage.getItem("dsh_skill_urls") || "{}");
+              var fullUrl = rawVal.startsWith("http") ? rawVal : ("https://github.com/" + trimmed);
+              savedMap[data.id || (data.skill && data.skill.id) || ""] = fullUrl;
+              localStorage.setItem("dsh_skill_urls", JSON.stringify(savedMap));
+            } catch(e) {}
+            props.onSuccess(data.skill || { id: data.id, name: data.name, repo: trimmed, url: rawVal });
             props.onClose();
           } else {
             setErrorMsg(data.error || "导入失败，请检查仓库是否存在或网络状态");
@@ -1447,6 +1453,15 @@ window.__ModuleLoader__.load({
 
     // ── 防御性字符串转换辅助函数 ────────────────────────────────────────────────
     var FAMOUS_SKILLS_MAP = {
+      "humanizer-zh": {
+        name: "中文AI机感消除与纯正文本润色 (Humanizer-zh)",
+        summary: "编辑中文文章、评论和文档中的空话、重复及模板化表达，让文字更自然，同时保留事实、确定程度和作者声音",
+        repo: "op7418/humanizer-zh",
+        url: "https://github.com/op7418/humanizer-zh",
+        stars: "★ 1.2k",
+        category: "🏢 职场办公",
+        version: "1.0.0"
+      },
       "humanizer": {
         name: "AI机感消除与纯正文本润色 (Humanizer)",
         summary: "消除大模型文本中机械重复、过度修饰与套话结构，还原自然纯正、毫无AI感的专业人类写作笔触",
@@ -1464,6 +1479,36 @@ window.__ModuleLoader__.load({
         version: "1.0.0"
       }
     };
+
+    function synthesizeSkillDisplayName(id, currentName, desc) {
+      if (FAMOUS_SKILLS_MAP[id] && FAMOUS_SKILLS_MAP[id].name) {
+        return FAMOUS_SKILLS_MAP[id].name;
+      }
+      var name = currentName || id || "";
+      if (/[\u4e00-\u9fa5]/.test(name)) {
+        return name;
+      }
+      if (desc && /[\u4e00-\u9fa5]/.test(desc)) {
+        var m = /([\u4e00-\u9fa5]{4,14})/.exec(desc);
+        if (m) {
+          return m[1] + " (" + id + ")";
+        }
+      }
+      var cleanId = id.toLowerCase();
+      var trans = "";
+      if (cleanId.includes("humanizer")) trans = "AI机感消除与纯正润色";
+      else if (cleanId.includes("defensive")) trans = "反防御性表达与论点强化";
+      else if (cleanId.includes("writer") || cleanId.includes("writing")) trans = "智能写作与行文润色";
+      else if (cleanId.includes("review") || cleanId.includes("audit")) trans = "代码审计与安全自检";
+      else if (cleanId.includes("figure") || cleanId.includes("chart")) trans = "专业图表绘制与排版";
+      else if (cleanId.includes("patent")) trans = "专利交底书标准化撰写";
+      else if (cleanId.includes("translate") || cleanId.includes("trans")) trans = "精准多语言翻译";
+      else if (cleanId.includes("agent") || cleanId.includes("orchestrator")) trans = "Agent协同调度中枢";
+      else if (cleanId.includes("search") || cleanId.includes("find")) trans = "智能信息搜索检索";
+      else if (cleanId.includes("clean") || cleanId.includes("slop")) trans = "冗余清洗与去模板化";
+      if (trans) return trans + " (" + id + ")";
+      return name;
+    }
 
     function safeStr(val) {
       if (val === null || val === undefined) return "";
@@ -1657,8 +1702,9 @@ window.__ModuleLoader__.load({
             var repoPath = inst.repo || (inst.id.includes("/") ? inst.id : "github/" + inst.id);
 
             var famous = FAMOUS_SKILLS_MAP[inst.id] || {};
-            var cleanName = inst.alias || famous.name || inst.name || inst.id;
-            var cleanRepo = inst.repo || famous.repo || (inst.id.includes("/") ? inst.id : (inst.id === "humanizer" ? "blader/humanizer" : inst.id));
+            var cleanName = inst.alias || famous.name || synthesizeSkillDisplayName(inst.id, inst.name, desc);
+            var cleanRepo = inst.repo || famous.repo || (inst.id.includes("/") ? inst.id : (inst.id === "humanizer-zh" ? "op7418/humanizer-zh" : (inst.id === "humanizer" ? "blader/humanizer" : inst.id)));
+            var cleanUrl = inst.url || famous.url || (cleanRepo ? ("https://github.com/" + cleanRepo) : "");
             var cleanStars = inst.stars || famous.stars || "1.2k";
             var cleanVer = inst.version || famous.version || "1.0.0";
             var cleanCat = famous.category || inferredCat;
@@ -1671,6 +1717,7 @@ window.__ModuleLoader__.load({
               slash: "/" + inst.id,
               summary: finalSummary,
               repo: cleanRepo,
+              url: cleanUrl,
               stars: cleanStars,
               category: cleanCat,
               version: cleanVer,
@@ -2207,6 +2254,7 @@ window.__ModuleLoader__.load({
                   var currentVer = (instInfo && instInfo.version) || (updateInfo && updateInfo.currentVersion) || sk.version || "1.0.0";
                   var targetNewVer = updateInfo ? updateInfo.newVersion : "";
                   var isFav = favorites.includes(sk.id);
+                  var formattedStars = sk.stars ? (String(sk.stars).startsWith("★") ? sk.stars : ("★ " + sk.stars)) : "★ 1.2k";
 
                   return h(
                     "div",
@@ -2315,16 +2363,27 @@ window.__ModuleLoader__.load({
                                     className: "mkt-dropdown-item",
                                     onClick: () => {
                                       setOpenMenuId(null);
-                                      var targetRepo = sk.repo;
-                                      if (!targetRepo || targetRepo === "github/" + sk.id) {
-                                        if (sk.id === "humanizer") targetRepo = "blader/humanizer";
-                                        else if (sk.id === "anti-defensive-writing") targetRepo = "Kiterlin/anti-defensive-writing";
+                                      var targetUrl = "";
+                                      if (sk.url && String(sk.url).startsWith("http")) {
+                                        targetUrl = sk.url;
                                       }
-                                      if (targetRepo && targetRepo.includes("/") && !targetRepo.startsWith("github/")) {
-                                        window.open("https://github.com/" + targetRepo, "_blank");
-                                      } else {
-                                        window.open("https://github.com/search?q=" + encodeURIComponent(sk.id) + "&type=repositories", "_blank");
+                                      if (!targetUrl) {
+                                        try {
+                                          var savedMap = JSON.parse(localStorage.getItem("dsh_skill_urls") || "{}");
+                                          if (savedMap[sk.id]) targetUrl = savedMap[sk.id];
+                                        } catch(e) {}
                                       }
+                                      if (!targetUrl && sk.repo) {
+                                        if (String(sk.repo).startsWith("http")) targetUrl = sk.repo;
+                                        else if (sk.repo.includes("/") && !sk.repo.startsWith("github/")) targetUrl = "https://github.com/" + sk.repo;
+                                      }
+                                      if (!targetUrl && FAMOUS_SKILLS_MAP[sk.id] && FAMOUS_SKILLS_MAP[sk.id].url) {
+                                        targetUrl = FAMOUS_SKILLS_MAP[sk.id].url;
+                                      }
+                                      if (!targetUrl) {
+                                        targetUrl = "https://github.com/search?q=" + encodeURIComponent(sk.id) + "&type=repositories";
+                                      }
+                                      window.open(targetUrl, "_blank");
                                     }
                                   },
                                   "↗ 在 GitHub 查看"
@@ -2354,7 +2413,7 @@ window.__ModuleLoader__.load({
                         h(
                           "div",
                           { className: "mkt-card-meta-line" },
-                          h("span", { className: "mkt-card-stars" }, safeStr(sk.stars || "1.2k")),
+                          h("span", { className: "mkt-card-stars" }, safeStr(formattedStars)),
                           h("span", { className: "mkt-card-slash" }, safeStr(sk.slash || "/" + sk.id))
                         ),
 
@@ -2528,29 +2587,77 @@ window.__ModuleLoader__.load({
       var executeInsert = (ids) => {
         var targets = installedList.filter((x) => ids.includes(x.id));
         if (targets.length === 0) return;
-        var textToInsert = targets.map((t) => t.slash).join(" ");
+        var slashesToAdd = targets.map((t) => t.slash);
 
+        // 1. 获取当前输入框中的现有内容 (不覆盖已有内容)
+        var existingText = "";
         var actions = props.inputActions || window.__dsh_inputActions;
-        var inserted = false;
 
-        if (actions && typeof actions.setDraft === "function") {
-          try {
-            var cur = typeof actions.getDraft === "function" ? actions.getDraft() : "";
-            var sep = cur && !cur.endsWith(" ") ? " " : "";
-            actions.setDraft((cur || "") + sep + textToInsert + " ");
-            if (typeof actions.focus === "function") actions.focus();
-            inserted = true;
-          } catch (ae) {
-            console.warn("[dsh-clawhub-multiskill] inputActions error:", ae);
+        if (props.input && typeof props.input.draft === "string" && props.input.draft.trim().length > 0) {
+          existingText = props.input.draft;
+        } else if (actions && typeof actions.getDraft === "function") {
+          try { existingText = actions.getDraft() || ""; } catch(e) {}
+        }
+
+        if (!existingText) {
+          var textareas = document.querySelectorAll("textarea");
+          for (var i = 0; i < textareas.length; i++) {
+            var ta = textareas[i];
+            if (ta.offsetParent !== null && !ta.closest(".ch-pk-popover-portal") && !ta.closest(".mkt-panel")) {
+              existingText = ta.value || "";
+              break;
+            }
           }
         }
 
-        if (!inserted) {
-          inserted = insertSlashCommands(textToInsert);
+        if (!existingText && window.__dsh_current_draft) {
+          existingText = window.__dsh_current_draft;
+        }
+
+        // 2. 智能合并：避免重复添加已有指令，保留已有文本与其它技能
+        var currentTrimmed = (existingText || "").trim();
+        var tokens = currentTrimmed ? currentTrimmed.split(/\s+/) : [];
+
+        for (var s of slashesToAdd) {
+          if (!tokens.includes(s)) {
+            tokens.push(s);
+          }
+        }
+
+        var nextDraft = tokens.join(" ") + " ";
+        window.__dsh_current_draft = nextDraft;
+
+        // 3. 写入输入框 (通过 actions.setDraft 与 DOM 原型双保险)
+        var inserted = false;
+        if (actions && typeof actions.setDraft === "function") {
+          try {
+            actions.setDraft(nextDraft);
+            if (typeof actions.focus === "function") actions.focus();
+            inserted = true;
+          } catch (ae) {}
+        }
+
+        var textareas = document.querySelectorAll("textarea");
+        for (var i = 0; i < textareas.length; i++) {
+          var ta = textareas[i];
+          if (ta.offsetParent !== null && !ta.closest(".ch-pk-popover-portal") && !ta.closest(".mkt-panel")) {
+            ta.focus();
+            var nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value").set;
+            if (nativeSetter) {
+              nativeSetter.call(ta, nextDraft);
+            } else {
+              ta.value = nextDraft;
+            }
+            ta.dispatchEvent(new Event("input", { bubbles: true }));
+            ta.dispatchEvent(new Event("change", { bubbles: true }));
+            ta.selectionStart = ta.selectionEnd = nextDraft.length;
+            inserted = true;
+            break;
+          }
         }
 
         try {
-          var ev = new CustomEvent("dsh-skill-hub-insert", { detail: { skill: textToInsert, text: textToInsert } });
+          var ev = new CustomEvent("dsh-skill-hub-insert", { detail: { skill: nextDraft, text: nextDraft } });
           window.dispatchEvent(ev);
         } catch (ee) {}
 
@@ -2699,6 +2806,20 @@ window.__ModuleLoader__.load({
 
       var handleToggle = (e) => {
         if (e) e.stopPropagation();
+        if (props.inputActions) {
+          window.__dsh_inputActions = props.inputActions;
+        }
+        if (props.input && typeof props.input.draft === "string") {
+          window.__dsh_current_draft = props.input.draft;
+        }
+        var textareas = document.querySelectorAll("textarea");
+        for (var i = 0; i < textareas.length; i++) {
+          var ta = textareas[i];
+          if (ta.offsetParent !== null && !ta.closest(".ch-pk-popover-portal") && !ta.closest(".mkt-panel")) {
+            window.__dsh_current_draft = ta.value || "";
+            break;
+          }
+        }
         if (!isOpen && btnRef.current) {
           var rect = btnRef.current.getBoundingClientRect();
           var bottom = Math.round(window.innerHeight - rect.top + 8);
