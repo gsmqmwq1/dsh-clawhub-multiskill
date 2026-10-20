@@ -58,51 +58,95 @@ window.__ModuleLoader__.load({
     // ── 100% 真实精选开源 GitHub 技能数据库 ───────────────────────────────────────
     var SKILLS_CATALOG = __SKILLS_DATA__;
 
+    // ── 定位 DeepSeek Harness 对话输入框 (支持 Lexical contenteditable 与原生 Textarea 双引擎) ─
+    function findComposerInput(anchorEl) {
+      if (anchorEl) {
+        var card = anchorEl.closest('[data-composer-card="true"]') ||
+                   anchorEl.closest('form, [class*="composer"], [class*="input"], [class*="chat-box"], [class*="card"]');
+        if (card) {
+          var el = card.querySelector('[data-composer-input="true"], [contenteditable="true"], textarea');
+          if (el && el.offsetParent !== null && !el.closest(".ch-pk-popover-portal") && !el.closest(".mkt-panel")) {
+            return el;
+          }
+        }
+        var parent = anchorEl.parentElement;
+        for (var depth = 0; depth < 8 && parent; depth++) {
+          var el = parent.querySelector('[data-composer-input="true"], [contenteditable="true"], textarea');
+          if (el && el.offsetParent !== null && !el.closest(".ch-pk-popover-portal") && !el.closest(".mkt-panel")) {
+            return el;
+          }
+          parent = parent.parentElement;
+        }
+      }
+
+      var candidates = Array.from(document.querySelectorAll('[data-composer-input="true"], [contenteditable="true"], textarea')).filter(function(el) {
+        return el.offsetParent !== null &&
+               !el.closest(".ch-pk-popover-portal") &&
+               !el.closest(".mkt-panel") &&
+               !el.closest(".mkt-modal-sheet");
+      });
+
+      var composer = candidates.find(function(el) {
+        return el.getAttribute("data-composer-input") === "true";
+      });
+      if (composer) return composer;
+
+      if (candidates.length === 1) return candidates[0];
+      if (candidates.length > 1) {
+        candidates.sort(function(a, b) {
+          return b.getBoundingClientRect().top - a.getBoundingClientRect().top;
+        });
+        return candidates[0];
+      }
+      return null;
+    }
+
     // ── 多斜杠指令智能插入到输入框 ──────────────────────────────────────────────────
     function insertSlashCommands(text) {
       try {
-        var textareas = document.querySelectorAll("textarea");
-        for (var i = 0; i < textareas.length; i++) {
-          var ta = textareas[i];
-          if (ta.offsetParent !== null && !ta.closest(".ch-pk-popover-portal") && !ta.closest(".mkt-panel")) {
-            ta.focus();
-            var start = ta.selectionStart != null ? ta.selectionStart : ta.value.length;
-            var end = ta.selectionEnd != null ? ta.selectionEnd : ta.value.length;
-            var val = ta.value || "";
-            var prefix = val.slice(0, start);
-            var suffix = val.slice(end);
-            var sep = prefix.length > 0 && !prefix.endsWith(" ") && !prefix.endsWith("\n") ? " " : "";
-            var insertText = sep + text + " ";
-            var newVal = prefix + insertText + suffix;
+        var inputEl = findComposerInput();
+        if (!inputEl) return false;
+        inputEl.focus();
 
-            var nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value").set;
-            if (nativeSetter) {
-              nativeSetter.call(ta, newVal);
-            } else {
-              ta.value = newVal;
-            }
-            ta.dispatchEvent(new Event("input", { bubbles: true }));
-            ta.dispatchEvent(new Event("change", { bubbles: true }));
-            var newPos = start + insertText.length;
-            if (typeof ta.setSelectionRange === "function") {
-              ta.setSelectionRange(newPos, newPos);
-            }
-            return true;
-          }
-        }
+        var isTextarea = inputEl.tagName.toLowerCase() === "textarea" || inputEl.tagName.toLowerCase() === "input";
+        var currentText = isTextarea ? (inputEl.value || "") : (inputEl.innerText || inputEl.textContent || "");
+        currentText = currentText.replace(/\r?\n$/, "");
 
-        var editables = document.querySelectorAll('[contenteditable="true"]');
-        for (var j = 0; j < editables.length; j++) {
-          var ed = editables[j];
-          if (ed.offsetParent !== null && !ed.closest(".ch-pk-popover-portal") && !ed.closest(".mkt-panel")) {
-            ed.focus();
-            document.execCommand("insertText", false, text + " ");
-            ed.dispatchEvent(new Event("input", { bubbles: true }));
-            return true;
+        var needSpace = currentText.length > 0 && !currentText.endsWith(" ") && !currentText.endsWith("\n");
+        var insertText = (needSpace ? " " : "") + text + " ";
+
+        if (isTextarea) {
+          inputEl.selectionStart = inputEl.selectionEnd = inputEl.value.length;
+          var ok = false;
+          try { ok = document.execCommand("insertText", false, insertText); } catch(e) {}
+          if (!ok) {
+            var newVal = currentText + insertText;
+            var setter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value").set;
+            if (setter) setter.call(inputEl, newVal);
+            else inputEl.value = newVal;
+            inputEl.dispatchEvent(new Event("input", { bubbles: true }));
+            inputEl.dispatchEvent(new Event("change", { bubbles: true }));
           }
+          return true;
+        } else {
+          var sel = window.getSelection();
+          var range = document.createRange();
+          range.selectNodeContents(inputEl);
+          range.collapse(false);
+          sel.removeAllRanges();
+          sel.addRange(range);
+          var ok = false;
+          try { ok = document.execCommand("insertText", false, insertText); } catch(e) {}
+          if (!ok) {
+            try {
+              var ev = new InputEvent("beforeinput", { bubbles: true, cancelable: true, inputType: "insertText", data: insertText });
+              inputEl.dispatchEvent(ev);
+            } catch(ie) {}
+          }
+          return true;
         }
       } catch (e) {
-        console.warn("[dsh-clawhub-multiskill] insertSlashCommands error:", e);
+        console.warn("[dsh-skills-market] insertSlashCommands error:", e);
       }
       return false;
     }
@@ -1302,7 +1346,7 @@ window.__ModuleLoader__.load({
 
       var handleDismiss = () => {
         try {
-          var targetVer = props.latestVersion || "1.1.0.3";
+          var targetVer = props.latestVersion || "1.1.3";
           localStorage.setItem("dsh_dismissed_update_ver", targetVer);
         } catch(e) {}
         props.onClose();
@@ -1315,7 +1359,7 @@ window.__ModuleLoader__.load({
           var data = await res.json();
           if (data.ok) {
             try {
-              localStorage.setItem("dsh_dismissed_update_ver", props.latestVersion || "1.1.0.3");
+              localStorage.setItem("dsh_dismissed_update_ver", props.latestVersion || "1.1.3");
             } catch(e) {}
             setResultMsg("升级已完成！按快捷键 Ctrl + R 刷新即可无缝生效。");
           } else {
@@ -1341,7 +1385,7 @@ window.__ModuleLoader__.load({
               "div",
               { style: { display: "flex", alignItems: "center", gap: "10px" } },
               h(ColorToteIcon, { size: 26 }),
-              h("div", { className: "mkt-modal-title" }, "dsh-skills-market v" + (props.latestVersion || "1.1.0.3") + " 就绪")
+              h("div", { className: "mkt-modal-title" }, "dsh-skills-market v" + (props.latestVersion || "1.1.3") + " 就绪")
             ),
             h("button", { className: "mkt-modal-close", onClick: handleDismiss }, "✕")
           ),
@@ -1992,7 +2036,7 @@ window.__ModuleLoader__.load({
                       onClick: () => setShowPluginUpdateModal(true),
                       title: "点击查看插件版本与更新"
                     },
-                    "v1.1.0.3"
+                    "v1.1.3"
                   )
                 ),
                 h("div", { className: "mkt-subtitle" }, "AI Agent 精选实战技能库")
@@ -2552,36 +2596,7 @@ window.__ModuleLoader__.load({
       );
     }
 
-    function findComposerTextarea(anchorEl) {
-      if (anchorEl) {
-        var container = anchorEl.closest("form, [class*='composer'], [class*='input'], [class*='chat-box'], [class*='conversation']");
-        if (container) {
-          var ta = container.querySelector("textarea");
-          if (ta && ta.offsetParent !== null && !ta.closest(".ch-pk-popover-portal") && !ta.closest(".mkt-panel")) {
-            return ta;
-          }
-        }
-        var parent = anchorEl.parentElement;
-        for (var depth = 0; depth < 5 && parent; depth++) {
-          var ta = parent.querySelector("textarea");
-          if (ta && ta.offsetParent !== null && !ta.closest(".ch-pk-popover-portal") && !ta.closest(".mkt-panel")) {
-            return ta;
-          }
-          parent = parent.parentElement;
-        }
-      }
-      var textareas = Array.from(document.querySelectorAll("textarea")).filter(function(t) {
-        return t.offsetParent !== null && !t.closest(".ch-pk-popover-portal") && !t.closest(".mkt-panel");
-      });
-      if (textareas.length === 1) return textareas[0];
-      if (textareas.length > 1) {
-        textareas.sort(function(a, b) {
-          return b.getBoundingClientRect().top - a.getBoundingClientRect().top;
-        });
-        return textareas[0];
-      }
-      return null;
-    }
+
 
     // ── 输入框唤出面板 (ComposerSkillPopover, 100% 对齐截图 media_1792481020508_6c1516be.png) ────────
     function ComposerSkillPopover(props) {
@@ -2654,61 +2669,99 @@ window.__ModuleLoader__.load({
         if (targets.length === 0) return;
         var slashesToAdd = targets.map((t) => t.slash);
 
-        var activeTa = findComposerTextarea(props.anchorEl);
-        var existingText = "";
-        var actions = props.inputActions || window.__dsh_inputActions;
-
-        // 1. 获取输入框当前真实存在的草稿内容 (支持多路探测，绝不丢失已有技能)
-        if (activeTa && typeof activeTa.value === "string" && activeTa.value.trim().length > 0) {
-          existingText = activeTa.value;
-        }
-        if (!existingText && props.input && typeof props.input.draft === "string" && props.input.draft.trim().length > 0) {
-          existingText = props.input.draft;
-        }
-        if (!existingText && actions && typeof actions.getDraft === "function") {
-          try {
-            var d = actions.getDraft();
-            if (d && typeof d === "string" && d.trim().length > 0) existingText = d;
-          } catch (e) {}
+        var activeInput = findComposerInput(props.anchorEl);
+        if (!activeInput) {
+          console.warn("[dsh-skills-market] Cannot locate active composer input element");
+          setSelected([]);
+          props.onClose();
+          return;
         }
 
-        // 2. 智能合并：保留已有的技能指令与用户手打文字，绝不覆盖已有技能！
-        var currentTrimmed = (existingText || "").trim();
-        var tokens = currentTrimmed ? currentTrimmed.split(/\s+/) : [];
+        activeInput.focus();
 
+        // 1. 获取当前输入框中的文字 (完美支持 Lexical contenteditable 与原生 Textarea)
+        var isTextarea = activeInput.tagName.toLowerCase() === "textarea" || activeInput.tagName.toLowerCase() === "input";
+        var currentText = isTextarea ? (activeInput.value || "") : (activeInput.innerText || activeInput.textContent || "");
+        currentText = currentText.replace(/\r?\n$/, "");
+
+        // 2. 智能去重：提取已有 token，仅追加尚未包含的新技能
+        var existingTokens = currentText.trim().length > 0 ? currentText.trim().split(/\s+/) : [];
+        var slashesToAppend = [];
         for (var s of slashesToAdd) {
-          if (!tokens.includes(s)) {
-            tokens.push(s);
+          if (!existingTokens.includes(s)) {
+            slashesToAppend.push(s);
+          }
+        }
+        // 若所选技能均已在输入框中，用户再次点击则直接追加，保证指令执行不落空
+        if (slashesToAppend.length === 0) {
+          slashesToAppend = slashesToAdd;
+        }
+
+        var needSpace = currentText.length > 0 && !currentText.endsWith(" ") && !currentText.endsWith("\n");
+        var textToInsert = (needSpace ? " " : "") + slashesToAppend.join(" ") + " ";
+
+        // 3. 稳妥写入输入框 (通过 document.execCommand 注入原生输入流，触发所有虚拟 DOM 与状态引擎)
+        if (isTextarea) {
+          activeInput.selectionStart = activeInput.selectionEnd = activeInput.value.length;
+          var inserted = false;
+          try {
+            inserted = document.execCommand("insertText", false, textToInsert);
+          } catch (e) {
+            inserted = false;
+          }
+          if (!inserted) {
+            var newVal = currentText + textToInsert;
+            var setter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value").set;
+            if (setter) {
+              setter.call(activeInput, newVal);
+            } else {
+              activeInput.value = newVal;
+            }
+            activeInput.dispatchEvent(new Event("input", { bubbles: true }));
+            activeInput.dispatchEvent(new Event("change", { bubbles: true }));
+            activeInput.selectionStart = activeInput.selectionEnd = newVal.length;
+          }
+        } else {
+          // ContentEditable (DeepSeek Harness 原生 Lexical 编辑器)
+          var sel = window.getSelection();
+          var range = document.createRange();
+          range.selectNodeContents(activeInput);
+          range.collapse(false); // 稳固移动至最末尾，绝不覆盖已有技能与文字
+          sel.removeAllRanges();
+          sel.addRange(range);
+
+          var inserted = false;
+          try {
+            inserted = document.execCommand("insertText", false, textToInsert);
+          } catch (e) {
+            inserted = false;
+          }
+
+          if (!inserted) {
+            try {
+              var inputEvent = new InputEvent("beforeinput", {
+                bubbles: true,
+                cancelable: true,
+                inputType: "insertText",
+                data: textToInsert
+              });
+              activeInput.dispatchEvent(inputEvent);
+              inserted = true;
+            } catch (ie) {}
+          }
+
+          if (!inserted) {
+            try {
+              var textNode = document.createTextNode(textToInsert);
+              activeInput.appendChild(textNode);
+              activeInput.dispatchEvent(new Event("input", { bubbles: true }));
+              activeInput.dispatchEvent(new Event("change", { bubbles: true }));
+            } catch (fe) {}
           }
         }
 
-        var nextDraft = tokens.join(" ") + " ";
-
-        // 3. 写入输入框 (通过 actions.setDraft 与 DOM 原型双保险)
-        if (actions && typeof actions.setDraft === "function") {
-          try {
-            actions.setDraft(nextDraft);
-            if (typeof actions.focus === "function") actions.focus();
-          } catch (ae) {}
-        }
-
-        if (activeTa) {
-          try {
-            activeTa.focus();
-            var nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value").set;
-            if (nativeSetter) {
-              nativeSetter.call(activeTa, nextDraft);
-            } else {
-              activeTa.value = nextDraft;
-            }
-            activeTa.dispatchEvent(new Event("input", { bubbles: true }));
-            activeTa.dispatchEvent(new Event("change", { bubbles: true }));
-            activeTa.selectionStart = activeTa.selectionEnd = nextDraft.length;
-          } catch (te) {}
-        }
-
         try {
-          var ev = new CustomEvent("dsh-skill-hub-insert", { detail: { skill: nextDraft, text: nextDraft } });
+          var ev = new CustomEvent("dsh-skill-hub-insert", { detail: { skills: slashesToAppend, text: textToInsert } });
           window.dispatchEvent(ev);
         } catch (ee) {}
 
