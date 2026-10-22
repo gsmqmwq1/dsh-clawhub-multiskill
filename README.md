@@ -5,27 +5,30 @@
 </p>
 
 <p align="center">
-  <strong>像给手机装 App 一样，一键给你的 DeepSeek 赋予 217 种专家本领！</strong><br>
-  无需再费劲琢磨怎么写复杂的 AI 提示词。写论文、做 PPT、改简历、写代码、排版小红书……点一下，AI 秒变行家里手！
+  <strong>像逛应用商店一样，轻松检索、定制与快捷插入 DeepSeek 实战技能！</strong><br>
+  支持关键词极速检索、分类索引浏览、自定义中文别名与聊天输入框多技能无缝增量插入。
 </p>
 
 <p align="center">
   <a href="https://github.com/gsmqmwq1/dsh-skills-market/releases"><img src="https://img.shields.io/badge/版本-v1.1.3-blue.svg?style=flat-square" alt="版本 v1.1.3" /></a>
-  <img src="https://img.shields.io/badge/精选技能-217款实战技能-brightgreen.svg?style=flat-square" alt="217款精选技能" />
+  <img src="https://img.shields.io/badge/定位-技能索引与浏览器-brightgreen.svg?style=flat-square" alt="技能索引与浏览器" />
   <img src="https://img.shields.io/badge/费用-永久完全免费-orange.svg?style=flat-square" alt="完全免费" />
   <img src="https://img.shields.io/badge/开源协议-MIT-purple.svg?style=flat-square" alt="MIT" />
 </p>
 
 ---
 
+> 📌 **架构设计与版本演进说明 (Roadmap)**：
+> - **当前 v1.1.3**：聚焦于 AI Agent 技能索引浏览、多场景检索、本地中文别名持久化编辑与输入框多技能快捷插入。
+> - **后续版本演进**：目前部分外部上游开源技能仓库存在链接失效或下线情况。我们在收到社区反馈后，已启动全量有效性巡检与清洗工程；后续版本将直接随包内置核心精选技能的完整离线规约包（`SKILL.md`），彻底告别网络抓取依赖与空白占位，提供 100% 离线开箱即用的高品质体验。
+
+---
+
 ## 💡 三句话看懂：这个插件是干什么的？
 
-1. **以前用 AI 提问**：每次都要绞尽脑汁打一大段长篇大论：“*你现在是一个资深HR，请按照STAR法则帮我润色简历，要求量化成果……*”，打完这行字十分钟过去了。
-2. **装上本插件后**：聊天框右侧多了个 **`🧩 技能`** 按钮，搜索“简历”或“PPT”，打勾选中，DeepSeek 瞬间加载顶尖专家的思考流程，一键出专业交付物！
-3. **安全又省心**：
-   - 🎒 **完全轻量**：200 多个技能放在云端，你看中哪个才下载哪个，绝不占你的电脑空间。
-   - 🛡️ **后悔药保障**：技能升级后如果觉得不如老版好用，支持 **「一键回退到旧版本」**。
-   - 🏷️ **中文重命名**：英文名字记不住？随时给技能改个顺手的中文外号，升级也不会被覆盖！
+1. **技能分类索引与秒级搜索**：按 SCI 学术、职场办公、编程开发等 9 大日常场景归类整理开源 Agent 技能，支持中英文关键词极速模糊检索。
+2. **专属中文别名自由定制**：英文长名字记不住？随时给技能改个顺手的中文外号（如将 `anti-defensive-writing` 标注为“论文去防御润色”），持久化存盘，升级不丢失！
+3. **聊天框直接无感调用**：打字输入框右侧专属技能弹窗，勾选一个或多个技能，自动增量追加到当前对话末尾，绝不覆盖已有手打内容。
 
 ---
 
