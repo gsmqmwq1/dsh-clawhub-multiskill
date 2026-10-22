@@ -255,30 +255,46 @@ export function apply(ctx) {
 
           let finalContent = target.content || target.promptTemplate || body.content || '';
 
-          // 若未直接传入正文且有 repo，尝试从 GitHub 或 CDN 动态拉取真实的 SKILL.md
+          // 1. 优先从本地 bundled_skills 读取原汁原味的官方真实技能规约 (0ms 离线命中，100% 成功率)
+          if (!finalContent) {
+            try {
+              const currentDir = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Z]:)/, '$1'));
+              const bundledPath = path.resolve(currentDir, '..', 'bundled_skills', `${cleanId}.md`);
+              if (fs.existsSync(bundledPath)) {
+                finalContent = fs.readFileSync(bundledPath, 'utf8');
+              }
+            } catch (e) {}
+          }
+
+          // 2. 若本地未预置且传入了 repo，尝试从 GitHub 或 CDN 动态拉取原版 SKILL.md
           const repo = target.repo || body.repo;
           if (!finalContent && repo && repo.includes('/')) {
             const candidateUrls = [
               `https://raw.githubusercontent.com/${repo}/main/SKILL.md`,
-              `https://cdn.jsdelivr.net/gh/${repo}@main/SKILL.md`,
               `https://raw.githubusercontent.com/${repo}/master/SKILL.md`,
+              `https://cdn.jsdelivr.net/gh/${repo}@main/SKILL.md`,
               `https://cdn.jsdelivr.net/gh/${repo}@master/SKILL.md`
             ];
             for (const u of candidateUrls) {
               try {
-                const r = await fetch(u, { headers: { 'User-Agent': 'DeepSeek-Harness' }, signal: AbortSignal.timeout(3000) });
+                const r = await fetch(u, { headers: { 'User-Agent': 'DeepSeek-Harness' }, signal: AbortSignal.timeout(4000) });
                 if (r.ok) {
-                  finalContent = await r.text();
-                  break;
+                  const fetchedText = await r.text();
+                  if (fetchedText && fetchedText.length > 50 && !fetchedText.includes('<!DOCTYPE html>')) {
+                    finalContent = fetchedText;
+                    break;
+                  }
                 }
               } catch (e) {}
             }
           }
 
+          // 3. 防御性保护：若彻底无法获取，禁止生成假 stub，而是给出明确提示
           if (!finalContent) {
-            const skillName = target.name || cleanId;
-            const skillDesc = target.description || target.summary || cleanId;
-            finalContent = `---\nname: ${cleanId}\ndescription: ${skillDesc}\nversion: "1.0.0"\ntoken-budget: 800\n---\n\n# ${skillName}\n\n${skillDesc}\n`;
+            return sendJson(res, 404, {
+              ok: false,
+              error: '该技能上游源暂未提供有效的 SKILL.md 规范文件，请选择其他已收录的实战技能。'
+            });
           }
 
           fs.writeFileSync(targetFile, finalContent, 'utf8');
